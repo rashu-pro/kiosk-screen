@@ -1,0 +1,75 @@
+.btn{
+  &-div{
+    .btn{
+      &:not(:last-child){
+        margin-right:15px;
+      }
+    }
+  }
+  font-size: 0.8em;
+  padding: 0 30px;
+  font-weight: 500;
+  box-shadow: -1px 5px 6px 2px #20202036;
+  border-radius: 8px;
+  height:65px;
+  height:3.5em;
+  img{
+    max-height: 20px;
+    position: relative;
+    top: -3px;
+  }
+
+  &-success{
+    background-color: $green_dark;
+  }
+
+  @media (min-width:768px){
+    min-width: 150px;
+  }
+}
+
+.frequency-btn {
+  border: 2px solid $dark;
+  padding: 0 20px;
+  min-width: 300px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  box-shadow:-1px 5px 6px 2px #20202036;
+  font-size: 1em;
+  height:85px;
+  height:3.26em;
+  &.active {
+    background-color: $green_dark;
+    color: #fff;
+    border-color: $green_dark;
+    box-shadow:0px 2px 5px #0382468f;
+  }
+}
+
+.amount-btn {
+  border: 3px solid $grey_border;
+  padding: 0 25px;
+  //background-color: #fff;
+  margin-right: 20px;
+  font-weight: 600;
+  font-size: 1em;
+  min-width: 150px;
+  letter-spacing: 1px;
+  border-radius: 12px;
+  box-shadow:-1px 5px 6px 2px #20202036;
+  &.active {
+    //background-color: $dark;
+    //color: #fff;
+    background-color: $green_dark;
+    color: #fff;
+    border-color: $green_dark;
+    box-shadow:0px 2px 5px #0382468f;
+
+  }
+}
+
+.box-height-big{
+  height:85px;
+}

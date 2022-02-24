@@ -1,0 +1,70 @@
+.cc-card-number{
+  position: relative;
+
+  .form-control{
+    padding-left:78px;
+    padding-right:40px;
+  }
+
+  &:before{
+    content:url(../images/card_mockup.png);
+    position: absolute;
+    left:6px;
+    top:5px;
+  }
+
+  &.big-cc-field{
+    &:before{
+      left:11px;
+      top:11px;
+    }
+  }
+
+  &:after{
+    content:url(../images/checkbox_grey_resized.png);
+    position: absolute;
+    right:8px;
+    top:11px;
+  }
+
+  &.big-cc-field{
+    &:after{
+      right:8px;
+      top:15px;
+    }
+  }
+
+  &.valid{
+    &:after{
+      content:url(../images/checkbox.png);
+    }
+  }
+
+  &.visa{
+    &:before{
+      content:url(../images/visa.png);
+    }
+  }
+  &.mastercard{
+    &:before{
+      content:url(../images/mastercard.png);
+    }
+
+  }
+  &.mastero{
+    &:before{
+      content:url(../images/mastercard.png);
+    }
+  }
+  &.discover{
+    &:before{
+      content:url(../images/discover.png);
+    }
+  }
+
+  &.visa_electron{
+    &:before{
+      content:url(../images/visa_electron.png);
+    }
+  }
+}

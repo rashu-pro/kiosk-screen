@@ -1,0 +1,272 @@
+.main {
+  background-color: $grey_body;
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    &.popup-active {
+      filter: blur(2px);
+      -webkit-filter: blur(2px);
+    }
+
+    &-wrapper {
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+
+      @media (min-width: 768px){
+        padding:25px;
+      }
+      &.style-2{
+        .form{
+          &-section{
+            margin:0;
+            padding:0;
+            box-shadow:none;
+            padding-bottom:35px;
+          }
+        }
+
+        .donation{
+          &-details{
+            .form{
+              &-section{
+                padding-bottom:2.31em;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &-main {
+      //max-width: 1140px;
+      margin: 0 auto;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.06);
+      background: #fff;
+      //min-height: 500px;
+      padding: 15px 15px 100px 15px;
+      flex:1;
+      width:100%;
+      position: relative;
+      &-wrapper{
+
+      }
+
+      @media (min-width: 768px){
+        padding: 30px 30px 100px 30px;
+      }
+    }
+  }
+}
+
+.card-title {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  word-spacing: 4px;
+  font-size: 30px;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+.form-section {
+  //margin-bottom: 35px;
+  margin-bottom: 1.35em;
+  padding: 20px 15px;
+  box-shadow: 0 2px 5px #00000017;
+  border-radius: 5px;
+  &-title {
+    //padding-bottom: 20px;
+    padding-bottom: 0.6em;
+    margin: 0;
+    font-size: 1.12em;
+    font-weight: 600;
+    position: relative;
+    span{
+      background-color: #fff;
+      display: inline-block;
+      padding-right:15px;
+      position: relative;
+      z-index: 2;
+    }
+    &:after{
+      content:'';
+      position: absolute;
+      top:50%;
+      transform:translateY(-50%);
+      left:0;
+      right:0;
+      height:2px;
+      background-color: $grey;
+    }
+  }
+}
+
+.cause-wrapper {
+  button {
+    margin-bottom: 10px;
+  }
+}
+
+
+.donation {
+  &-amount {
+    &-options-wrapper {
+      display: flex;
+      width:70%;
+      .amount-btn{
+        flex:1;
+        &:last-child{
+          margin-right:0;
+        }
+      }
+    }
+  }
+
+  &-details{
+    .form{
+      &-section{
+      }
+    }
+  }
+}
+
+.card-info-row {
+  display: flex;
+  margin-left: -15px;
+  margin-right: -15px;
+  &-column {
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+}
+
+.width-70 {
+  width: 70%;
+}
+
+select {
+  &.form-control {
+    height: 65px;
+  }
+}
+
+select.form-control:not([size]):not([multiple]) {
+  height: 65px;
+}
+
+.cc-details {
+  display: none;
+}
+
+.donation-frequency{
+  display:flex;
+  width:70%;
+  .frequency-btn{
+    flex:1;
+    &:not(:last-child){
+      margin-right:15px;
+    }
+  }
+}
+
+
+.popup-wrapper{
+  .check-wrapper{
+    //padding-top:30px;
+  }
+  .circle-loader{
+    margin-top:30px;
+  }
+  .swipe-card-image{
+    padding-top:30px;
+    padding-bottom:20px;
+  }
+}
+
+.product-selection{
+  display: none;
+}
+
+.cvv-field{
+  width:30%;
+}
+
+.btn-div{
+  //position: absolute;
+  //right: 30px;
+  //bottom: 25px;
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+  padding-right: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #d8d8d8;
+}
+
+.other-input-wrapper{
+  padding-top:40px;
+  width:450px;
+}
+
+.product-options-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+
+  .option-holder{
+    padding-right:20px;
+    flex:0 0 33.3333%;
+    max-width:33.3333%;
+    &:nth-child(3n){
+      padding-right:0;
+    }
+  }
+  .amount-btn{
+    flex:1;
+    width:100%;
+    margin-bottom:20px;
+    display: flex;
+    align-items: center;
+    padding:0 0.8em;
+    text-align: left;
+    line-height: 1.2;
+    img{
+      max-width:1.5em;
+      margin-right:10px;
+      &.img-white{
+        display: none;
+      }
+    }
+    &.active{
+      img{
+        max-width:1.5em;
+        &.img-black{
+          display: none;
+        }
+        &.img-white{
+          display: inline-block;
+        }
+      }
+    }
+  }
+  //.amount-btn{
+  //  margin-bottom:25px;
+  //  height:100px;
+  //  flex:0 0 32%;
+  //  max-width:32%;
+  //  &:nth-child(3n){
+  //    margin-right:0;
+  //  }
+  //}
+}
+

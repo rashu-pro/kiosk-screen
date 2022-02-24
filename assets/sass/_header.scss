@@ -1,0 +1,37 @@
+.header{
+  background-color: #03a75b;
+  color:#fff;
+  padding:13px 0;
+  h1{
+    font-size:26px;
+    font-weight: 700;
+    @media (min-width:768px){
+      font-size:26px;
+    }
+  }
+  .row{
+    display: flex;
+    align-items: center;
+  }
+
+  p{
+    .time{
+      font-size: 1em;
+      font-weight: 600;
+    }
+    .date{
+      font-size:0.8em;
+    }
+  }
+
+  @media (min-width: 768px){
+    p{
+      .time{
+        font-size: 1em;
+      }
+      .date{
+        font-size:0.6em;
+      }
+    }
+  }
+}
