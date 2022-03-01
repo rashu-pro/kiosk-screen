@@ -74,7 +74,7 @@
                             <div class="input-field-group-prepend box-height-big">
                                 <span>$</span>
                             </div>
-                            <input type="text" class="form-control box-height-big" placeholder="Other Amount">
+                            <input type="text" class="form-control box-height-big other-amount" placeholder="Other Amount">
                         </div>
 
                     </div>
@@ -189,6 +189,7 @@
 
                                     <div class="input-wrap cc-card-number">
                                         <input class="form-control cc-card-field">
+                                        <input type="hidden" class="cc-value-holder" data-value="">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -319,6 +320,15 @@
                     </div>
 
                 </div>
+
+                <!-- #THANK YOU WRAPPER -->
+                <div class="main-body-main-wrapper thank-wrapper">
+                    <div class="thank-inner">
+                        <h2 class="thank-title">THANK YOU</h2>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, quod.</p>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -349,7 +359,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="modal-btn-yes">Yes</button>
+                    <button type="button" class="btn btn-success btn-complete-payment" id="modal-btn-yes">Yes</button>
                     <button type="button" class="btn btn-danger" id="modal-btn-no">Cancel</button>
                 </div>
             </div>

@@ -58,10 +58,14 @@ $(function () {
         back();
     });
 
+    $('.swipe-card-image').click(function(){
+        swipePopupClose($(this));
+    });
+
 
     function swipePopupClose(elementToHide) {
         var self = $(elementToHide);
-        var cardNumber = '4026 0000 0000 0002',
+        var cardNumber = '4026000000000002',
             cardHolderName = 'Jhon Doe',
             expMonth = '03',
             expYear = '2024';
@@ -74,7 +78,9 @@ $(function () {
         setTimeout(function () {
             self.closest('.popup-wrapper').removeClass('active');
             $('.main-body').removeClass('popup-active');
+            $('.cc-card-field').addClass('swiper-value');
             $('.cc-card-field').val(cardNumber);
+            $('.cc-value-holder').attr('data-value',cardNumber);
             $('.cc-card-field').trigger('focus');
             $('.exp-month-field').val(expMonth);
             $('.exp-year-field').val(expYear);
@@ -218,6 +224,8 @@ $(function () {
         if(confirm){
             //function for modal confirmation
             console.log('modal confirmed!');
+            $('.cc-details').hide();
+            $('.thank-wrapper').show();
         }else{
             //function tor modal cancellation
             console.log('modal cancelled!');
@@ -225,19 +233,18 @@ $(function () {
     });
 
     // credit card validator
-
     $(document).on('focus','.cc-card-field',function () {
         var self = $(this);
         $(self).validateCreditCard(function(result) {
-            if(result.card_type!=null && self.val()!=''){
-                result.card_type.length = 16;
-            }
+            // if(result.card_type!=null && self.val()!=''){
+            //     result.card_type.length = 16;
+            // }
 
             if (result.valid) {
                 $(this).parent().addClass('valid');
                 $(this).parent().addClass(result.card_type.name);
             } else {
-                console.log(result.length_valid);
+                // console.log(result.length_valid);
                 $(this).parent().removeClass('valid');
                 if(result.card_type!=null){
                     $(this).parent().removeClass(result.card_type.name);
@@ -246,87 +253,52 @@ $(function () {
             }
         });
 
-    });
-
-    $(document).ready(function () {
-        $('.cc-card-field').validateCreditCard(function(result) {
-
-            if (result.valid) {
-                $(this).parent().addClass('valid');
-                $(this).parent().addClass(result.card_type.name);
-            } else {
-                console.log(result.length_valid);
-                $(this).parent().removeClass('valid');
-                if(result.card_type!=null){
-                    $(this).parent().removeClass(result.card_type.name);
-                }
-
-            }
-        });
-    })
-
-    $(document).on('ready','.cc-card-field',function () {
         var self = $(this);
-        $(self).validateCreditCard(function(result) {
-            if(result.card_type!=null && self.val()!=''){
-                result.card_type.length = 16;
-            }
-
-            if (result.valid) {
-                $(this).parent().addClass('valid');
-                $(this).parent().addClass(result.card_type.name);
-            } else {
-                console.log(result.length_valid);
-                $(this).parent().removeClass('valid');
-                if(result.card_type!=null){
-                    $(this).parent().removeClass(result.card_type.name);
-                }
-
-            }
-        });
-
+        var fieldValue = self.val();
+        console.log(fieldValue);
+        $('.cc-value-holder').val(fieldValue);
+        var i = 0;
+        for(i=0; i<8; i++){
+            var replacedVal = fieldValue.substr(i).replace(/[\S]/g, "*");
+        }
+        var newString = fieldValue.substr(8);
+        self.val(replacedVal+newString);
     });
 
+    // credit card mask
+    $('.cc-card-field').keyup(function(e){
 
-
-
-    // test script
-    $('.btn-test').on('click',function () {
-        var bodyFontSize = parseInt($('body').css('font-size').replace('px',''))+1+'px';
-        $('body').css('font-size',bodyFontSize);
-
-    });
-
-
-
-
-    $('.exp-mmyy').keypress(function () {
+        // $('.swiper-value');
+       
+        
         var self = $(this);
-        content=$(this).val();
-        // content1 = content.replace(/\D/g, '');
-        length=content.length;
-        if(((length % 2) == 0) && length < 3 && length > 1){
-            self.val(self.val() + '/');
+        // console.log(self.val());
+        var fieldValue = self.val();
+        var fieldLength = fieldValue.length;
+        console.log(fieldValue.length);
+        var newValue = fieldValue.substr(fieldValue.length-1);
+        var cardValueHolderSelector = $('.cc-value-holder');
+        
+    
+        var cardValueHolder = cardValueHolderSelector.val();
+    
+        $('.cc-value-holder').val(cardValueHolder+newValue);
+        // when backspace clicked
+        if(e.keyCode == 8){
+            var valueAfterBackspace = cardValueHolder.substr(0,cardValueHolder.length-1);
+            $('.cc-value-holder').val(valueAfterBackspace);
+        }
+    
+        var i = 0;
+        if(fieldValue.length<9){
+            var replacedVal = fieldValue.substr(0).replace(/[\S]/g, "*");
+            self.val(replacedVal);
         }
 
-        var length = self.val().length;
-
-        if(length == 5) {
-            return false;
-        }else{
-            return true;
-        }
+        
     });
-
-    $('input').on('keypress', function (event) {
-        var regex = new RegExp("[A-Za-z]");
-        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-        if (regex.test(key)) {
-            event.preventDefault();
-            return false;
-        }
-    });
-
 
 });
+
+
 

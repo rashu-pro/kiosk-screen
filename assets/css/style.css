@@ -456,6 +456,44 @@ select.form-control:not([size]):not([multiple]) {
   display: inline-block;
 }
 
+.display-none {
+  display: none;
+}
+
+.thank-wrapper {
+  display: none;
+  position: relative;
+}
+
+.thank-inner {
+  text-align: center;
+  width: 70%;
+  margin: 40px auto 0;
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  /* padding: 80px 0 0 0; */
+  border: 1px solid #ddd;
+  padding: 5% 50px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 10px #00000045;
+  background: #f9fffd;
+}
+
+.thank-title {
+  font-size: 2.5em;
+  font-weight: 600;
+  color: #03a75b;
+  width: 500px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.thank-inner p {
+  font-size: 1.5em;
+}
+
 .footer {
   font-size: 0.75em;
   background-color: #03a75b;
