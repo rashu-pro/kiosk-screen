@@ -7,7 +7,7 @@
   }
 
   &:before{
-    content:url(../images/card_mockup.png);
+    //content:url(../images/card_mockup.png);
     position: absolute;
     left:6px;
     top:5px;
@@ -21,7 +21,7 @@
   }
 
   &:after{
-    content:url(../images/checkbox_grey_resized.png);
+    //content:url(../images/checkbox_grey_resized.png);
     position: absolute;
     right:8px;
     top:11px;
@@ -66,5 +66,32 @@
     &:before{
       content:url(../images/visa_electron.png);
     }
+  }
+}
+
+
+
+.cc-card-field{
+  background-image: url(../images/card_all_vertical.png);
+  background-repeat: no-repeat;
+  //background-size: contain;
+  background-position: 4px 7px;
+  &.visa{
+    background-position: 4px -331px;
+  }
+  &.visaelectron{
+    background-position: 4px -337px;
+  }
+  &.discover{
+    background-position: 4px -129px;
+  }
+  &.mastercard{
+    background-position: 4px -200px;
+  }
+  &.maestro{
+    background-position: 4px -260px;
+  }
+  &.amex{
+    background-position: 4px -401px;
   }
 }

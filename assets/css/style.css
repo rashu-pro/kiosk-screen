@@ -456,8 +456,12 @@ select.form-control:not([size]):not([multiple]) {
   display: inline-block;
 }
 
-.display-none {
+.d-none {
   display: none;
+}
+
+.d-block {
+  display: block;
 }
 
 .thank-wrapper {
@@ -612,7 +616,6 @@ select.form-control:not([size]):not([multiple]) {
   padding-right: 40px;
 }
 .cc-card-number:before {
-  content: url(../images/card_mockup.png);
   position: absolute;
   left: 6px;
   top: 5px;
@@ -622,7 +625,6 @@ select.form-control:not([size]):not([multiple]) {
   top: 11px;
 }
 .cc-card-number:after {
-  content: url(../images/checkbox_grey_resized.png);
   position: absolute;
   right: 8px;
   top: 11px;
@@ -648,6 +650,30 @@ select.form-control:not([size]):not([multiple]) {
 }
 .cc-card-number.visa_electron:before {
   content: url(../images/visa_electron.png);
+}
+
+.cc-card-field {
+  background-image: url(../images/card_all_vertical.png);
+  background-repeat: no-repeat;
+  background-position: 4px 7px;
+}
+.cc-card-field.visa {
+  background-position: 4px -331px;
+}
+.cc-card-field.visaelectron {
+  background-position: 4px -337px;
+}
+.cc-card-field.discover {
+  background-position: 4px -129px;
+}
+.cc-card-field.mastercard {
+  background-position: 4px -200px;
+}
+.cc-card-field.maestro {
+  background-position: 4px -260px;
+}
+.cc-card-field.amex {
+  background-position: 4px -401px;
 }
 
 .loader-div {

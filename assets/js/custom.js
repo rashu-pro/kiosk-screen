@@ -59,8 +59,46 @@ $(function () {
     });
 
     $('.swipe-card-image').click(function(){
-        swipePopupClose($(this));
+        // swipePopupClose($(this));
+
+        var cardNumber = '4026000000000002',
+            cardHolderName = 'Jhon Doe',
+            expMonth = '03',
+            expYear = '2024';
+
+        $('.cc-card-field').val(cardNumber);
+        $('.cc-value-holder').attr('data-value',cardNumber);
+        // $('.cc-card-field').trigger('focus');
+        $('.exp-month-field').val(expMonth);
+        $('.exp-year-field').val(expYear);
+        $('.name-on-card').val(cardHolderName);
+        // $('.cvv-field').trigger('focus');
+        $('.cc-card-field').trigger('focus');
+        // swiper_popup_close();
     });
+
+    $(document).on('focus','.cc-card-field',function () {
+       swiper_popup_close();
+    });
+
+    //closing swiper popup
+    function swiper_popup_close(){
+
+        if($('.popup-wrapper').hasClass('active')){
+            $('.swipe-card-image').hide();
+            $('.circle-loader').addClass('active');
+            setTimeout(function () {
+                $('.circle-loader').toggleClass('load-complete');
+                $('.checkmark').toggle();
+            },800);
+
+            setTimeout(function () {
+                $('.popup-wrapper').removeClass('active');
+                $('.cvv-field').trigger('focus');
+            },2000);
+        }
+
+    }
 
 
     function swipePopupClose(elementToHide) {
@@ -75,6 +113,7 @@ $(function () {
             $('.circle-loader').toggleClass('load-complete');
             $('.checkmark').toggle();
         },800);
+
         setTimeout(function () {
             self.closest('.popup-wrapper').removeClass('active');
             $('.main-body').removeClass('popup-active');
@@ -94,6 +133,10 @@ $(function () {
         self.closest('.popup-wrapper').removeClass('active');
         $('.cc-card-field').trigger('focus');
     }
+
+    // after credit card focus state
+
+
 
     $('.popup-close-js').on('click',function () {
         popupClose($(this));
@@ -125,7 +168,6 @@ $(function () {
     });
 
     // content fitting in specific display
-
     function fitSize(){
         var body = $('body'),
             boxBig = $('.box-height-big'),
@@ -233,9 +275,37 @@ $(function () {
     });
 
     // credit card validator
-    $(document).on('focus','.cc-card-field',function () {
+    $(document).on('focus','.cc-card-fieldd',function () {
         var self = $(this);
-        $(self).validateCreditCard(function(result) {
+
+
+        var fieldValue = self.val();
+
+        if(fieldValue.length>9){
+
+        }
+
+        console.log(newString);
+
+
+        var replacedVal = "";
+        var i = 0;
+        for(i=0; i<9; i++){
+            replacedVal = fieldValue.substr(i).replace(/[\S]/g, "*");
+        }
+        console.log(replacedVal.length);
+
+        if(self.val().length>15){
+            self.next().val($('.cc-value-holder').attr('data-value'));
+            var newString = fieldValue.substr(8);
+            self.val(replacedVal+newString);
+        }
+
+        console.log(fieldValue);
+
+
+        $('.cc-value-holder').validateCreditCard(function(result) {
+            console.log('validation');
             // if(result.card_type!=null && self.val()!=''){
             //     result.card_type.length = 16;
             // }
@@ -244,7 +314,7 @@ $(function () {
                 $(this).parent().addClass('valid');
                 $(this).parent().addClass(result.card_type.name);
             } else {
-                // console.log(result.length_valid);
+                console.log(result.length_valid);
                 $(this).parent().removeClass('valid');
                 if(result.card_type!=null){
                     $(this).parent().removeClass(result.card_type.name);
@@ -252,51 +322,102 @@ $(function () {
 
             }
         });
-
-        var self = $(this);
-        var fieldValue = self.val();
-        console.log(fieldValue);
-        $('.cc-value-holder').val(fieldValue);
-        var i = 0;
-        for(i=0; i<8; i++){
-            var replacedVal = fieldValue.substr(i).replace(/[\S]/g, "*");
-        }
-        var newString = fieldValue.substr(8);
-        self.val(replacedVal+newString);
     });
 
     // credit card mask
-    $('.cc-card-field').keyup(function(e){
+    $('.cc-card-fieldd').keyup(function(e){
 
-        // $('.swiper-value');
-       
-        
         var self = $(this);
-        // console.log(self.val());
+       // card_field_masking(self)
+    });
+
+    function card_field_masking(selector) {
+        // var self = $(this);
         var fieldValue = self.val();
+        console.log(fieldValue);
         var fieldLength = fieldValue.length;
         console.log(fieldValue.length);
         var newValue = fieldValue.substr(fieldValue.length-1);
         var cardValueHolderSelector = $('.cc-value-holder');
-        
-    
+
         var cardValueHolder = cardValueHolderSelector.val();
-    
+        // throw new Error('error');
+
         $('.cc-value-holder').val(cardValueHolder+newValue);
         // when backspace clicked
         if(e.keyCode == 8){
             var valueAfterBackspace = cardValueHolder.substr(0,cardValueHolder.length-1);
             $('.cc-value-holder').val(valueAfterBackspace);
         }
-    
+
         var i = 0;
         if(fieldValue.length<9){
+            console.log('to mask!');
             var replacedVal = fieldValue.substr(0).replace(/[\S]/g, "*");
             self.val(replacedVal);
         }
 
-        
+
+        $('.cc-value-holder').validateCreditCard(function(result) {
+            console.log('validation');
+            // if(result.card_type!=null && self.val()!=''){
+            //     result.card_type.length = 16;
+            // }
+
+            if (result.valid) {
+                $(this).parent().addClass('valid');
+                $(this).parent().addClass(result.card_type.name);
+            } else {
+                console.log(result.length_valid);
+                $(this).parent().removeClass('valid');
+                if(result.card_type!=null){
+                    $(this).parent().removeClass(result.card_type.name);
+                }
+
+            }
+        });
+    }
+
+
+
+    // credit card validation new
+    var J = Payment.J;
+    function card_validation(){
+        // numeric = document.querySelector('[data-numeric]'),
+        var number = document.querySelector('.cc-card-field'),
+            // exp = document.querySelector('.cc-exp'),
+            cvc = document.querySelector('.cvv-field');
+        // validation = document.querySelector('.validation');
+        // Payment.restrictNumeric(numeric);
+        Payment.formatCardNumber(number);
+        // Payment.formatCardExpiry(exp);
+        Payment.formatCardCVC(cvc);
+        $('.btn-donate-flow-complete-js').on('click',function (e) {
+            e.preventDefault();
+            J.toggleClass(document.querySelectorAll('input'), 'invalid');
+            // J.removeClass(validation, 'passed failed');
+            var cardType = Payment.fns.cardType(J.val(number));
+            J.toggleClass(number, 'invalid', !Payment.fns.validateCardNumber(J.val(number)));
+            // J.toggleClass(exp, 'invalid', !Payment.fns.validateCardExpiry(Payment.cardExpiryVal(exp)));
+            J.toggleClass(cvc, 'invalid', !Payment.fns.validateCardCVC(J.val(cvc), cardType));
+            if (document.querySelectorAll('.invalid').length) {
+                // J.addClass(validation, 'failed');
+            } else {
+                // J.addClass(validation, 'passed');
+            }
+        });
+    }
+
+    if($('.cc-details').css('style')=='block'){
+        card_validation();
+    }
+
+
+    $(document).on('focus','.cc-card-field',function (e) {
+        card_validation();
     });
+
+
 
 });
 
