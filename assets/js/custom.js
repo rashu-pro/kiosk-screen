@@ -76,6 +76,14 @@ $(function () {
         }
     });
 
+    //======= EDIT BUTTON ACTION
+    $('.btn-edit').click(function (e) {
+        e.preventDefault();
+        popupClose($(this));
+        $('.cc-details').hide();
+        $('.donation-details').show();
+    });
+
     function prevPage(){
         history.back();
     }

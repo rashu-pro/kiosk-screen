@@ -2,21 +2,32 @@
   &-div{
     .btn{
       &:not(:last-child){
-        margin-right:15px;
+        margin-right:40px;
       }
     }
   }
-  font-size: 0.8em;
+  font-size: 1em;
   padding: 0 30px;
   font-weight: 500;
   box-shadow: -1px 5px 6px 2px #20202036;
   border-radius: 8px;
   height:65px;
   height:3.5em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   img{
-    max-height: 20px;
-    position: relative;
-    top: -3px;
+    //max-height: 22px;
+    &.img-left{
+      margin-right:8px;
+    }
+    &.img-right{
+      margin-left:8px;
+    }
+  }
+
+  i{
+    margin-right:8px;
   }
 
   &-success{
