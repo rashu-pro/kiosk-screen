@@ -36,6 +36,7 @@ $(function () {
 
     });
 
+    //======= BUTTON NEXT ACTION
     $('.btn-next-js').on('click',function () {
         var self = $(this);
         $('.loader-div').addClass('active');
@@ -49,14 +50,38 @@ $(function () {
             // $('.popup-wrapper').addClass('active');
         },1000);
 
+        if(self.closest('.main-body-main-wrapper').hasClass('product-selection')){
+            self.closest('.main-body').addClass('popup-active');
+            if(!$('.popup-wrapper').hasClass('active')){
+                var cardFieldValue = $('.cc-card-field').val(),
+                    cvvFieldValue = $('.cvv-field').val();
+                if(cardFieldValue == '' && cvvFieldValue == ''){
+                    $('.popup-wrapper').addClass('active');
+                }
+
+            }
+        }
+
     });
 
-    function back(){
+    //======= BUTTON PREVIOUS ACTION
+    $('.btn-back-js').on('click',function (event) {
+        event.preventDefault();
+        let self = $(this);
+        if(self.hasClass('btn-prev-page')){
+            prevPage();
+        }else{
+            self.closest('.main-body-main-wrapper').hide();
+            self.closest('.main-body-main-wrapper').prev().show();
+        }
+    });
+
+    function prevPage(){
         history.back();
     }
-    $('.btn-back-js').on('click',function () {
-        back();
-    });
+
+
+
 
     $('.swipe-card-image').click(function(){
         // swipePopupClose($(this));
