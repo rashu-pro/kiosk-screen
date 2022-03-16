@@ -1,23 +1,16 @@
 .btn{
-  &-div{
-    .btn{
-      &:not(:last-child){
-        margin-right:40px;
-      }
-    }
-  }
   font-size: 1em;
-  padding: 0 30px;
+  padding: 0 15px;
   font-weight: 500;
   box-shadow: -1px 5px 6px 2px #20202036;
   border-radius: 8px;
   height:65px;
-  height:3.5em;
+  height:2.8em;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   img{
-    //max-height: 22px;
+    max-height: 20px;
     &.img-left{
       margin-right:8px;
     }
@@ -34,15 +27,53 @@
     background-color: $green_dark;
   }
 
+  &-div{
+    .btn{
+      &:not(:last-child){
+        margin-right:20px;
+      }
+    }
+  }
+
+  &-holder{
+    .btn{
+      &:not(:last-child){
+        margin-right:15px;
+      }
+    }
+  }
+
   @media (min-width:768px){
     min-width: 150px;
+    height:3.5em;
+    padding: 0 30px;
+
+    img{
+      max-height: 30px;
+    }
+
+    &-div{
+      .btn{
+        &:not(:last-child){
+          margin-right:40px;
+        }
+      }
+    }
+
+    &-holder{
+      .btn{
+        &:not(:last-child){
+          margin-right:25px;
+        }
+      }
+    }
   }
 }
 
 .frequency-btn {
   border: 2px solid $dark;
   padding: 0 20px;
-  min-width: 300px;
+  //min-width: 300px;
   border-radius: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -57,17 +88,26 @@
     border-color: $green_dark;
     box-shadow:0px 2px 5px #0382468f;
   }
+
+  @media (min-width:578px) {
+    min-width: 45%;
+  }
+
+  @media (min-width:768px) {
+    min-width: 300px;
+  }
 }
 
 .amount-btn {
   border: 3px solid $grey_border;
-  padding: 0 25px;
+  padding: 0 20px;
   //background-color: #fff;
-  margin-right: 20px;
+  margin-right: 10px;
   font-weight: 600;
   font-size: 1em;
-  min-width: 150px;
-  letter-spacing: 1px;
+  min-width: 42%;
+  max-width:30%;
+  //letter-spacing: 1px;
   border-radius: 12px;
   box-shadow:-1px 5px 6px 2px #20202036;
   &.active {
@@ -78,6 +118,14 @@
     border-color: $green_dark;
     box-shadow:0px 2px 5px #0382468f;
 
+  }
+
+  @media (min-width:576px){
+    padding: 0 25px;
+    min-width: 150px;
+    max-width:none;
+    letter-spacing: 1px;
+    margin-right: 12px;
   }
 }
 

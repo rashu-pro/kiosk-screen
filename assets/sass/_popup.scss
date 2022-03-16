@@ -27,16 +27,22 @@
     }
   }
   &-body{
-    min-width: 600px;
-    max-width:600px;
+    min-width: 90%;
+    max-width:90%;
     background-color: #ffffff;
     border-radius: 15px;
-    padding:40px 40px 20px 40px;
-    min-height: 85%;
+    padding:20px 20px 20px 20px;
+    min-height: 75%;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    @media (min-width: 768px){
+      padding:40px 40px 20px 40px;
+      min-width: 60%;
+      max-width:60%;
+    }
   }
 
 
@@ -51,10 +57,10 @@
 //bootstrap modal
 .modal{
   &-confirm{
-    min-width: 550px;
-    max-width: 550px;
-    top: 44%;
-    transform: translateY(-50%)!important;
+    //min-width: 550px;
+    //max-width: 550px;
+    //top: 44%;
+    //transform: translateY(-50%)!important;
     .modal-content{
       border-radius: 15px;
     }
@@ -67,6 +73,11 @@
 
   &-footer{
     padding: 20px;
+    .btn{
+      &:not(:last-child){
+        margin-right: 20px;
+      }
+    }
   }
 }
 
@@ -111,57 +122,7 @@
   border-radius: 15px;
   border-top: 4px solid #429E58;
   position: relative;
-
-  //.btn-edit{
-  //  position: absolute;
-  //  right: 12px;
-  //  top: 11px;
-  //  min-width: auto;
-  //  height: 2.4em;
-  //  text-transform: uppercase;
-  //  padding: 0 15px;
-  //  i{
-  //    margin-right:2px;
-  //  }
-  //  &.btn-primary{
-  //    color: #202020;
-  //    background-color: #d8d8d8;
-  //    border-color: #8b8b8b;
-  //    &:hover,&:focus{
-  //      color: #fff;
-  //      background-color: #286090;
-  //      border-color: #204d74;
-  //    }
-  //  }
-  //}
-
-
 }
 .p-0{
   padding:0;
-}
-
-
-//.btn-edit{
-//  i{
-//    margin-right:2px;
-//  }
-//  &.btn-primary{
-//    color: #202020;
-//    background-color: #d8d8d8;
-//    border-color: #8b8b8b;
-//    &:hover,&:focus{
-//      color: #fff;
-//      background-color: #286090;
-//      border-color: #204d74;
-//    }
-//  }
-//}
-
-.btn-holder{
-  button{
-    &:not(:last-child){
-      margin-right:15px;
-    }
-  }
 }

@@ -1,11 +1,42 @@
 .footer{
-  font-size:0.75em;
+  font-size:0.65em;
   background-color: #03a75b;
   color:#fff;
   padding:15px 0;
 
   .row{
-    display:flex;
-    align-items: center;
+    display:block;
+    .col-sm-6{
+      p{
+        text-align: center;
+      }
+      &:not(:last-child){
+        p{
+          margin-bottom:10px;
+        }
+      }
+    }
   }
+
+  @media (min-width: 576px) {
+    font-size:0.75em;
+    .row{
+      display:flex;
+      align-items: center;
+      .col-sm-6{
+        &:last-child{
+          p{
+            text-align: right;
+          }
+        }
+
+        &:not(:last-child){
+          p{
+            margin-bottom:0px;
+          }
+        }
+      }
+    }
+  }
+
 }

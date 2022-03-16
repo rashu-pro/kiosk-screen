@@ -3,8 +3,75 @@
  */
 
 $(function () {
+    let mainBody = $('.main-body'),
+        mainBodyMain = $('.main-body-main'),
+        mainBodyWrapper = $('.main-body-wrapper'),
+        body = $('body'),
+        boxBig = $('.box-height-big'),
+        header = $('.header'),
+        footer = $('.footer'),
+        otherInputWrapperField = $('.other-input-wrapper .form-control'),
+        otherInputWrapper = $('.other-input-wrapper'),
+        productWrapperBtn = $('.product-options-wrapper button'),
+        formSection = $('.form-section'),
+        donationDetails_FormSection = $('.donation-details .form-section'),
+        inputWrapFormControl = $('.input-wrap .form-control'),
+        btnNext = $('.btn-next-js'),
+        btnBack = $('.btn-back-js'),
+        btnEdit = $('.btn-edit'),
+        creditCardDetails = $('.cc-details'),
+        donationDetails = $('.donation-details'),
+        swipeCardImage = $('.swipe-card-image'),
+        creditCardField = $('.cc-card-field'),
+        creditCardValueHolder = $('.cc-value-holder'),
+        expiryMonthField = $('.exp-month-field'),
+        expYearField = $('.exp-year-field'),
+        nameOnCardField = $('.name-on-card'),
+        cvvField = $('.cvv-field'),
+        thankWrapper = $('.thank-wrapper'),
+        executeDonationBtn = $('.btn-donate-flow-complete-js'),
+        confirmModalSelector = $("#confirm-modal"),
+        confirmModalYes = $("#modal-btn-yes"),
+        confirmModalNo = $("#modal-btn-no"),
+        popupCloseBtn = $('.popup-close-js'),
+        //----VARIABLE FOR MAIN BODY HEIGHT CALCULATION
+        headerHeight = header.height(),
+        footerHeight = footer.height(),
+        headFootHeight = headerHeight + footerHeight,
+        headFootHeightPx = (headFootHeight + 60)+'px',
+        viewPortHeight = $(window).outerHeight() - headFootHeight,
+        contentHeight = mainBodyWrapper.outerHeight(),
+        windowHeight = $(window).height(),
+        windowWidth = $(window).width();
+    if(parseInt(windowHeight)>899){
+        headFootHeightPx = (headFootHeight + 160)+'px';
+    }else if(parseInt(windowHeight)>590){
+        headFootHeightPx = (headFootHeight + 80)+'px';
+    }
+    let mainWrapperHeight = "auto";
+    if(parseInt(windowWidth)>576 && parseInt(windowHeight)>520){
+        console.log(headFootHeightPx);
+        mainWrapperHeight = "calc(100vh - "+headFootHeightPx+")";
+    }
+
+    //*********** VARIABLE DECLERATION END ************
+
+    //======= MAIN BODY HEIGHT CALCULATION FUNCTION  CALL
+    wrapperHeight();
+    //======= AFTER FULL CONTENT LOAD
+    $(window).on('load',function () {
+        fitSize();
+    });
+
+    //======= ON WINDOW RESIZE
+    $(window).on('resize',function () {
+        fitSize();
+        wrapperHeight();
+    });
+
+
     $('.donation-frequency button, .donation-amount-options-wrapper button').on('click',function () {
-        var self = $(this);
+        let self = $(this);
         self.parent().find('button').removeClass('active');
         self.addClass('active');
 
@@ -16,28 +83,29 @@ $(function () {
         }
     });
 
-    $('.product-options-wrapper button').on('click',function () {
-        var self = $(this);
+    productWrapperBtn.on('click',function () {
+        let self = $(this);
         self.parent().parent().find('button').removeClass('active');
         self.addClass('active');
     });
 
-    $('.other-input-wrapper .form-control').on('focus',function () {
-        var self = $(this);
+    //======= OTHER AMOUNT FIELD ACTION
+    otherInputWrapperField.on('focus',function () {
+        let self = $(this);
         self.closest('.other-input-wrapper').prev().find('.amount-btn').removeClass('active');
         self.parent().find('.input-field-group-prepend').addClass('focused');
     });
 
-    $('.other-input-wrapper .form-control').on('blur',function () {
-        var self = $(this);
-        if(self.val()==''){
+    otherInputWrapperField.on('blur',function () {
+        let self = $(this);
+        if(self.val()===''){
             self.parent().find('.input-field-group-prepend').removeClass('focused');
         }
 
     });
 
     //======= BUTTON NEXT ACTION
-    $('.btn-next-js').on('click',function () {
+    btnNext.on('click',function () {
         var self = $(this);
         $('.loader-div').addClass('active');
         self.closest('.main-body').addClass('popup-active');
@@ -65,7 +133,7 @@ $(function () {
     });
 
     //======= BUTTON PREVIOUS ACTION
-    $('.btn-back-js').on('click',function (event) {
+    btnBack.on('click',function (event) {
         event.preventDefault();
         let self = $(this);
         if(self.hasClass('btn-prev-page')){
@@ -77,44 +145,32 @@ $(function () {
     });
 
     //======= EDIT BUTTON ACTION
-    $('.btn-edit').click(function (e) {
+    btnEdit.click(function (e) {
         e.preventDefault();
         popupClose($(this));
-        $('.cc-details').hide();
-        $('.donation-details').show();
+        creditCardDetails.hide();
+        donationDetails.show();
     });
 
-    function prevPage(){
-        history.back();
-    }
-
-
-
-
-    $('.swipe-card-image').click(function(){
+    //======= SWIPER CARD IMAGE CLICK ACTION
+    swipeCardImage.click(function(){
         // swipePopupClose($(this));
 
-        var cardNumber = '4026000000000002',
+        let cardNumber = '4026000000000002',
             cardHolderName = 'Jhon Doe',
             expMonth = '03',
             expYear = '2024';
 
-        $('.cc-card-field').val(cardNumber);
-        $('.cc-value-holder').attr('data-value',cardNumber);
-        // $('.cc-card-field').trigger('focus');
-        $('.exp-month-field').val(expMonth);
-        $('.exp-year-field').val(expYear);
-        $('.name-on-card').val(cardHolderName);
-        // $('.cvv-field').trigger('focus');
-        $('.cc-card-field').trigger('focus');
-        // swiper_popup_close();
+        creditCardField.val(cardNumber);
+        creditCardValueHolder.attr('data-value',cardNumber);
+        expiryMonthField.val(expMonth);
+        expYearField.val(expYear);
+        nameOnCardField.val(cardHolderName);
+        creditCardField.trigger('focus');
+        swiper_popup_close();
     });
 
-    $(document).on('focus','.cc-card-field',function () {
-       swiper_popup_close();
-    });
-
-    //closing swiper popup
+    //======= CLOSING SWIPER POPUP
     function swiper_popup_close(){
 
         if($('.popup-wrapper').hasClass('active')){
@@ -133,114 +189,117 @@ $(function () {
 
     }
 
-
-    function swipePopupClose(elementToHide) {
-        var self = $(elementToHide);
-        var cardNumber = '4026000000000002',
-            cardHolderName = 'Jhon Doe',
-            expMonth = '03',
-            expYear = '2024';
-        self.hide();
-        $('.circle-loader').addClass('active');
-        setTimeout(function () {
-            $('.circle-loader').toggleClass('load-complete');
-            $('.checkmark').toggle();
-        },800);
-
-        setTimeout(function () {
-            self.closest('.popup-wrapper').removeClass('active');
-            $('.main-body').removeClass('popup-active');
-            $('.cc-card-field').addClass('swiper-value');
-            $('.cc-card-field').val(cardNumber);
-            $('.cc-value-holder').attr('data-value',cardNumber);
-            $('.cc-card-field').trigger('focus');
-            $('.exp-month-field').val(expMonth);
-            $('.exp-year-field').val(expYear);
-            $('.name-on-card').val(cardHolderName);
-            $('.cvv-field').trigger('focus');
-        },2000);
-    }
-
+    //======= CLOSING SWIPER MODAL WHEN CANCEL BUTTON CLICKED
     function popupClose(elementToHide){
-        var self = $(elementToHide);
+        let self = $(elementToHide);
         self.closest('.popup-wrapper').removeClass('active');
-        $('.cc-card-field').trigger('focus');
+        creditCardField.trigger('focus');
     }
 
-    // after credit card focus state
-
-
-
-    $('.popup-close-js').on('click',function () {
+    //======= SWIPER MODAL CLOSE BUTTON CLICK ACTION
+    popupCloseBtn.on('click',function () {
         popupClose($(this));
     });
 
-    // wrapper height
-    var headerHeight = $('.header').height(),
-        footerHeight = $('.footer').height(),
-        headFootHeight = headerHeight + footerHeight,
-        headFootHeightPx = (headFootHeight + 110)+'px',
-        viewPortHeight = $(window).outerHeight() - headFootHeight,
-        contentHeight = $('.main-body-wrapper').outerHeight(),
-        windowHeight = $(window).height(),
 
-        mainWrapperHeight = "calc(100vh - "+headFootHeightPx+")";
+    //********* CARD VALIDATION FUNCTION CALL *********
+    //======= ON CREDIT CARD FIELD FOCUS
+    $(document).on('focus','.cc-card-field',function (e) {
+        card_validation();
+    });
+    if(creditCardDetails.css('style')==='block'){
+        card_validation();
+    }
 
+    //======= CONFIRMATION MODAL FOR DONATION
+    confirmModalYes.on("click", function(){
+        confirmModalSelector.modal('hide');
+        creditCardDetails.hide();
+        thankWrapper.show();
+    });
+
+    confirmModalNo.on("click", function(){
+        confirmModalSelector.modal('hide');
+    });
+
+
+
+    //************** ALL CUSTOM FUNCTIONS ****************
+
+    //======= MAIN BODY HEIGHT CALCULATION
     function wrapperHeight(){
         console.log('content height:'+contentHeight);
         console.log('viewport:'+(viewPortHeight - 110));
         console.log('window height: ' + $(window).height());
-        $('.main-body-main').height(mainWrapperHeight);
+        mainBodyMain.height(mainWrapperHeight);
         if(contentHeight<viewPortHeight){
-            $('.main-body-main').height(mainWrapperHeight);
+            mainBodyMain.height(mainWrapperHeight);
         }
     }
-    wrapperHeight();
-    $(document).focus(function () {
-        wrapperHeight();
-    });
 
-    // content fitting in specific display
+    //======= CONTENT FITTING IN SPECIFIC DISPLAY
     function fitSize(){
-        var body = $('body'),
-            boxBig = $('.box-height-big'),
-            mainBodyWrapper = $('.main-body-wrapper'),
-            otherInputWrapper = $('.other-input-wrapper'),
-            mainBodyCard = $('.main-body-main'),
-            donationDetails_FormSection = $('.donation-details .form-section'),
-            inputWrapFormControl = $('.input-wrap .form-control');
-        var fontSize = '20px',
+        let mainBodyCard = mainBodyMain;
+        let fontSize = '20px',
             boxHeightBig = '60px',
-            wrapperPaddingTop = '15px',
-            wrapperPaddingLeft = '20px',
-            mainWrapperPaddingTop = '20px',
+            wrapperPaddingTop = '0px',
+            wrapperPaddingLeft = '15px',
+            mainWrapperPaddingTop = '15px',
             mainWrapperPaddingLeft = '30px',
             otherInputWrapperPaddingTop = '30px',
             donationDetils_FormSectionPaddingBottom = '30px',
             inputWrapFormControlHeight = '50px';
-        if(parseInt(windowHeight)>750){
-            fontSize = '26px';
-            boxHeightBig = '85px';
-            wrapperPaddingTop = '25px';
-            wrapperPaddingLeft = '25px';
-            mainWrapperPaddingTop = '30px';
-            mainWrapperPaddingLeft = '30px';
-            otherInputWrapperPaddingTop = '40px';
-            donationDetils_FormSectionPaddingBottom = '50px';
-            inputWrapFormControlHeight = '65px';
+
+        if(parseInt(windowHeight)>750 && parseInt(windowWidth)<576){
+            boxHeightBig = '60px';
+            mainWrapperPaddingTop = '20px';
+            donationDetils_FormSectionPaddingBottom = '30px';
+            mainWrapperPaddingLeft = '15px';
+            otherInputWrapperPaddingTop = '15px';
+            inputWrapFormControlHeight = '50';
             inputWrapFormControl.parent().addClass('big-cc-field');
-        }else if(parseInt(windowHeight)>590){
-            console.log('greater than 690');
+        }else if(parseInt(windowHeight)>900 && parseInt(windowWidth)>576){
+            fontSize = '26px';
+            boxHeightBig = '80px';
+            wrapperPaddingTop = '0px';
+            wrapperPaddingLeft = '40px';
+            mainWrapperPaddingTop = '35px';
+            mainWrapperPaddingLeft = '40px';
+            otherInputWrapperPaddingTop = '35px';
+            donationDetils_FormSectionPaddingBottom = '40px';
+            inputWrapFormControlHeight = '65';
+            inputWrapFormControl.parent().addClass('big-cc-field');
+        }else if(parseInt(windowHeight)>750 && parseInt(windowWidth)>576){
+            fontSize = '26px';
+            boxHeightBig = '80px';
+            wrapperPaddingTop = '0px';
+            wrapperPaddingLeft = '15px';
+            mainWrapperPaddingTop = '20px';
+            mainWrapperPaddingLeft = '20px';
+            otherInputWrapperPaddingTop = '25px';
+            donationDetils_FormSectionPaddingBottom = '30px';
+            inputWrapFormControlHeight = '60px';
+            inputWrapFormControl.parent().addClass('big-cc-field');
+        }else if(parseInt(windowHeight)>590 && parseInt(windowWidth)>576){
             fontSize = '20px';
             boxHeightBig = '60px';
-            wrapperPaddingTop = '15px';
-            wrapperPaddingLeft = '20px';
-            mainWrapperPaddingTop = '20px';
-            mainWrapperPaddingLeft = '30px';
-            otherInputWrapperPaddingTop = '30px';
-            donationDetils_FormSectionPaddingBottom = '30px';
+            wrapperPaddingTop = '0px';
+            wrapperPaddingLeft = '15px';
+            mainWrapperPaddingTop = '15px';
+            mainWrapperPaddingLeft = '20px';
+            otherInputWrapperPaddingTop = '20px';
+            donationDetils_FormSectionPaddingBottom = '20px';
             inputWrapFormControlHeight = '50px';
-        }else if(windowHeight>500){
+        }else if(windowHeight>499){
+            fontSize = '16px';
+            boxHeightBig = '50px';
+            wrapperPaddingTop = '0px';
+            wrapperPaddingLeft = '15px';
+            mainWrapperPaddingTop = '12px';
+            mainWrapperPaddingLeft = '20px';
+            otherInputWrapperPaddingTop = '15px';
+            donationDetils_FormSectionPaddingBottom = '15px';
+            inputWrapFormControlHeight = '45px';
 
         }else{
 
@@ -256,203 +315,45 @@ $(function () {
 
         mainBodyCard.css({
             'padding-top': mainWrapperPaddingTop,
-            'padding-left': wrapperPaddingLeft,
-            'padding-right': wrapperPaddingLeft
+            'padding-left': mainWrapperPaddingLeft,
+            'padding-right': mainWrapperPaddingLeft
         });
 
         otherInputWrapper.css('padding-top', otherInputWrapperPaddingTop);
 
         donationDetails_FormSection.css('padding-bottom', donationDetils_FormSectionPaddingBottom);
+        formSection.css('padding-bottom', donationDetils_FormSectionPaddingBottom);
 
         inputWrapFormControl.css('height', inputWrapFormControlHeight);
     }
 
-    fitSize();
-
-    $(window).on('resize',function () {
-        fitSize();
-    });
-
-
-
-
-    // $("#confirm-modal").modal('show');
-
-    var modalConfirm = function(callback){
-
-        $(".btn-donate-flow-complete-js").on("click", function(){
-            $("#confirm-modal").modal('show');
-        });
-
-        $("#modal-btn-yes").on("click", function(){
-            callback(true);
-            $("#confirm-modal").modal('hide');
-        });
-
-        $("#modal-btn-no").on("click", function(){
-            callback(false);
-            $("#confirm-modal").modal('hide');
-        });
-    };
-
-    modalConfirm(function(confirm){
-        if(confirm){
-            //function for modal confirmation
-            console.log('modal confirmed!');
-            $('.cc-details').hide();
-            $('.thank-wrapper').show();
-        }else{
-            //function tor modal cancellation
-            console.log('modal cancelled!');
-        }
-    });
-
-    // credit card validator
-    $(document).on('focus','.cc-card-fieldd',function () {
-        var self = $(this);
-
-
-        var fieldValue = self.val();
-
-        if(fieldValue.length>9){
-
-        }
-
-        console.log(newString);
-
-
-        var replacedVal = "";
-        var i = 0;
-        for(i=0; i<9; i++){
-            replacedVal = fieldValue.substr(i).replace(/[\S]/g, "*");
-        }
-        console.log(replacedVal.length);
-
-        if(self.val().length>15){
-            self.next().val($('.cc-value-holder').attr('data-value'));
-            var newString = fieldValue.substr(8);
-            self.val(replacedVal+newString);
-        }
-
-        console.log(fieldValue);
-
-
-        $('.cc-value-holder').validateCreditCard(function(result) {
-            console.log('validation');
-            // if(result.card_type!=null && self.val()!=''){
-            //     result.card_type.length = 16;
-            // }
-
-            if (result.valid) {
-                $(this).parent().addClass('valid');
-                $(this).parent().addClass(result.card_type.name);
-            } else {
-                console.log(result.length_valid);
-                $(this).parent().removeClass('valid');
-                if(result.card_type!=null){
-                    $(this).parent().removeClass(result.card_type.name);
-                }
-
-            }
-        });
-    });
-
-    // credit card mask
-    $('.cc-card-fieldd').keyup(function(e){
-
-        var self = $(this);
-       // card_field_masking(self)
-    });
-
-    function card_field_masking(selector) {
-        // var self = $(this);
-        var fieldValue = self.val();
-        console.log(fieldValue);
-        var fieldLength = fieldValue.length;
-        console.log(fieldValue.length);
-        var newValue = fieldValue.substr(fieldValue.length-1);
-        var cardValueHolderSelector = $('.cc-value-holder');
-
-        var cardValueHolder = cardValueHolderSelector.val();
-        // throw new Error('error');
-
-        $('.cc-value-holder').val(cardValueHolder+newValue);
-        // when backspace clicked
-        if(e.keyCode == 8){
-            var valueAfterBackspace = cardValueHolder.substr(0,cardValueHolder.length-1);
-            $('.cc-value-holder').val(valueAfterBackspace);
-        }
-
-        var i = 0;
-        if(fieldValue.length<9){
-            console.log('to mask!');
-            var replacedVal = fieldValue.substr(0).replace(/[\S]/g, "*");
-            self.val(replacedVal);
-        }
-
-
-        $('.cc-value-holder').validateCreditCard(function(result) {
-            console.log('validation');
-            // if(result.card_type!=null && self.val()!=''){
-            //     result.card_type.length = 16;
-            // }
-
-            if (result.valid) {
-                $(this).parent().addClass('valid');
-                $(this).parent().addClass(result.card_type.name);
-            } else {
-                console.log(result.length_valid);
-                $(this).parent().removeClass('valid');
-                if(result.card_type!=null){
-                    $(this).parent().removeClass(result.card_type.name);
-                }
-
-            }
-        });
+    //======= PREVIOUS PAGE
+    function prevPage(){
+        history.back();
     }
 
-
-
-    // credit card validation new
-    var J = Payment.J;
+    //======= CREDIT CARD DATA VALIDATION
+    let J = Payment.J;
     function card_validation(){
-        // numeric = document.querySelector('[data-numeric]'),
-        var number = document.querySelector('.cc-card-field'),
+        let number = document.querySelector('.cc-card-field'),
             // exp = document.querySelector('.cc-exp'),
             cvc = document.querySelector('.cvv-field');
-        // validation = document.querySelector('.validation');
-        // Payment.restrictNumeric(numeric);
         Payment.formatCardNumber(number);
         // Payment.formatCardExpiry(exp);
         Payment.formatCardCVC(cvc);
-        $('.btn-donate-flow-complete-js').on('click',function (e) {
+        executeDonationBtn.on('click',function (e) {
             e.preventDefault();
             J.toggleClass(document.querySelectorAll('input'), 'invalid');
             // J.removeClass(validation, 'passed failed');
-            var cardType = Payment.fns.cardType(J.val(number));
+            let cardType = Payment.fns.cardType(J.val(number));
             J.toggleClass(number, 'invalid', !Payment.fns.validateCardNumber(J.val(number)));
             // J.toggleClass(exp, 'invalid', !Payment.fns.validateCardExpiry(Payment.cardExpiryVal(exp)));
             J.toggleClass(cvc, 'invalid', !Payment.fns.validateCardCVC(J.val(cvc), cardType));
             if (document.querySelectorAll('.invalid').length) {
                 // J.addClass(validation, 'failed');
             } else {
-                // J.addClass(validation, 'passed');
+                confirmModalSelector.modal('show');
             }
         });
     }
-
-    if($('.cc-details').css('style')=='block'){
-        card_validation();
-    }
-
-
-    $(document).on('focus','.cc-card-field',function (e) {
-        card_validation();
-    });
-
-
-
 });
-
-
-

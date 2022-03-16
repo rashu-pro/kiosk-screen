@@ -2,16 +2,40 @@
   background-color: #03a75b;
   color:#fff;
   padding:13px 0;
-  h1{
-    font-size:26px;
+  .company-name{
+    font-size:20px;
     font-weight: 700;
+    @media (min-width: 576px){
+      font-size: 22px;
+    }
     @media (min-width:768px){
-      font-size:26px;
+      font-size:24px;
     }
   }
   .row{
     display: flex;
     align-items: center;
+  }
+
+  &-large{
+    &-text{
+      color:#fff;
+      font-size: 22px;
+    }
+  }
+  &-small{
+    &-text{
+      color:#fff;
+      font-size: 16px;
+      display: block;
+      line-height: 1;
+    }
+  }
+
+  @media (max-width:767px){
+    [class*='col-']{
+      width:100%;
+  }
   }
 
   p{
@@ -24,6 +48,31 @@
     }
   }
 
+
+  @media (min-width: 576px){
+    p{
+      .time{
+        font-size: 1em;
+      }
+      .date{
+        font-size:0.6em;
+      }
+    }
+
+    &-large{
+      &-text{
+        font-size: 32px;
+      }
+    }
+    &-small{
+      &-text{
+        display: inline-block;
+        font-size: 1em;
+      }
+    }
+
+  }
+
   @media (min-width: 768px){
     p{
       .time{
@@ -33,5 +82,18 @@
         font-size:0.6em;
       }
     }
+
+    &-large{
+      &-text{
+        font-size: 28px;
+      }
+    }
+    &-small{
+      &-text{
+        display: inline-block;
+        font-size: 1em;
+      }
+    }
+
   }
 }
