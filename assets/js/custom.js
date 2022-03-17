@@ -42,7 +42,9 @@ $(function () {
         viewPortHeight = $(window).outerHeight() - headFootHeight,
         contentHeight = mainBodyWrapper.outerHeight(),
         windowHeight = $(window).height(),
-        windowWidth = $(window).width();
+        windowWidth = $(window).width(),
+        reloadTime = 6000,
+        scheduleRedirect = false;
     if(parseInt(windowHeight)>899){
         headFootHeightPx = (headFootHeight + 160)+'px';
     }else if(parseInt(windowHeight)>590){
@@ -61,6 +63,7 @@ $(function () {
     //======= AFTER FULL CONTENT LOAD
     $(window).on('load',function () {
         fitSize();
+        // timerFunction();
     });
 
     //======= ON WINDOW RESIZE
@@ -68,6 +71,7 @@ $(function () {
         fitSize();
         wrapperHeight();
     });
+
 
 
     $('.donation-frequency button, .donation-amount-options-wrapper button').on('click',function () {
@@ -106,7 +110,9 @@ $(function () {
 
     //======= BUTTON NEXT ACTION
     btnNext.on('click',function () {
-        var self = $(this);
+        clearTimeout(scheduleRedirect);
+        timerFunction();
+        let self = $(this);
         $('.loader-div').addClass('active');
         self.closest('.main-body').addClass('popup-active');
         setTimeout(function () {
@@ -141,6 +147,8 @@ $(function () {
         }else{
             self.closest('.main-body-main-wrapper').hide();
             self.closest('.main-body-main-wrapper').prev().show();
+            clearTimeout(scheduleRedirect);
+            timerFunction();
         }
     });
 
@@ -226,6 +234,12 @@ $(function () {
 
     //************** ALL CUSTOM FUNCTIONS ****************
 
+    //======= REDIRECT TO HOMESCREEN AFTER EACH 2 MINUTES
+    function timerFunction(){
+        scheduleRedirect = setTimeout(function () {
+            window.location.href = "index.html";
+        },reloadTime);
+    }
     //======= MAIN BODY HEIGHT CALCULATION
     function wrapperHeight(){
         console.log('content height:'+contentHeight);
@@ -236,7 +250,6 @@ $(function () {
             mainBodyMain.height(mainWrapperHeight);
         }
     }
-
     //======= CONTENT FITTING IN SPECIFIC DISPLAY
     function fitSize(){
         let mainBodyCard = mainBodyMain;
@@ -326,12 +339,10 @@ $(function () {
 
         inputWrapFormControl.css('height', inputWrapFormControlHeight);
     }
-
     //======= PREVIOUS PAGE
     function prevPage(){
         history.back();
     }
-
     //======= CREDIT CARD DATA VALIDATION
     let J = Payment.J;
     function card_validation(){
@@ -343,6 +354,8 @@ $(function () {
         Payment.formatCardCVC(cvc);
         executeDonationBtn.on('click',function (e) {
             e.preventDefault();
+            clearTimeout(scheduleRedirect);
+            timerFunction();
             J.toggleClass(document.querySelectorAll('input'), 'invalid');
             // J.removeClass(validation, 'passed failed');
             let cardType = Payment.fns.cardType(J.val(number));
@@ -356,4 +369,46 @@ $(function () {
             }
         });
     }
+
+
+    //CARD NUMBER MASKING
+    let cardNumber = '';
+    function cardHide(card) {
+        console.log('done');
+        let hideNum = [];
+        for(let i = 0; i < card.length; i++){
+            // if(i < card.length-4){
+            if(i<4 || i<card.length-4){
+                hideNum.push("*");
+            }else{
+                hideNum.push(card[i]);
+            }
+        }
+        return hideNum.join("");
+    }
+
+    $('.cc-card-field-fake').on('keyup',function (e) {
+        let self = $(this),
+            selfValue = self.val();
+        console.log(selfValue);
+        $('.cc-card-field').val(selfValue);
+        $('.cc-card-field').focus();
+    })
+
+    // function actualNumber(cardNumber) {
+    //     let number = [];
+    //     for(let i = 0; i<=cardNumber.length; i++){
+    //         number.push(i);
+    //     }
+    //     return number.join("");
+    // }
+    // $('.cc-card-field').on('keyup',function () {
+    //     let self = $(this),
+    //         cardNumber = self.val();
+    //         // actualNumberr = actualNumber(self.val());
+    //     // $('.cc-number-hidden').val(actualNumberr);
+    //     let maskedNumber = cardHide(cardNumber);
+    //     console.log(maskedNumber);
+    //     self.val(maskedNumber);
+    // });
 });
