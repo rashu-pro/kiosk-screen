@@ -21,6 +21,7 @@ $(function () {
         btnEdit = $('.btn-edit'),
         creditCardDetails = $('.cc-details'),
         donationDetails = $('.donation-details'),
+        productDetails = $('.product-selection'),
         swipeCardImage = $('.swipe-card-image'),
         creditCardField = $('.cc-card-field'),
         creditCardValueHolder = $('.cc-value-holder'),
@@ -28,8 +29,9 @@ $(function () {
         expYearField = $('.exp-year-field'),
         nameOnCardField = $('.name-on-card'),
         cvvField = $('.cvv-field'),
+        zipCodeField = $('.zipcode-field'),
         thankWrapper = $('.thank-wrapper'),
-        executeDonationBtn = $('.btn-donate-flow-complete-js'),
+        btnExecuteDonation = $('.btn-donate-flow-complete-js'),
         confirmModalSelector = $("#confirm-modal"),
         confirmModalYes = $("#modal-btn-yes"),
         confirmModalNo = $("#modal-btn-no"),
@@ -43,7 +45,7 @@ $(function () {
         contentHeight = mainBodyWrapper.outerHeight(),
         windowHeight = $(window).height(),
         windowWidth = $(window).width(),
-        reloadTime = 6000,
+        reloadTime = 120000,
         scheduleRedirect = false;
     if(parseInt(windowHeight)>899){
         headFootHeightPx = (headFootHeight + 160)+'px';
@@ -113,6 +115,7 @@ $(function () {
         clearTimeout(scheduleRedirect);
         timerFunction();
         let self = $(this);
+        
         $('.loader-div').addClass('active');
         self.closest('.main-body').addClass('popup-active');
         setTimeout(function () {
@@ -124,12 +127,14 @@ $(function () {
             // $('.popup-wrapper').addClass('active');
         },1000);
 
-        if(self.closest('.main-body-main-wrapper').hasClass('product-selection')){
+        if(self.closest('.main-body-main-wrapper').hasClass('donation-details')){
             self.closest('.main-body').addClass('popup-active');
             if(!$('.popup-wrapper').hasClass('active')){
-                var cardFieldValue = $('.cc-card-field').val(),
-                    cvvFieldValue = $('.cvv-field').val();
-                if(cardFieldValue == '' && cvvFieldValue == ''){
+                let cardFieldValue = $('.cc-card-field').val(),
+                    cvvFieldValue = $('.cvv-field').val(),
+                    expMonth = $('.exp-month-field').val(),
+                    expYear = $('.exp-year-field').val();
+                if(cardFieldValue == '' && cvvFieldValue == '' && expMonth == 0 && expYear == 0){
                     $('.popup-wrapper').addClass('active');
                 }
 
@@ -155,9 +160,11 @@ $(function () {
     //======= EDIT BUTTON ACTION
     btnEdit.click(function (e) {
         e.preventDefault();
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         popupClose($(this));
         creditCardDetails.hide();
-        donationDetails.show();
+        productDetails.show();
     });
 
     //======= SWIPER CARD IMAGE CLICK ACTION
@@ -178,34 +185,10 @@ $(function () {
         swiper_popup_close();
     });
 
-    //======= CLOSING SWIPER POPUP
-    function swiper_popup_close(){
-
-        if($('.popup-wrapper').hasClass('active')){
-            $('.swipe-card-image').hide();
-            $('.circle-loader').addClass('active');
-            setTimeout(function () {
-                $('.circle-loader').toggleClass('load-complete');
-                $('.checkmark').toggle();
-            },800);
-
-            setTimeout(function () {
-                $('.popup-wrapper').removeClass('active');
-                $('.cvv-field').trigger('focus');
-            },2000);
-        }
-
-    }
-
-    //======= CLOSING SWIPER MODAL WHEN CANCEL BUTTON CLICKED
-    function popupClose(elementToHide){
-        let self = $(elementToHide);
-        self.closest('.popup-wrapper').removeClass('active');
-        creditCardField.trigger('focus');
-    }
-
     //======= SWIPER MODAL CLOSE BUTTON CLICK ACTION
     popupCloseBtn.on('click',function () {
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         popupClose($(this));
     });
 
@@ -221,12 +204,16 @@ $(function () {
 
     //======= CONFIRMATION MODAL FOR DONATION
     confirmModalYes.on("click", function(){
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         confirmModalSelector.modal('hide');
         creditCardDetails.hide();
         thankWrapper.show();
     });
 
     confirmModalNo.on("click", function(){
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         confirmModalSelector.modal('hide');
     });
 
@@ -237,7 +224,7 @@ $(function () {
     //======= REDIRECT TO HOMESCREEN AFTER EACH 2 MINUTES
     function timerFunction(){
         scheduleRedirect = setTimeout(function () {
-            window.location.href = "index.html";
+            history.back();
         },reloadTime);
     }
     //======= MAIN BODY HEIGHT CALCULATION
@@ -343,25 +330,65 @@ $(function () {
     function prevPage(){
         history.back();
     }
+    //======= CLOSING SWIPER POPUP
+    function swiper_popup_close(){
+
+        if($('.popup-wrapper').hasClass('active')){
+            $('.swipe-card-image').hide();
+            $('.circle-loader').addClass('active');
+            setTimeout(function () {
+                $('.circle-loader').toggleClass('load-complete');
+                $('.checkmark').toggle();
+            },800);
+
+            setTimeout(function () {
+                $('.popup-wrapper').removeClass('active');
+                $('.cvv-field').trigger('focus');
+            },2000);
+        }
+
+    }
+
+    //======= CLOSING SWIPER MODAL WHEN CANCEL BUTTON CLICKED
+    function popupClose(elementToHide){
+        let self = $(elementToHide);
+        self.closest('.popup-wrapper').removeClass('active');
+        creditCardField.trigger('focus');
+    }
     //======= CREDIT CARD DATA VALIDATION
     let J = Payment.J;
     function card_validation(){
-        let number = document.querySelector('.cc-card-field'),
-            // exp = document.querySelector('.cc-exp'),
-            cvc = document.querySelector('.cvv-field');
+        let number = document.querySelector('.cc-card-field');
         Payment.formatCardNumber(number);
-        // Payment.formatCardExpiry(exp);
-        Payment.formatCardCVC(cvc);
-        executeDonationBtn.on('click',function (e) {
+        btnExecuteDonation.on('click',function (e) {
             e.preventDefault();
             clearTimeout(scheduleRedirect);
             timerFunction();
             J.toggleClass(document.querySelectorAll('input'), 'invalid');
-            // J.removeClass(validation, 'passed failed');
             let cardType = Payment.fns.cardType(J.val(number));
             J.toggleClass(number, 'invalid', !Payment.fns.validateCardNumber(J.val(number)));
-            // J.toggleClass(exp, 'invalid', !Payment.fns.validateCardExpiry(Payment.cardExpiryVal(exp)));
-            J.toggleClass(cvc, 'invalid', !Payment.fns.validateCardCVC(J.val(cvc), cardType));
+            console.log(cardType);
+            if(expiryMonthField.val()==0){
+                expiryMonthField.addClass('invalid');
+            }else{
+                expiryMonthField.removeClass('invalid');
+            }
+            if(expYearField.val()==0){
+                expYearField.addClass('invalid');
+            }else{
+                expYearField.removeClass('invalid');
+            }
+            if(nameOnCardField.val()==''){
+                nameOnCardField.addClass('invalid');
+            }else{
+                nameOnCardField.removeClass('invalid');
+            }
+            if(zipCodeField.val()=='' || zipCodeField.val().length<4){
+                zipCodeField.addClass('invalid');
+            }else{
+                zipCodeField.removeClass('invalid');
+            }
+
             if (document.querySelectorAll('.invalid').length) {
                 // J.addClass(validation, 'failed');
             } else {
@@ -370,45 +397,44 @@ $(function () {
         });
     }
 
-
-    //CARD NUMBER MASKING
-    let cardNumber = '';
-    function cardHide(card) {
-        console.log('done');
-        let hideNum = [];
-        for(let i = 0; i < card.length; i++){
-            // if(i < card.length-4){
-            if(i<4 || i<card.length-4){
-                hideNum.push("*");
-            }else{
-                hideNum.push(card[i]);
-            }
+    //======= EMAIL VALIDATION
+    function validateMail(email) {
+        var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+        if (!pattern.test(email)) {
+            $('#email-validation-message').html('Email is not valid. Please enter a valid email address.');
+            return false;
+        } else {
+            return true;
         }
-        return hideNum.join("");
     }
 
-    $('.cc-card-field-fake').on('keyup',function (e) {
-        let self = $(this),
-            selfValue = self.val();
-        console.log(selfValue);
-        $('.cc-card-field').val(selfValue);
-        $('.cc-card-field').focus();
-    })
+    //======= SHOW LOADER
+    function showLoader(self) {
+        $('.loader-div').addClass('active');
+        self.closest('.main-body').addClass('popup-active');
+        setTimeout(function () {
+            $('.loader-div').removeClass('active');
+            self.closest('.main-body').removeClass('popup-active');
+            self.closest('.main-body-main-wrapper').hide();
+            self.closest('.main-body-main-wrapper').next().show();
+            // self.closest('.main-body').addClass('popup-active');
+            // $('.popup-wrapper').addClass('active');
+        }, 500);
 
-    // function actualNumber(cardNumber) {
-    //     let number = [];
-    //     for(let i = 0; i<=cardNumber.length; i++){
-    //         number.push(i);
-    //     }
-    //     return number.join("");
-    // }
-    // $('.cc-card-field').on('keyup',function () {
-    //     let self = $(this),
-    //         cardNumber = self.val();
-    //         // actualNumberr = actualNumber(self.val());
-    //     // $('.cc-number-hidden').val(actualNumberr);
-    //     let maskedNumber = cardHide(cardNumber);
-    //     console.log(maskedNumber);
-    //     self.val(maskedNumber);
-    // });
+
+
+        if (self.closest('.main-body-main-wrapper').hasClass('donation-details')) {
+            self.closest('.main-body').addClass('popup-active');
+            if (!$('.popup-wrapper').hasClass('active')) {
+                var cardFieldValue = $('.cc-card-field').val(),
+                    expMonth = $('.exp-month-field').val(),
+                    expYear = $('.exp-year-field').val();
+                if (cardFieldValue == '' && expMonth == 0 && expYear == 0) {
+                    $('.popup-wrapper').addClass('active');
+                }
+
+            }
+        }
+    }
+
 });

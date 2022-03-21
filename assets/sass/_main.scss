@@ -33,6 +33,7 @@
 
         .donation{
           &-details{
+            display: none;
             .form{
               &-section{
                 padding-bottom:2.31em;
@@ -252,7 +253,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .product-selection{
-  display: none;
+  // display: none;
 }
 
 .cvv-field{

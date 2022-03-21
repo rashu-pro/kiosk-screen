@@ -396,6 +396,9 @@ button {
   box-shadow: none;
   padding-bottom: 35px;
 }
+.main-body-wrapper.style-2 .donation-details {
+  display: none;
+}
 .main-body-wrapper.style-2 .donation-details .form-section {
   padding-bottom: 2.31em;
 }
@@ -572,10 +575,6 @@ select.form-control:not([size]):not([multiple]) {
 .popup-wrapper .swipe-card-image {
   padding-top: 30px;
   padding-bottom: 20px;
-}
-
-.product-selection {
-  display: none;
 }
 
 .cvv-field {
@@ -768,6 +767,12 @@ select.form-control:not([size]):not([multiple]) {
   max-height: 200px;
 }
 
+.modal-confirm {
+  min-width: 550px;
+  max-width: 550px;
+  top: 44%;
+  transform: translateY(-50%) !important;
+}
 .modal-confirm .modal-content {
   border-radius: 15px;
 }

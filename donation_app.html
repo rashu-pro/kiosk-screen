@@ -14,7 +14,7 @@
     <!-- #FONTAWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.css" integrity="sha512-72McA95q/YhjwmWFMGe8RI3aZIMCTJWPBbV8iQY3jy1z9+bi6+jHnERuNrDPo/WGYEzzNs4WdHNyyEr/yXJ9pA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.0.2">
 
 </head>
 <body>
@@ -49,79 +49,6 @@
 
         <div class="main-body-wrapper style-2">
             <div class="main-body-main">
-
-                <!-- #DONATION DETAILS -->
-                <div class="main-body-main-wrapper donation-details ">
-
-                    <!--<h3 class="form-section-title"><span>Card Number</span></h3>-->
-
-                    <!--<div class="input-wrap cc-card-number">-->
-                        <!--<input class="form-control cc-card-field-fake">-->
-                        <!--<input type="text" class="form-control cc-card-field">-->
-                        <!--<input type="hidden" class="cc-value-holder" data-value="">-->
-                    <!--</div>-->
-
-                    <!--<div class="form-section">-->
-                        <!--<label>Card Number</label>-->
-                        <!--<input type="text" class="form-control cc-number">-->
-                        <!--<input type="text" class="form-control cc-number-hidden">-->
-                    <!--</div>-->
-
-
-                    <div class="form-section">
-                        <h3 class="form-section-title"><span>How Often?</span></h3>
-
-                        <div class="donation-frequency">
-                            <button class="frequency-btn box-height-big active">One Time</button>
-                            <button class="frequency-btn box-height-big">Monthly</button>
-                        </div>
-
-                    </div>
-
-                    <div class="form-section">
-                        <h3 class="form-section-title"><span>Donation Amount</span></h3>
-
-                        <div class="donation-amount-options-wrapper">
-                            <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span class="amount">500</span> </button>
-                            <button class="amount-btn box-height-big active"><span class="currency-symbol">$</span> <span class="amount">250</span> </button>
-                            <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span class="amount">100</span> </button>
-                            <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span class="amount">50</span> </button>
-                        </div>
-
-                        <div class="other-input-wrapper input-field-group">
-                            <div class="input-field-group-prepend box-height-big">
-                                <span>$</span>
-                            </div>
-                            <input type="text" class="form-control box-height-big other-amount" placeholder="Other Amount">
-                        </div>
-
-                    </div>
-
-                    <div class="form-section">
-                        <div class="checkbox-holder">
-                            <input type="checkbox" id="checkbox-1" class="regular-checkbox" />
-                            <label for="checkbox-1">Cover processing fees</label>
-                        </div>
-                    </div>
-
-                    <div class="">
-                        <div class="text-right">
-                            <div class="btn-div">
-                                <button class="btn btn-dark btn-back-js btn-prev-page">
-                                    <img src="assets/images/back_white_24.png" class="img-left">
-                                    <span>Back</span>
-                                </button>
-                                <button class="btn btn-success btn-next-js">
-                                    <span>Next</span>
-                                    <img src="assets/images/next_white_24.png" class="img-right">
-                                </button>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
                 <!-- #PRODUCT SELECTION -->
                 <div class="main-body-main-wrapper product-selection">
@@ -182,24 +109,34 @@
 
                     </div>
 
-                    <div class="form-section">
-                        <h3 class="form-section-title"><span>Stay Updated</span></h3>
+                    <div class="">
+                        <div class="checkbox-holder">
+                            <input type="checkbox" id="show-email" class="regular-checkbox">
+                            <label for="show-email">Send Receipt to Email</label>
+                        </div>
+                    </div>
 
+                    <div class="form-section email-address" style="padding-bottom: 30px; display: none;">
+                        <h3 class="form-section-title">
+                <span>
+                    Send My Receipt to
+                </span>
+                        </h3>
                         <div class="input-wrap">
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <input type="email" class="form-control" placeholder="Enter Your Email...">
+                                <div class="col-sm-6 big-cc-field">
+                                    <input autocomplete="off" class="form-control" data-val="true" data-val-email="The Email Address field is not a valid e-mail address." id="txtEmailAddress" name="EmailAddress" placeholder="Enter Your Email..." type="email" value="" style="height: 60px;">
+                                    <span class="field-validation-valid" data-valmsg-for="EmailAddress" data-valmsg-replace="true" id="email-validation-message" style="color:red;font-size:18px;"></span>
+
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
 
                     <div class="">
                         <div class="text-right">
                             <div class="btn-div">
-                                <button class="btn btn-dark btn-back-js">
+                                <button class="btn btn-dark btn-back-js btn-prev-page">
                                     <img src="assets/images/back_white_24.png" class="img-left">
                                     <span>Back</span>
                                 </button>
@@ -214,8 +151,67 @@
 
                 </div>
 
+                <!-- #DONATION DETAILS -->
+                <div class="main-body-main-wrapper donation-details">
+
+
+                    <div class="form-section">
+                        <h3 class="form-section-title"><span>How Often?</span></h3>
+
+                        <div class="donation-frequency">
+                            <button class="frequency-btn box-height-big active">One Time</button>
+                            <button class="frequency-btn box-height-big">Monthly</button>
+                        </div>
+
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title"><span>Donation Amount</span></h3>
+
+                        <div class="donation-amount-options-wrapper">
+                            <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span class="amount">500</span> </button>
+                            <button class="amount-btn box-height-big active"><span class="currency-symbol">$</span> <span class="amount">250</span> </button>
+                            <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span class="amount">100</span> </button>
+                            <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span class="amount">50</span> </button>
+                        </div>
+
+                        <div class="other-input-wrapper input-field-group">
+                            <div class="input-field-group-prepend box-height-big">
+                                <span>$</span>
+                            </div>
+                            <input type="text" class="form-control box-height-big other-amount" placeholder="Other Amount">
+                        </div>
+
+                    </div>
+
+                    <div class="form-section">
+                        <div class="checkbox-holder">
+                            <input type="checkbox" id="checkbox-1" class="regular-checkbox" />
+                            <label for="checkbox-1">Cover processing fees</label>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="text-right">
+                            <div class="btn-div">
+                                <button class="btn btn-dark btn-back-js">
+                                    <img src="assets/images/back_white_24.png" class="img-left">
+                                    <span>Back</span>
+                                </button>
+                                <button class="btn btn-success btn-next-js">
+                                    <span>Next</span>
+                                    <img src="assets/images/next_white_24.png" class="img-right">
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
                 <!-- #CREDIT CARD DETAILS -->
-                <div class="main-body-main-wrapper cc-details ">
+                <div class="main-body-main-wrapper cc-details">
                     <div>
                         <div class="form-section">
                             <div class="row small-gap">
@@ -234,7 +230,7 @@
 
                                             <div class="input-wrap">
                                                 <select class="form-control exp-month-field">
-                                                    <option>Exp MM</option>
+                                                    <option value="0">Exp MM</option>
                                                     <option value="01">01</option>
                                                     <option value="02">02</option>
                                                     <option value="03">03</option>
@@ -247,12 +243,13 @@
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="col-sm-6">
                                             <h3 class="form-section-title"><span>Expiry Year</span></h3>
 
                                             <div class="input-wrap">
                                                 <select class="form-control exp-year-field">
-                                                    <option>Exp YY</option>
+                                                    <option value="0">Exp YY</option>
                                                     <option value="2022">2022</option>
                                                     <option value="2023">2023</option>
                                                     <option value="2024">2024</option>
@@ -271,10 +268,10 @@
                         </div>
 
                         <div class="form-section">
-                            <h3 class="form-section-title"><span>CVV</span></h3>
+                            <h3 class="form-section-title"><span>ZIP Code</span></h3>
 
                             <div class="input-wrap">
-                                <input class="form-control cvv-field" placeholder="123">
+                                <input class="form-control zipcode-field" id="zipCodeField" placeholder="123">
                             </div>
                         </div>
 
@@ -413,13 +410,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <!-- #BOOTSTRAP -->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
 
 
 <!-- # JQUERY CREDIT CARD VALIDATOR -->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-creditcardvalidator/1.2.0/jquery.creditCardValidator.min.js" integrity="sha512-67izqYmxFa1ChEvmVqfxhtEQDKRBi08KkxdiRZG21523OPt8bU86uccSV7IXoxRQ+BoakCjG5VZ0jFhCH+e0SA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
 <script src="assets/js/card_validation.js"></script>
-<script src="assets/js/custom.js"></script>
+<!--<script src="assets/js/custom.js"></script>-->
+<script src="assets/js/live/custom.js"></script>
 </body>
 </html>
