@@ -226,7 +226,7 @@ button {
 }
 
 .input-wrap .form-control {
-  border: 0.18rem solid #8b8b8b;
+  border: 0.1em solid #8b8b8b;
   height: 65px;
   border-radius: 12px;
 }
@@ -622,16 +622,24 @@ select.form-control:not([size]):not([multiple]) {
 .body-foot.btn-div .btn {
   text-transform: uppercase;
 }
+.body-foot.btn-div .btn img {
+  max-height: 30px;
+}
 @media (min-width: 1024px) {
   .body-foot.btn-div {
     padding-right: 60px;
     padding-left: 60px;
   }
   .body-foot.btn-div .btn {
-    min-width: 300px;
-    font-size: 1.6em;
-    height: 4em;
+    in-width: 300px;
+    font-size: 2em;
+    height: 3em;
     border-radius: 30px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+  .body-foot.btn-div .btn img {
+    max-height: 40px;
   }
 }
 

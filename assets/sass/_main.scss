@@ -274,15 +274,23 @@ select.form-control:not([size]):not([multiple]) {
     //border-top: 1px solid #d8d8d8;
     .btn{
       text-transform: uppercase;
+      img{
+        max-height:30px;
+      }
     }
     @media (min-width:1024px){
       padding-right:60px;
       padding-left:60px;
       .btn{
-        min-width:300px;
-        font-size:1.6em;
-        height:4em;
+        in-width: 300px;
+        font-size: 2em;
+        height: 3em;
         border-radius: 30px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        img{
+          max-height:40px;
+        }
       }
     }
   }
