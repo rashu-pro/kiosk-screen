@@ -3,6 +3,7 @@
     font-size:20px;
     color:#202020;
     font-weight: 500;
+    margin-bottom:8px;
 
     &:focus{
       border-color:$green_dark!important;
@@ -24,6 +25,12 @@
     border-radius: 12px;
     &.invalid{
       border-color:$color_danger;
+      &.identified{
+        &:focus{
+          border-color:$green_dark;
+        }
+
+      }
     }
   }
 }
@@ -87,4 +94,30 @@
       }
     }
   }
+}
+
+.required-mark{
+  color:$color_danger;
+}
+.message-field{
+  align-items: center;
+  display: none;
+}
+.warning-message{
+  color:$color_danger;
+  font-size: 0.8em;
+  img{
+    margin-right:6px;
+  }
+}
+
+.show-warning{
+  .warning-message{
+    display: inline-block;
+  }
+}
+
+.big-cc-field{
+  position: relative;
+  z-index: 99;
 }

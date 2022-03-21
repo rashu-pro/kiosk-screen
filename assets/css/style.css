@@ -213,6 +213,7 @@ button {
   font-size: 20px;
   color: #202020;
   font-weight: 500;
+  margin-bottom: 8px;
 }
 .form-control:focus {
   border-color: #038246 !important;
@@ -231,6 +232,9 @@ button {
 }
 .input-wrap .form-control.invalid {
   border-color: #bd2130;
+}
+.input-wrap .form-control.invalid.identified:focus {
+  border-color: #038246;
 }
 
 .input-field-group {
@@ -287,6 +291,32 @@ button {
   .input-field-group .form-control {
     font-size: 24px;
   }
+}
+
+.required-mark {
+  color: #bd2130;
+}
+
+.message-field {
+  align-items: center;
+  display: none;
+}
+
+.warning-message {
+  color: #bd2130;
+  font-size: 0.8em;
+}
+.warning-message img {
+  margin-right: 6px;
+}
+
+.show-warning .warning-message {
+  display: inline-block;
+}
+
+.big-cc-field {
+  position: relative;
+  z-index: 99;
 }
 
 .header {
@@ -458,7 +488,7 @@ button {
 .form-section-title span {
   background-color: #fff;
   display: inline-block;
-  padding-right: 15px;
+  padding-right: 6px;
   position: relative;
   z-index: 2;
 }
@@ -581,14 +611,28 @@ select.form-control:not([size]):not([multiple]) {
   width: 30%;
 }
 
-.btn-div {
+.body-foot.btn-div {
   position: absolute;
-  bottom: 12px;
+  bottom: 2em;
   left: 0;
   right: 0;
   padding-right: 25px;
-  padding-top: 10px;
-  border-top: 1px solid #d8d8d8;
+  padding-top: 2em;
+}
+.body-foot.btn-div .btn {
+  text-transform: uppercase;
+}
+@media (min-width: 1024px) {
+  .body-foot.btn-div {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+  .body-foot.btn-div .btn {
+    min-width: 300px;
+    font-size: 1.6em;
+    height: 4em;
+    border-radius: 30px;
+  }
 }
 
 .other-input-wrapper {

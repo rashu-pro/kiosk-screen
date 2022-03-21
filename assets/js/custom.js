@@ -27,9 +27,9 @@ $(function () {
         creditCardValueHolder = $('.cc-value-holder'),
         expiryMonthField = $('.exp-month-field'),
         expYearField = $('.exp-year-field'),
+        zipCodeField = $('.zipcode-field'),
         nameOnCardField = $('.name-on-card'),
         cvvField = $('.cvv-field'),
-        zipCodeField = $('.zipcode-field'),
         thankWrapper = $('.thank-wrapper'),
         btnExecuteDonation = $('.btn-donate-flow-complete-js'),
         confirmModalSelector = $("#confirm-modal"),
@@ -75,8 +75,10 @@ $(function () {
     });
 
 
-
     $('.donation-frequency button, .donation-amount-options-wrapper button').on('click',function () {
+        clearTimeout(scheduleRedirect);
+        timerFunction();
+
         let self = $(this);
         self.parent().find('button').removeClass('active');
         self.addClass('active');
@@ -90,6 +92,9 @@ $(function () {
     });
 
     productWrapperBtn.on('click',function () {
+        clearTimeout(scheduleRedirect);
+        timerFunction();
+
         let self = $(this);
         self.parent().parent().find('button').removeClass('active');
         self.addClass('active');
@@ -97,12 +102,18 @@ $(function () {
 
     //======= OTHER AMOUNT FIELD ACTION
     otherInputWrapperField.on('focus',function () {
+        clearTimeout(scheduleRedirect);
+        timerFunction();
+
         let self = $(this);
         self.closest('.other-input-wrapper').prev().find('.amount-btn').removeClass('active');
         self.parent().find('.input-field-group-prepend').addClass('focused');
     });
 
     otherInputWrapperField.on('blur',function () {
+        clearTimeout(scheduleRedirect);
+        timerFunction();
+
         let self = $(this);
         if(self.val()===''){
             self.parent().find('.input-field-group-prepend').removeClass('focused');
@@ -111,30 +122,70 @@ $(function () {
     });
 
     //======= BUTTON NEXT ACTION
-    btnNext.on('click',function () {
+    btnNext.on('click',function (e) {
+        e.preventDefault();
         clearTimeout(scheduleRedirect);
         timerFunction();
         let self = $(this);
-        
-        $('.loader-div').addClass('active');
-        self.closest('.main-body').addClass('popup-active');
-        setTimeout(function () {
-            $('.loader-div').removeClass('active');
-            self.closest('.main-body').removeClass('popup-active');
-            self.closest('.main-body-main-wrapper').hide();
-            self.closest('.main-body-main-wrapper').next().show();
-            // self.closest('.main-body').addClass('popup-active');
-            // $('.popup-wrapper').addClass('active');
-        },1000);
 
-        if(self.closest('.main-body-main-wrapper').hasClass('donation-details')){
+        //==AMOUNT FIELD VALIDATION ON NEXT BUTTON CLICK
+        if (self.closest('.donation-details').css('display') == 'block') {
+            let amount = $('#txtAmount').val();
+            console.log(amount);
+            if (amount == '') {
+                $('#amount-validation-message').html('Please select or enter an Amount');
+                $('#other-amount-btn').focus();
+                return;
+            } else if (amount == 'NaN') {
+                $('#amount-validation-message').html('Please select or enter an Amount');
+                $('#other-amount-btn').focus();
+                return;
+            } else if (parseInt(amount) <= 0) {
+                $('#amount-validation-message').html('Amount cannot be 0, please select or enter an Amount');
+                $('#other-amount-btn').focus();
+                return;
+            } else {
+                $('#amount-validation-message').hide();
+                showLoader(self);
+            }
+        }
+
+        //==EMAIL VALIDATION ON NEXT BUTTON CLICK
+        if (self.closest('.product-selection').css('display') == 'block') {
+            if ($('#show-email').prop("checked") === true) {
+                console.log('enterd');
+                var mail = $('#txtEmailAddress').val();
+                if (mail == '') {
+                    $('#txtEmailAddress').focus();
+                    return;
+                } else if (mail != '') {
+                    var isValid = validateMail(mail);
+                    if (isValid) {
+                        showLoader(self);
+                    }
+                    else {
+                        $('#email-validation-message').html('Email is not valid. Please enter a valid email address.');
+                        return;
+                    }
+                }
+                else {
+                    showLoader(self);
+                    $('#email-validation-message').hide();
+                }
+            } else {
+                showLoader(self);
+            }
+        } else {
+            showLoader(self);
+        }
+        //==CARD SWIPING MODAL SHOW/HIDE
+        if (self.closest('.main-body-main-wrapper').hasClass('donation-details')) {
             self.closest('.main-body').addClass('popup-active');
-            if(!$('.popup-wrapper').hasClass('active')){
-                let cardFieldValue = $('.cc-card-field').val(),
-                    cvvFieldValue = $('.cvv-field').val(),
+            if (!$('.popup-wrapper').hasClass('active')) {
+                var cardFieldValue = $('.cc-card-field').val(),
                     expMonth = $('.exp-month-field').val(),
                     expYear = $('.exp-year-field').val();
-                if(cardFieldValue == '' && cvvFieldValue == '' && expMonth == 0 && expYear == 0){
+                if (cardFieldValue == '' && expMonth == 0 && expYear == 0) {
                     $('.popup-wrapper').addClass('active');
                 }
 
@@ -146,14 +197,14 @@ $(function () {
     //======= BUTTON PREVIOUS ACTION
     btnBack.on('click',function (event) {
         event.preventDefault();
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         let self = $(this);
         if(self.hasClass('btn-prev-page')){
             prevPage();
         }else{
             self.closest('.main-body-main-wrapper').hide();
             self.closest('.main-body-main-wrapper').prev().show();
-            clearTimeout(scheduleRedirect);
-            timerFunction();
         }
     });
 
@@ -167,29 +218,16 @@ $(function () {
         productDetails.show();
     });
 
-    //======= SWIPER CARD IMAGE CLICK ACTION
-    swipeCardImage.click(function(){
-        // swipePopupClose($(this));
-
-        let cardNumber = '4026000000000002',
-            cardHolderName = 'Jhon Doe',
-            expMonth = '03',
-            expYear = '2024';
-
-        creditCardField.val(cardNumber);
-        creditCardValueHolder.attr('data-value',cardNumber);
-        expiryMonthField.val(expMonth);
-        expYearField.val(expYear);
-        nameOnCardField.val(cardHolderName);
-        creditCardField.trigger('focus');
-        swiper_popup_close();
-    });
-
     //======= SWIPER MODAL CLOSE BUTTON CLICK ACTION
     popupCloseBtn.on('click',function () {
         clearTimeout(scheduleRedirect);
         timerFunction();
         popupClose($(this));
+    });
+
+    //======= SHOW EMAIL FIELD ON CHECKBOX CHANGE
+    $('#show-email').on('change', function () {
+        showMailField();
     });
 
 
@@ -198,26 +236,126 @@ $(function () {
     $(document).on('focus','.cc-card-field',function (e) {
         card_validation();
     });
+
+    creditCardField.on('keypress',function (e) {
+        card_validation();
+    });
+
+    creditCardField.on('blur',function (e) {
+        card_validation();
+    });
+
+    //======= ZIP CODE VALIDATION
+    zipCodeField.on('keypress',function (e) {
+        let self = $(this);
+        if(zipCodeValidation(self.val()) && self.val().length>4 ){
+            zipCodeField.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+            return e.preventDefault();
+        }
+    });
+
+    zipCodeField.on('blur',function (e) {
+        let self = $(this);
+        if(!zipCodeValidation(self.val())){
+            zipCodeField.addClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            zipCodeField.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+        }
+    });
+
+    //======= NAME ON CARD VALIDATION
+    nameOnCardField.on('keypress',function (e) {
+        let self = $(this);
+        if(nameOnCardValidation(self.val())){
+            nameOnCardField.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+        }
+    });
+
+    nameOnCardField.on('blur',function (e) {
+        let self = $(this);
+        if(!nameOnCardValidation(self.val())){
+            zipCodeField.addClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            zipCodeField.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+        }
+    });
+
+    //======= EXPIRY MONTH VALIDATION
+    expiryMonthField.on('change',function (e) {
+        let self = $(this);
+        if(self.val()==0){
+            self.addClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            self.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+        }
+    });
+
+    //======= EXPIRY YEAR VALIDATION
+    expYearField.on('change',function (e) {
+        let self = $(this);
+        if(self.val()==0){
+            self.addClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            self.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+        }
+    });
+
+
     if(creditCardDetails.css('style')==='block'){
         card_validation();
     }
 
-    //======= CONFIRMATION MODAL FOR DONATION
-    confirmModalYes.on("click", function(){
+
+    //=========== DONATE BUTTON CLICK ACTION
+    btnExecuteDonation.on('click',function (e) {
+        e.preventDefault();
         clearTimeout(scheduleRedirect);
         timerFunction();
-        confirmModalSelector.modal('hide');
-        creditCardDetails.hide();
-        thankWrapper.show();
+        card_validation();
+        if(expiryMonthField.val()==0){
+            expiryMonthField.addClass('invalid');
+            expiryMonthField.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            expiryMonthField.removeClass('invalid');
+            expiryMonthField.closest('.input-wrap').find('.warning-message').hide();
+        }
+        if(expYearField.val()==0){
+            expYearField.addClass('invalid');
+            expYearField.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            expYearField.removeClass('invalid');
+            expYearField.closest('.input-wrap').find('.warning-message').hide();
+        }
+        if(nameOnCardField.val()==''){
+            nameOnCardField.addClass('invalid');
+            nameOnCardField.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            nameOnCardField.removeClass('invalid');
+            nameOnCardField.closest('.input-wrap').find('.warning-message').hide();
+        }
+        if(!zipCodeValidation(zipCodeField.val())){
+            zipCodeField.addClass('invalid');
+            zipCodeField.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            zipCodeField.removeClass('invalid');
+            zipCodeField.closest('.input-wrap').find('.warning-message').hide();
+        }
+        if (document.querySelectorAll('.invalid').length) {
+            // J.addClass(validation, 'failed');
+        } else {
+            confirmModalSelector.modal('show');
+        }
     });
-
-    confirmModalNo.on("click", function(){
-        clearTimeout(scheduleRedirect);
-        timerFunction();
-        confirmModalSelector.modal('hide');
-    });
-
-
 
     //************** ALL CUSTOM FUNCTIONS ****************
 
@@ -257,6 +395,17 @@ $(function () {
             mainWrapperPaddingLeft = '15px';
             otherInputWrapperPaddingTop = '15px';
             inputWrapFormControlHeight = '50';
+            inputWrapFormControl.parent().addClass('big-cc-field');
+        }else if(parseInt(windowHeight)>900 && parseInt(windowWidth)>1024){
+            fontSize = '26px';
+            boxHeightBig = '80px';
+            wrapperPaddingTop = '0px';
+            wrapperPaddingLeft = '60px';
+            mainWrapperPaddingTop = '35px';
+            mainWrapperPaddingLeft = '60px';
+            otherInputWrapperPaddingTop = '35px';
+            donationDetils_FormSectionPaddingBottom = '50px';
+            inputWrapFormControlHeight = '65';
             inputWrapFormControl.parent().addClass('big-cc-field');
         }else if(parseInt(windowHeight)>900 && parseInt(windowWidth)>576){
             fontSize = '26px';
@@ -343,60 +492,48 @@ $(function () {
 
             setTimeout(function () {
                 $('.popup-wrapper').removeClass('active');
-                $('.cvv-field').trigger('focus');
+                console.log('before-focus');
+                btnExecuteDonation.trigger('focus');
             },2000);
         }
 
     }
-
     //======= CLOSING SWIPER MODAL WHEN CANCEL BUTTON CLICKED
     function popupClose(elementToHide){
         let self = $(elementToHide);
         self.closest('.popup-wrapper').removeClass('active');
-        creditCardField.trigger('focus');
+        // creditCardField.trigger('focus');
     }
     //======= CREDIT CARD DATA VALIDATION
     let J = Payment.J;
     function card_validation(){
         let number = document.querySelector('.cc-card-field');
         Payment.formatCardNumber(number);
-        btnExecuteDonation.on('click',function (e) {
-            e.preventDefault();
-            clearTimeout(scheduleRedirect);
-            timerFunction();
-            J.toggleClass(document.querySelectorAll('input'), 'invalid');
-            let cardType = Payment.fns.cardType(J.val(number));
-            J.toggleClass(number, 'invalid', !Payment.fns.validateCardNumber(J.val(number)));
-            console.log(cardType);
-            if(expiryMonthField.val()==0){
-                expiryMonthField.addClass('invalid');
-            }else{
-                expiryMonthField.removeClass('invalid');
-            }
-            if(expYearField.val()==0){
-                expYearField.addClass('invalid');
-            }else{
-                expYearField.removeClass('invalid');
-            }
-            if(nameOnCardField.val()==''){
-                nameOnCardField.addClass('invalid');
-            }else{
-                nameOnCardField.removeClass('invalid');
-            }
-            if(zipCodeField.val()=='' || zipCodeField.val().length<4){
-                zipCodeField.addClass('invalid');
-            }else{
-                zipCodeField.removeClass('invalid');
-            }
-
-            if (document.querySelectorAll('.invalid').length) {
-                // J.addClass(validation, 'failed');
-            } else {
-                confirmModalSelector.modal('show');
-            }
-        });
+        J.toggleClass(document.querySelectorAll('input'), 'invalid');
+        let cardType = Payment.fns.cardType(J.val(number));
+        // J.toggleClass(number, 'invalid', !Payment.fns.validateCardNumber(J.val(number)));
+        if(Payment.fns.validateCardNumber(J.val(number))){
+            creditCardField.removeClass('invalid');
+            creditCardField.addClass('valid');
+            creditCardField.closest('.input-wrap').find('.warning-message').hide();
+        }else{
+            creditCardField.addClass('invalid');
+            creditCardField.removeClass('valid');
+            creditCardField.closest('.input-wrap').find('.warning-message').show();
+        }
     }
+    //======= SHOW MAIL FIELD ON CHECKED
+    function showMailField() {
 
+        if ($('#show-email').prop("checked") == true) {
+            $('.email-address').show();
+        }
+
+        if ($('#show-email').prop("checked") == false) {
+            $('.email-address').hide();
+        }
+
+    }
     //======= EMAIL VALIDATION
     function validateMail(email) {
         var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
@@ -407,7 +544,6 @@ $(function () {
             return true;
         }
     }
-
     //======= SHOW LOADER
     function showLoader(self) {
         $('.loader-div').addClass('active');
@@ -420,21 +556,79 @@ $(function () {
             // self.closest('.main-body').addClass('popup-active');
             // $('.popup-wrapper').addClass('active');
         }, 500);
-
-
-
-        if (self.closest('.main-body-main-wrapper').hasClass('donation-details')) {
-            self.closest('.main-body').addClass('popup-active');
-            if (!$('.popup-wrapper').hasClass('active')) {
-                var cardFieldValue = $('.cc-card-field').val(),
-                    expMonth = $('.exp-month-field').val(),
-                    expYear = $('.exp-year-field').val();
-                if (cardFieldValue == '' && expMonth == 0 && expYear == 0) {
-                    $('.popup-wrapper').addClass('active');
-                }
-
-            }
-        }
     }
+
+    //======= ZIP CODE VALIDATION
+    function zipCodeValidation(code) {
+        let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(code);
+        return isValidZip;
+    }
+
+    function nameOnCardValidation(name) {
+        let isValidName = /(?<! )[-a-zA-Z' ]{2,26}/g.test(name);
+        return isValidName;
+    }
+
+    //====== SHOULD NOT BE INCLUDED IN PRODUCTION VERSION
+    //======= SWIPER CARD IMAGE CLICK ACTION
+    swipeCardImage.click(function(){
+        // swipePopupClose($(this));
+
+        let cardNumber = '4026000000000002',
+            cardHolderName = 'Jhon Doe',
+            expMonth = '03',
+            expYear = '2024',
+            zipCode = '54822';
+
+        creditCardField.val(cardNumber);
+        expiryMonthField.val(expMonth);
+        expYearField.val(expYear);
+        zipCodeField.val(zipCode);
+        nameOnCardField.val(cardHolderName);
+        swiper_popup_close();
+        creditCardField.trigger('focus');
+        if(expiryMonthField.val()==0){
+            expiryMonthField.addClass('invalid');
+            expiryMonthField.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            expiryMonthField.removeClass('invalid');
+            expiryMonthField.closest('.input-wrap').find('.warning-message').hide();
+        }
+        if(expYearField.val()==0){
+            expYearField.addClass('invalid');
+            expYearField.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            expYearField.removeClass('invalid');
+            expYearField.closest('.input-wrap').find('.warning-message').hide();
+        }
+        if(nameOnCardField.val()==''){
+            nameOnCardField.addClass('invalid');
+            nameOnCardField.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            nameOnCardField.removeClass('invalid');
+            nameOnCardField.closest('.input-wrap').find('.warning-message').hide();
+        }
+        if(!zipCodeValidation(zipCodeField.val())){
+            zipCodeField.addClass('invalid');
+            zipCodeField.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            zipCodeField.removeClass('invalid');
+            zipCodeField.closest('.input-wrap').find('.warning-message').hide();
+        }
+    });
+    //======= CONFIRMATION MODAL FOR DONATION
+    confirmModalYes.on("click", function(){
+        clearTimeout(scheduleRedirect);
+        timerFunction();
+        confirmModalSelector.modal('hide');
+        creditCardDetails.hide();
+        thankWrapper.show();
+    });
+
+    confirmModalNo.on("click", function(){
+        clearTimeout(scheduleRedirect);
+        timerFunction();
+        confirmModalSelector.modal('hide');
+    });
 
 });
