@@ -41,6 +41,21 @@
         margin-right:15px;
       }
     }
+
+    @media (min-width:992px){
+      .btn{
+        height: 4em;
+        padding: 0 30px;
+        font-size: 1em;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 2px;
+        min-width: 200px;
+        img{
+          max-height: 40px;
+        }
+      }
+    }
   }
 
   @media (min-width:768px){

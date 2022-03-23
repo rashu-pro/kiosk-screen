@@ -43,6 +43,13 @@
       min-width: 60%;
       max-width:60%;
     }
+
+    @media (min-width: 992px){
+      padding:40px 40px 20px 40px;
+      min-width: 54%;
+      max-width:54%;
+    }
+
   }
 
 
@@ -57,10 +64,6 @@
 //bootstrap modal
 .modal{
   &-confirm{
-    min-width: 550px;
-    max-width: 550px;
-    top: 44%;
-    transform: translateY(-50%)!important;
     .modal-content{
       border-radius: 15px;
     }
@@ -77,6 +80,19 @@
       &:not(:last-child){
         margin-right: 20px;
       }
+    }
+  }
+
+  @media (min-width:992px){
+    &-confirm{
+      min-width:54%;
+    }
+    &-header{
+      font-size:1.8em;
+      padding:50px 50px 80px 50px;
+    }
+    &-footer{
+      padding:40px;
     }
   }
 }

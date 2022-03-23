@@ -282,9 +282,9 @@ select.form-control:not([size]):not([multiple]) {
       padding-right:60px;
       padding-left:60px;
       .btn{
-        in-width: 300px;
-        font-size: 2em;
-        height: 3em;
+        min-width: 260px;
+        font-size: 1.5em;
+        height: 3.3em;
         border-radius: 30px;
         font-weight: 700;
         letter-spacing: 3px;

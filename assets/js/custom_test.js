@@ -161,7 +161,6 @@ $(function () {
                 } else if (mail != '') {
                     let isValid = validateMail(mail);
                     if (isValid) {
-                        $('#email-validation-message').html('');
                         showLoader(self);
                     }
                     else {
@@ -476,11 +475,6 @@ $(function () {
             setTimeout(function () {
                 $('.circle-loader').toggleClass('load-complete');
                 $('.checkmark').toggle();
-            },800);
-
-            setTimeout(function () {
-                $('.popup-wrapper').removeClass('active');
-                btnExecuteDonation.trigger('focus');
 
                 if(creditCardField.val()==''){
                     creditCardField.addClass('invalid');
@@ -518,8 +512,12 @@ $(function () {
                     zipCodeField.removeClass('invalid');
                     zipCodeField.closest('.input-wrap').find('.warning-message').hide();
                 }
-                nameOnCardField.focus();
-                card_validation();
+            },800);
+
+            setTimeout(function () {
+                $('.popup-wrapper').removeClass('active');
+                console.log('before-focus');
+                btnExecuteDonation.trigger('focus');
             },2000);
         }
 
@@ -593,11 +591,11 @@ $(function () {
     }
 
     function nameOnCardValidation(name) {
-        let isValidName = /[-a-zA-Z' ]{2,26}/g.test(name);
+        let isValidName = /[-a-zA-Z' ]{6,26}/g.test(name);
         return isValidName;
     }
 
-    //====== SHOULD NOT BE INCLUDED IN PRODUCTION VERSION
+
     //======= SWIPER CARD IMAGE CLICK ACTION
     swipeCardImage.click(function(){
         // swipePopupClose($(this));
@@ -615,20 +613,6 @@ $(function () {
         nameOnCardField.val(cardHolderName);
         swiper_popup_close();
         $('.cc-card-field').trigger('focus');
-    });
-    //======= CONFIRMATION MODAL FOR DONATION
-    confirmModalYes.on("click", function(){
-        clearTimeout(scheduleRedirect);
-        timerFunction();
-        confirmModalSelector.modal('hide');
-        creditCardDetails.hide();
-        thankWrapper.show();
-    });
-
-    confirmModalNo.on("click", function(){
-        clearTimeout(scheduleRedirect);
-        timerFunction();
-        confirmModalSelector.modal('hide');
     });
 
 });

@@ -59,6 +59,20 @@ button {
 .btn-holder .btn:not(:last-child) {
   margin-right: 15px;
 }
+@media (min-width: 992px) {
+  .btn-holder .btn {
+    height: 4em;
+    padding: 0 30px;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    min-width: 200px;
+  }
+  .btn-holder .btn img {
+    max-height: 40px;
+  }
+}
 @media (min-width: 768px) {
   .btn {
     min-width: 150px;
@@ -236,6 +250,25 @@ button {
 .input-wrap .form-control.invalid.identified:focus {
   border-color: #038246;
 }
+.input-wrap .select-box {
+  position: relative;
+}
+.input-wrap .select-box:after {
+  content: url("../images/down-arrow.png");
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  border-radius: 30px;
+  transform: translateY(-50%);
+}
+.input-wrap .select-box .form-control {
+  position: relative;
+  background: transparent;
+  z-index: 99;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
 
 .input-field-group {
   position: relative;
@@ -308,6 +341,7 @@ button {
 }
 .warning-message img {
   margin-right: 6px;
+  margin-top: -4px;
 }
 
 .show-warning .warning-message {
@@ -631,9 +665,9 @@ select.form-control:not([size]):not([multiple]) {
     padding-left: 60px;
   }
   .body-foot.btn-div .btn {
-    in-width: 300px;
-    font-size: 2em;
-    height: 3em;
+    min-width: 260px;
+    font-size: 1.5em;
+    height: 3.3em;
     border-radius: 30px;
     font-weight: 700;
     letter-spacing: 3px;
@@ -814,17 +848,18 @@ select.form-control:not([size]):not([multiple]) {
     max-width: 60%;
   }
 }
+@media (min-width: 992px) {
+  .popup-body {
+    padding: 40px 40px 20px 40px;
+    min-width: 54%;
+    max-width: 54%;
+  }
+}
 
 .swipe-card-image img {
   max-height: 200px;
 }
 
-.modal-confirm {
-  min-width: 550px;
-  max-width: 550px;
-  top: 44%;
-  transform: translateY(-50%) !important;
-}
 .modal-confirm .modal-content {
   border-radius: 15px;
 }
@@ -836,6 +871,18 @@ select.form-control:not([size]):not([multiple]) {
 }
 .modal-footer .btn:not(:last-child) {
   margin-right: 20px;
+}
+@media (min-width: 992px) {
+  .modal-confirm {
+    min-width: 54%;
+  }
+  .modal-header {
+    font-size: 1.8em;
+    padding: 50px 50px 80px 50px;
+  }
+  .modal-footer {
+    padding: 40px;
+  }
 }
 
 .popup-text {
