@@ -58,6 +58,15 @@
     }
   }
 
+  &-donate{
+    font-size: 2em;
+    font-weight: 700;
+    background: $green_dark;
+    border-radius:30px;
+    color:#fff;
+    letter-spacing: 2px;
+  }
+
   @media (min-width:768px){
     min-width: 150px;
     height:3.5em;
@@ -81,6 +90,11 @@
           margin-right:25px;
         }
       }
+    }
+
+    &-donate{
+      height: 3em;
+      padding: 0 44px;
     }
   }
 }

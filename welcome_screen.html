@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al Azhar Foundation</title>
+
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+
+    <!-- #BOOTSTRAP V4.00 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.0.9">
+
+</head>
+<body>
+
+<div class="main">
+
+    <div class="main-body">
+
+        <!-- #HEADER -->
+        <header class="header">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-5 col-sm-4 col-md-4 col-lg-4">
+                        <h2 class="company-name m-0">
+                            <i class="fa fa-home"></i>
+                            Al Azhar
+                        </h2>
+                    </div>
+
+                    <div class="col-7 col-sm-8 col-md-8 col-lg-8">
+                        <p class="m-0 text-right">
+                            <b class="header-large-text" id="ct">05:36:27 PM</b>
+                            <span class="header-small-text"><span class="d-none d-sm-inline"> Wednesday,</span> Mar 16, 2022</span>
+                            <!--<span class="date"> Monday, 21st February, 2022 </span>-->
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+
+        <div class="main-body-wrapper style-2">
+            <div class="main-body-main welcome-screen">
+                <div class="main-body-main-wrapper h-100">
+                    <div class="row h-100">
+                        <div class="col-sm-4">
+                            <div class="welcome-sidebar h-100">
+                                <div class="welcome-sidebar-block">
+                                    <div class="welcome-sidebar-block-head">Touchless Donation</div>
+                                    <div class="welcome-sidebar-block-body">
+                                        <div class="image-holder">
+                                            <img src="assets/images/qr-code.png" class="img-qrcode">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="welcome-sidebar-block">
+                                    <div class="welcome-sidebar-block-head">Announcements</div>
+                                    <div class="welcome-sidebar-block-body">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <div class="welcome-body">
+                                <div class="welcome-body-head"></div>
+                                <div class="welcome-body-body text-center">
+                                    <div class="logo-holder">
+                                        <img src="assets/images/logo_big.png">
+                                    </div>
+                                    <div class="tagline-holder">
+                                        <h2 class="tagline m-0">Al-Azhar Foundation</h2>
+                                    </div>
+                                </div>
+                                <div class="welcome-body-foot">
+                                    <div class="row align-items-center">
+                                        <div class="col-sm-6">
+                                            <div class="welcome-body-foot-left">
+                                                <div class="card-icon-holder w-100">
+                                                    <img src="assets/images/credit-icons.png" alt="Credit Card">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="welcome-body-foot-right text-right">
+                                                <button type="button" class="btn btn-donate">DONATE</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- #FOOTER -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                        <p class="mb-2 mb-sm-0 text-center text-sm-left">MasjidSolutions.net (317) 854 0207</p>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                        <p class="m-0 text-center text-sm-right">
+                            Al-Azhar Foundation  833-292-9427
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- #CONFIRM MODAL -->
+    <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" id="confirm-modal">
+        <div class="modal-dialog modal-dialog-centered modal-confirm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="popup-text">
+                        <span class="row-key">You are about to authorize a payment of </span> <span class="row-value">$ 250</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-holder">
+                        <button type="button" class="btn btn-danger" id="modal-btn-no">
+                            <img src="assets/images/cancel_white_40.png" class="img-left">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-success btn-complete-payment" id="modal-btn-yes">
+                            Yes
+                            <img src="assets/images/tick-mark_white_40.png" class="img-right">
+                        </button>
+                    </div>
+
+                </div>
+            </div>c
+        </div>
+    </div>
+
+    <!-- #LOADER -->
+    <div class="loader-div">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+</div>
+
+<!-- #jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<!-- #BOOTSTRAP -->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<!-- # JQUERY CREDIT CARD VALIDATOR -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-creditcardvalidator/1.2.0/jquery.creditCardValidator.min.js" integrity="sha512-67izqYmxFa1ChEvmVqfxhtEQDKRBi08KkxdiRZG21523OPt8bU86uccSV7IXoxRQ+BoakCjG5VZ0jFhCH+e0SA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+<script src="assets/js/card_validation.js"></script>
+<script src="assets/js/custom.js?v=1.0.9"></script>
+<!--<script src="assets/js/custom_production.js"></script>-->
+<script>
+
+    //recursive function for decreasing font size
+    function textResize(boxDivWidth,textDivWidth,fontSize){
+        if(textDivWidth<boxDivWidth){
+            console.log('text div width: '+textDivWidth);
+            console.log('box div width: '+boxDivWidth);
+            console.log('font sizing done');
+        }else{
+            fontSize = fontSize - 1;
+            tagline.css('font-size',fontSize+'px');
+            let newTaglineWidth = parseInt(tagline.css('width'));
+            textResize(rightDivWidth, newTaglineWidth, fontSize);
+        }
+    }
+
+
+    $(window).on('load',function () {
+//        let fontSize = parseInt(tagline.css('font-size'));
+//        taglineWidth = parseInt(tagline.css('width'));
+//        textResize(rightDivWidth, taglineWidth, fontSize);
+//        tagline.css('opacity',1);
+    });
+</script>
+</body>
+</html>

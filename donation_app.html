@@ -7,12 +7,13 @@
 
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
 
+    <!-- jQuery UI theme or Bootstrap (optional, if you create a custom theme) -->
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <!--keyboard css-->
+    <link href="assets/virtual_keyboard/css/keyboard.min.css" rel="stylesheet">
+
     <!-- #BOOTSTRAP V4.00 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- #FONTAWESOME -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.css" integrity="sha512-72McA95q/YhjwmWFMGe8RI3aZIMCTJWPBbV8iQY3jy1z9+bi6+jHnERuNrDPo/WGYEzzNs4WdHNyyEr/yXJ9pA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link rel="stylesheet" href="assets/css/style.css?v=1.0.9">
 
 </head>
@@ -124,7 +125,7 @@
                         <div class="input-wrap">
                             <div class="row">
                                 <div class="col-sm-5 big-cc-field">
-                                    <input autocomplete="off" class="form-control" data-val="true" data-val-email="The Email Address field is not a valid e-mail address." id="txtEmailAddress" name="EmailAddress" placeholder="Enter Your Email..." type="email" value="">
+                                    <input autocomplete="off" class="form-control vr-keyboard" data-val="true" data-val-email="The Email Address field is not a valid e-mail address." id="txtEmailAddress" name="EmailAddress" placeholder="Enter Your Email..." type="" value="">
                                     <span class="field-validation-valid" data-valmsg-for="EmailAddress" data-valmsg-replace="true" id="email-validation-message" style="color:red;font-size:18px;"></span>
                                     <span class="message-field warning-message"><img src="assets/images/forbidden_20.png"> Credit Card number is invalid</span>
 
@@ -179,7 +180,7 @@
                             <div class="input-field-group-prepend box-height-big">
                                 <span>$</span>
                             </div>
-                            <input type="text" id="other-amount-btn" class="form-control box-height-big other-amount" placeholder="Other Amount">
+                            <input type="text" id="other-amount-btn" class="form-control box-height-big other-amount vr-keyboard-num" placeholder="Other Amount">
                         </div>
 
                         <input type="hidden" data-val="true" data-val-number="The field Amount must be a number." data-val-range="Amount must be greater than $1. MAX amount allowed is $5,000" data-val-range-max="5000" data-val-range-min="1" data-val-required="Amount is required" id="txtAmount" name="Amount" placeholder="$" value="50"  />
@@ -221,7 +222,7 @@
                                     <h3 class="form-section-title"><span>Card Number</span> <span class="required-mark">*</span> </h3>
 
                                     <div class="input-wrap cc-card-number">
-                                        <input class="form-control cc-card-field">
+                                        <input class="form-control cc-card-field vr-keyboard-num">
                                         <input type="hidden" class="cc-value-holder" data-value="">
                                         <span class="message-field warning-message"><img src="assets/images/forbidden_20.png"> Credit Card number is invalid</span>
                                     </div>
@@ -284,8 +285,33 @@
                                     <h3 class="form-section-title"><span>ZIP Code</span><span class="required-mark">*</span></h3>
 
                                     <div class="input-wrap">
-                                        <input class="form-control zipcode-field" id="txtZipcode" placeholder="123">
+                                        <input class="form-control zipcode-field vr-keyboard-num" id="txtZipcode" placeholder="123">
                                         <span class="message-field warning-message"><img src="assets/images/forbidden_20.png">Invalid ZIP Code</span>
+                                        <div class="numpad-wrapper d-none">
+                                            <div class="numpad">
+                                                <div class="numpad-row">
+                                                    <div class="numpad-number" data-num="7">7</div>
+                                                    <div class="numpad-number" data-num="8">8</div>
+                                                    <div class="numpad-number" data-num="9">9</div>
+                                                </div>
+                                                <div class="numpad-row">
+                                                    <div class="numpad-number" data-num="4">4</div>
+                                                    <div class="numpad-number" data-num="5">5</div>
+                                                    <div class="numpad-number" data-num="6">6</div>
+                                                </div>
+                                                <div class="numpad-row">
+                                                    <div class="numpad-number" data-num="1">1</div>
+                                                    <div class="numpad-number" data-num="2">2</div>
+                                                    <div class="numpad-number" data-num="3">3</div>
+                                                </div>
+
+                                                <div class="numpad-row">
+                                                    <div class="numpad-number" data-num="0">0</div>
+                                                    <div class="numpad-number numpad-ok" data-num="ok">ok</div>
+                                                    <div class="numpad-number numpad-cancel" data-num="cancel">X</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -301,7 +327,6 @@
 
 
                         </div>
-
 
                         <div class="text-right">
                             <div class="btn-div body-foot">
@@ -430,16 +455,21 @@
 
 <!-- #jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!-- jQuery UI position utility (optional, if you position the keyboard yourself) -->
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
 
 <!-- #BOOTSTRAP -->
 <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+<!-- KEYBOARD JS -->
+<script src="assets/virtual_keyboard/js/jquery.keyboard.js"></script>
+
 
 <!-- # JQUERY CREDIT CARD VALIDATOR -->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-creditcardvalidator/1.2.0/jquery.creditCardValidator.min.js" integrity="sha512-67izqYmxFa1ChEvmVqfxhtEQDKRBi08KkxdiRZG21523OPt8bU86uccSV7IXoxRQ+BoakCjG5VZ0jFhCH+e0SA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
 <script src="assets/js/card_validation.js"></script>
-<script src="assets/js/custom.js?v=1.0.9"></script>
-<!--<script src="assets/js/custom_production.js"></script>-->
+<!--<script src="assets/js/custom.js?v=1.0.9"></script>-->
+<script src="assets/js/custom_production.js"></script>
 </body>
 </html>
