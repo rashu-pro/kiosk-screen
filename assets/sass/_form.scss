@@ -143,3 +143,11 @@
   position: relative;
   z-index: 99;
 }
+
+
+.cc-value-holder{
+  border-color: $green_dark;
+  &:focus{
+    border-color:$color_danger;
+  }
+}

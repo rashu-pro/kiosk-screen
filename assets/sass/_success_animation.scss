@@ -7,7 +7,7 @@ $check-thickness: 3px;
 $check-color: $brand-success;
 
 .circle-loader {
-  margin-bottom: $check-height;
+  //margin-bottom: $check-height;
   border: 5px solid rgba(0, 0, 0, 0.2);
   border-left-color: $check-color;
   animation: loader-spin 1.2s infinite linear;
@@ -15,8 +15,10 @@ $check-color: $brand-success;
   display: inline-block;
   vertical-align: top;
   border-radius: 50%;
-  width: $loader-size;
-  height: $loader-size;
+  //width: $loader-size;
+  //height: $loader-size;
+  width: 200px;
+  height: 200px;
   opacity: 0;
   visibility: hidden;
   display: none;

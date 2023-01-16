@@ -39,6 +39,15 @@
     }
   }
 }
+
+.ui{
+  &-keyboard{
+    border-radius:12px;
+    box-shadow:1px 2px 8px 2px rgba(0, 0, 0, 0.61);
+  }
+}
+
+
 .ui-keyboard-button {
   height: 2.5em;
   min-width: 3em;
@@ -86,6 +95,35 @@
   }
   .form-control{
     background: #fff;
-    border-radius:8px;
+    border-radius: 12px;
+    border-width: 0.1em;
+    padding: 0 20px;
+    font-size: 0.9em;
+    border-color: #8b8b8b;
+  }
+}
+
+body{
+  .vk-overlayer{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background: rgba(32, 32, 32, 0.56);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999;
+    transition: 0.2s opacity ease;
+  }
+  &.vk-attached{
+    .main-body-wrapper{
+      filter: blur(2px);
+      -webkit-filter: blur(2px);
+    }
+    .vk-overlayer{
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }

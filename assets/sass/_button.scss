@@ -37,6 +37,9 @@
 
   &-holder{
     .btn{
+      &-dark{
+        background: #4D4D4D;
+      }
       &:not(:last-child){
         margin-right:15px;
       }
@@ -50,9 +53,9 @@
         text-transform: uppercase;
         font-weight: 600;
         letter-spacing: 2px;
-        min-width: 200px;
+        min-width: 180px;
         img{
-          max-height: 40px;
+          max-height: 30px;
         }
       }
     }

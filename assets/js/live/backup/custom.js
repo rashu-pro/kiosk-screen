@@ -8,9 +8,8 @@ $(function () {
         e.preventDefault();
         popupClose($(this));
         $('.cc-details').hide();
-        $('.donation-details').show();
+        $('.product-selection').show();
     });
-    console.log($('.donation-details').css('display'));
 
     $('.donation-frequency button, .donation-amount-options-wrapper button').on('click', function () {
         var self = $(this);
@@ -32,12 +31,16 @@ $(function () {
     });
 
     $('.other-input-wrapper .form-control').on('focus', function () {
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         var self = $(this);
         self.closest('.other-input-wrapper').prev().find('.amount-btn').removeClass('active');
         self.parent().find('.input-field-group-prepend').addClass('focused');
     });
 
     $('.other-input-wrapper .form-control').on('blur', function () {
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         var self = $(this);
         if (self.val() == '') {
             self.parent().find('.input-field-group-prepend').removeClass('focused');
@@ -46,13 +49,14 @@ $(function () {
     });
 
 
-
     $('.btn-next-js').on('click', function (e) {
+        e.preventDefault();
         var self = $(this);
+        clearTimeout(scheduleRedirect);
+        timerFunction();
 
-        //donation-details
+        //======== AMOUNT FIELD VALIDATION ON NEXT BUTTON CLICK
         if (self.closest('.donation-details').css('display') == 'block') {
-            e.preventDefault();
             var amount = $('#txtAmount').val();
             console.log(amount);
             if (amount == '') {
@@ -63,20 +67,19 @@ $(function () {
                 $('#amount-validation-message').html('Please select or enter an Amount');
                 $('#other-amount-btn').focus();
                 return;
-            }
-            else if (parseInt(amount) <= 0) {
+            } else if (parseInt(amount) <= 0) {
                 $('#amount-validation-message').html('Amount cannot be 0, please select or enter an Amount');
                 $('#other-amount-btn').focus();
                 return;
-            }
-            else {
-                showLoader(self);
+            } else {
                 $('#amount-validation-message').hide();
+                showLoader(self);
             }
         }
+
+        //======== EMAIL VALIDATION ON NEXT BUTTON CLICK
         if (self.closest('.product-selection').css('display') == 'block') {
-            e.preventDefault();
-            if ($('#show-email').prop("checked") == true) {
+            if ($('#show-email').prop("checked") === true) {
                 console.log('enterd');
                 var mail = $('#txtEmailAddress').val();
                 if (mail == '') {
@@ -96,12 +99,25 @@ $(function () {
                     showLoader(self);
                     $('#email-validation-message').hide();
                 }
-            }
-            else {
+            } else {
                 showLoader(self);
             }
         } else {
             showLoader(self);
+        }
+
+        //==CARD SWIPING MODAL SHOW/HIDE
+        if (self.closest('.main-body-main-wrapper').hasClass('donation-details')) {
+            self.closest('.main-body').addClass('popup-active');
+            if (!$('.popup-wrapper').hasClass('active')) {
+                var cardFieldValue = $('.cc-card-field').val(),
+                    expMonth = $('.exp-month-field').val(),
+                    expYear = $('.exp-year-field').val();
+                if (cardFieldValue == '' && expMonth == 0 && expYear == 0) {
+                    $('.popup-wrapper').addClass('active');
+                }
+
+            }
         }
     });
 
@@ -116,16 +132,6 @@ $(function () {
     }
 
 
-
-
-    //var amount = $('#txtAmount').val();
-    //if (amount <= 0) {
-    //    $('#amount-validation-message').html('Amount is 0. Please select or enter a donation amount.');
-    //    $('.donate-amount-btn').focus();
-    //}
-
-
-
     function showLoader(self) {
         $('.loader-div').addClass('active');
         self.closest('.main-body').addClass('popup-active');
@@ -137,65 +143,7 @@ $(function () {
             // self.closest('.main-body').addClass('popup-active');
             // $('.popup-wrapper').addClass('active');
         }, 500);
-
-
-
-        if (self.closest('.main-body-main-wrapper').hasClass('product-selection')) {
-            self.closest('.main-body').addClass('popup-active');
-            if (!$('.popup-wrapper').hasClass('active')) {
-                var cardFieldValue = $('.cc-card-field').val(),
-                    cvvFieldValue = $('.cvv-field').val();
-                if (cardFieldValue == '' && cvvFieldValue == '') {
-                    $('.popup-wrapper').addClass('active');
-                }
-
-            }
-        }
     }
-
-
-
-
-
-
-
-    //step-two
-
-    //function back() {
-    //    history.back();
-    //}
-    //$('.btn-back-js').on('click', function () {
-    //    back();
-    //});
-
-
-    //$('.swipe-card-image').on('click', function () {
-    //    var self = $(this);
-    //    var cardNumber = '4242 4242 4242 4242',
-    //        cardHolderName = 'Jhon Doe',
-    //        expMonth = '03',
-    //        expYear = '2026';
-    //    self.hide();
-    //    $('.circle-loader').addClass('active');
-    //    setTimeout(function () {
-    //        $('.circle-loader').toggleClass('load-complete');
-    //        $('.checkmark').toggle();
-    //    }, 800);
-    //    setTimeout(function () {
-    //        self.closest('.popup-wrapper').removeClass('active');
-    //        $('.main-body').removeClass('popup-active');
-    //        $('.cc-card-field').trigger('focus');
-    //        if ($('.cc-card-field').val() == '') {
-
-    //            $('.cc-card-field').val(cardNumber);
-    //            $('.exp-month-field').val(expMonth);
-    //            $('.exp-year-field').val(expYear);
-    //            $('.name-on-card').val(cardHolderName);
-    //        }
-
-    //        $('.cvv-field').trigger('focus');
-    //    }, 2000);
-    //});
 
     // wrapper height
     var headerHeight = $('.header').height(),
@@ -209,7 +157,8 @@ $(function () {
         headFootHeightPx = (headFootHeight + 80) + 'px';
     }
 
-    mainWrapperHeight = "calc(100vh - " + headFootHeightPx + ")";
+    let mainWrapperHeight = "calc(100vh - " + headFootHeightPx + ")",
+        formSection = $('.form-section');
 
     function wrapperHeight() {
         console.log('content height:' + contentHeight);
@@ -225,6 +174,19 @@ $(function () {
         wrapperHeight();
     });
 
+    let windowWidth = $(window).width();
+    if(parseInt(windowHeight)>899){
+        headFootHeightPx = (headFootHeight + 160)+'px';
+    }else if(parseInt(windowHeight)>590){
+        headFootHeightPx = (headFootHeight + 80)+'px';
+    }
+     mainWrapperHeight = "auto";
+
+    if(parseInt(windowWidth)>576 && parseInt(windowHeight)>520){
+        console.log(headFootHeightPx);
+        mainWrapperHeight = "calc(100vh - "+headFootHeightPx+")";
+    }
+
     // content fitting in specific display
     function fitSize() {
         var body = $('body'),
@@ -234,7 +196,8 @@ $(function () {
             mainBodyCard = $('.main-body-main'),
             donationDetails_FormSection = $('.donation-details .form-section'),
             inputWrapFormControl = $('.input-wrap .form-control');
-        var fontSize = '20px',
+        // let mainBodyCard = mainBodyMain;
+        let fontSize = '20px',
             boxHeightBig = '60px',
             wrapperPaddingTop = '0px',
             wrapperPaddingLeft = '15px',
@@ -243,7 +206,27 @@ $(function () {
             otherInputWrapperPaddingTop = '30px',
             donationDetils_FormSectionPaddingBottom = '30px',
             inputWrapFormControlHeight = '50px';
-        if (parseInt(windowHeight) > 750) {
+
+        if(parseInt(windowHeight)>750 && parseInt(windowWidth)<576){
+            boxHeightBig = '60px';
+            mainWrapperPaddingTop = '20px';
+            donationDetils_FormSectionPaddingBottom = '30px';
+            mainWrapperPaddingLeft = '15px';
+            otherInputWrapperPaddingTop = '15px';
+            inputWrapFormControlHeight = '50';
+            inputWrapFormControl.parent().addClass('big-cc-field');
+        }else if(parseInt(windowHeight)>900 && parseInt(windowWidth)>576){
+            fontSize = '26px';
+            boxHeightBig = '80px';
+            wrapperPaddingTop = '0px';
+            wrapperPaddingLeft = '40px';
+            mainWrapperPaddingTop = '35px';
+            mainWrapperPaddingLeft = '40px';
+            otherInputWrapperPaddingTop = '35px';
+            donationDetils_FormSectionPaddingBottom = '40px';
+            inputWrapFormControlHeight = '65';
+            inputWrapFormControl.parent().addClass('big-cc-field');
+        }else if(parseInt(windowHeight)>750 && parseInt(windowWidth)>576){
             fontSize = '26px';
             boxHeightBig = '80px';
             wrapperPaddingTop = '0px';
@@ -254,8 +237,7 @@ $(function () {
             donationDetils_FormSectionPaddingBottom = '30px';
             inputWrapFormControlHeight = '60px';
             inputWrapFormControl.parent().addClass('big-cc-field');
-        } else if (parseInt(windowHeight) > 590) {
-            console.log('greater than 590');
+        }else if(parseInt(windowHeight)>590 && parseInt(windowWidth)>576){
             fontSize = '20px';
             boxHeightBig = '60px';
             wrapperPaddingTop = '0px';
@@ -265,8 +247,7 @@ $(function () {
             otherInputWrapperPaddingTop = '20px';
             donationDetils_FormSectionPaddingBottom = '20px';
             inputWrapFormControlHeight = '50px';
-        } else if (windowHeight > 499) {
-            console.log('greater than 500');
+        }else if(windowHeight>499){
             fontSize = '16px';
             boxHeightBig = '50px';
             wrapperPaddingTop = '0px';
@@ -277,11 +258,11 @@ $(function () {
             donationDetils_FormSectionPaddingBottom = '15px';
             inputWrapFormControlHeight = '45px';
 
-        } else {
+        }else{
 
         }
-        body.css('font-size', fontSize);
-        boxBig.css('height', boxHeightBig);
+        body.css('font-size',fontSize);
+        boxBig.css('height',boxHeightBig);
         mainBodyWrapper.css({
             'padding-top': wrapperPaddingTop,
             'padding-left': wrapperPaddingLeft,
@@ -298,7 +279,7 @@ $(function () {
         otherInputWrapper.css('padding-top', otherInputWrapperPaddingTop);
 
         donationDetails_FormSection.css('padding-bottom', donationDetils_FormSectionPaddingBottom);
-        $('.form-section').css('padding-bottom', donationDetils_FormSectionPaddingBottom);
+        formSection.css('padding-bottom', donationDetils_FormSectionPaddingBottom);
 
         inputWrapFormControl.css('height', inputWrapFormControlHeight);
     }
@@ -310,25 +291,6 @@ $(function () {
     });
 });
 
-function swiper_popup_close() {
-
-    if ($('.popup-wrapper').hasClass('active')) {
-        $('.swipe-card-image').hide();
-        $('.circle-loader').addClass('active');
-        setTimeout(function () {
-            $('.circle-loader').toggleClass('load-complete');
-            $('.checkmark').toggle();
-        }, 800);
-
-        setTimeout(function () {
-            $('.popup-wrapper').removeClass('active');
-            $('.cvv-field').trigger('focus');
-        }, 2000);
-    }
-
-}
-
-
 function popupClose(elementToHide) {
     var self = $(elementToHide);
     self.closest('.popup-wrapper').removeClass('active');
@@ -336,33 +298,60 @@ function popupClose(elementToHide) {
 }
 
 $('.popup-close-js').on('click', function () {
+    clearTimeout(scheduleRedirect);
+    timerFunction();
     popupClose($(this));
 });
 
+//======= REDIRECT TO HOMESCREEN AFTER EACH 2 MINUTES
+var reloadTime = 120000,
+    scheduleRedirect = false;
+function timerFunction(){
+    scheduleRedirect = setTimeout(function () {
+        history.back();
+    },reloadTime);
+}
+
 // credit card validation new
+var expiryMonthField = $('.exp-month-field'),
+    expYearField = $('.exp-year-field'),
+    nameOnCardField = $('.name-on-card'),
+    zipCodeField = $('#zipCodeField');
 var J = Payment.J;
 function card_validation() {
-    // numeric = document.querySelector('[data-numeric]'),
-    var number = document.querySelector('.cc-card-field'),
-        // exp = document.querySelector('.cc-exp'),
-        cvc = document.querySelector('.cvv-field');
-    // validation = document.querySelector('.validation');
-    // Payment.restrictNumeric(numeric);
+    var number = document.querySelector('.cc-card-field');
     Payment.formatCardNumber(number);
-    // Payment.formatCardExpiry(exp);
-    Payment.formatCardCVC(cvc);
     $('.btn-donate-flow-complete-js').on('click', function (e) {
         e.preventDefault();
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         J.toggleClass(document.querySelectorAll('input'), 'invalid');
-        // J.removeClass(validation, 'passed failed');
         var cardType = Payment.fns.cardType(J.val(number));
         J.toggleClass(number, 'invalid', !Payment.fns.validateCardNumber(J.val(number)));
-        // J.toggleClass(exp, 'invalid', !Payment.fns.validateCardExpiry(Payment.cardExpiryVal(exp)));
-        J.toggleClass(cvc, 'invalid', !Payment.fns.validateCardCVC(J.val(cvc), cardType));
+        if(expiryMonthField.val()==0){
+            expiryMonthField.addClass('invalid');
+        }else{
+            expiryMonthField.removeClass('invalid');
+        }
+        if(expYearField.val()==0){
+            expYearField.addClass('invalid');
+        }else{
+            expYearField.removeClass('invalid');
+        }
+        if(nameOnCardField.val()==''){
+            nameOnCardField.addClass('invalid');
+        }else{
+            nameOnCardField.removeClass('invalid');
+        }
+        if(zipCodeField.val()=='' || zipCodeField.val().length<4){
+            zipCodeField.addClass('invalid');
+        }else{
+            zipCodeField.removeClass('invalid');
+        }
         if (document.querySelectorAll('.invalid').length) {
             // J.addClass(validation, 'failed');
         } else {
-            // J.addClass(validation, 'passed');
+            $("#confirm-modal").modal('show');
         }
     });
 }
@@ -373,12 +362,11 @@ if ($('.cc-details').css('style') == 'block') {
 
 
 $(document).on('focus', '.cc-card-field', function (e) {
+    console.log('focused!');
     card_validation();
 });
 
-$(document).on('change', '.cc-card-field', function (e) {
-    card_validation();
-});
+
 //$('.cc-card-field').on('change', function () {
 //    popupClose('.popup-wrapper');
 //})
@@ -388,6 +376,8 @@ $(document).on('change', '.cc-card-field', function (e) {
 //======= BUTTON PREVIOUS ACTION
 $('.btn-back-js').on('click', function (event) {
     event.preventDefault();
+    clearTimeout(scheduleRedirect);
+    timerFunction();
     let self = $(this);
     if (self.hasClass('btn-prev-page')) {
         prevPage();
@@ -413,6 +403,65 @@ function showMailField() {
 
     if ($('#show-email').prop("checked") == false) {
         $('.email-address').hide();
+    }
+
+}
+
+//====== SHOULD NOT BE INCLUDED IN PRODUCTION VERSION
+//======= CONFIRMATION MODAL FOR DONATION
+let confirmModalYes = $('#modal-btn-yes'),
+    confirmModalNo = $('#modal-btn-no'),
+    confirmModalSelector = $('#confirm-modal'),
+    creditCardDetails = $('.cc-details'),
+    thankWrapper = $('.thank-wrapper'),
+    swipeCardImage = $('.swipe-card-image');
+
+confirmModalYes.on("click", function(){
+    clearTimeout(scheduleRedirect);
+    timerFunction();
+    confirmModalSelector.modal('hide');
+    creditCardDetails.hide();
+    thankWrapper.show();
+});
+
+confirmModalNo.on("click", function(){
+    clearTimeout(scheduleRedirect);
+    timerFunction();
+    confirmModalSelector.modal('hide');
+});
+
+//======= SWIPER CARD IMAGE CLICK ACTION
+swipeCardImage.click(function(){
+    // swipePopupClose($(this));
+
+    let cardNumber = '4026000000000002',
+        cardHolderName = 'Jhon Doe',
+        expMonth = '03',
+        expYear = '2024';
+
+    $('.cc-card-field').val(cardNumber);
+    card_validation();
+    $('.exp-month-field').val(expMonth);
+    $('.exp-year-field').val(expYear);
+    $('.name-on-card').val(cardHolderName);
+    swiper_popup_close();
+});
+
+//======= CLOSING SWIPER POPUP
+function swiper_popup_close(){
+
+    if($('.popup-wrapper').hasClass('active')){
+        $('.swipe-card-image').hide();
+        $('.circle-loader').addClass('active');
+        setTimeout(function () {
+            $('.circle-loader').toggleClass('load-complete');
+            $('.checkmark').toggle();
+        },800);
+
+        setTimeout(function () {
+            $('.popup-wrapper').removeClass('active');
+            $('.cvv-field').trigger('focus');
+        },2000);
     }
 
 }

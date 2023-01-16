@@ -259,11 +259,17 @@ select.form-control:not([size]):not([multiple]) {
     //padding-top:30px;
   }
   .circle-loader{
-    margin-top:30px;
+    //margin-top:30px;
   }
   .swipe-card-image{
-    padding-top:30px;
-    padding-bottom:20px;
+
+  }
+  .popup-body-body{
+    padding-top: 2em;
+    padding-bottom: 4em;
+    //min-height: 300px;
+  }
+  .check-wrapper{
   }
 }
 

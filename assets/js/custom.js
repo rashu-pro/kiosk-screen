@@ -36,6 +36,11 @@ $(function () {
         confirmModalYes = $("#modal-btn-yes"),
         confirmModalNo = $("#modal-btn-no"),
         popupCloseBtn = $('.popup-close-js'),
+        //---- VARIABLE FOR KEYBOARD
+        numpadWrapper = $('.numpad-wrapper'),
+        numpadNumberSelector = $('.numpad-number'),
+        numpadOk = $('.numpad-ok'),
+        numpadCancel = $('.numpad-cancel'),
         //----VARIABLE FOR MAIN BODY HEIGHT CALCULATION
         headerHeight = header.height(),
         footerHeight = footer.height(),
@@ -48,7 +53,7 @@ $(function () {
         reloadTime = 120000,
         scheduleRedirect = false;
     if(parseInt(windowHeight)>899){
-        headFootHeightPx = (headFootHeight + 160)+'px';
+        headFootHeightPx = (headFootHeight + 120)+'px';
     }else if(parseInt(windowHeight)>590){
         headFootHeightPx = (headFootHeight + 80)+'px';
     }
@@ -65,7 +70,7 @@ $(function () {
     //======= AFTER FULL CONTENT LOAD
     $(window).on('load',function () {
         fitSize();
-        // timerFunction();
+        timerFunction();
     });
 
     //======= ON WINDOW RESIZE
@@ -86,7 +91,7 @@ $(function () {
         if(self.parent().hasClass('donation-amount-options-wrapper')){
             if(self.parent().next().find('.input-field-group-prepend').hasClass('focused')){
                 self.parent().next().find('.input-field-group-prepend').removeClass('focused');
-                self.parent().next().find('.form-control').val('');
+                //self.parent().next().find('.form-control').val('');
             }
         }
     });
@@ -128,28 +133,6 @@ $(function () {
         timerFunction();
         let self = $(this);
 
-        //=== AMOUNT FIELD VALIDATION ON NEXT BUTTON CLICK
-        if (self.closest('.donation-details').css('display') == 'block') {
-            let amount = $('#txtAmount').val();
-            console.log(amount);
-            if (amount == '') {
-                $('#amount-validation-message').html('Please select or enter an Amount');
-                $('#other-amount-btn').focus();
-                return;
-            } else if (amount == 'NaN') {
-                $('#amount-validation-message').html('Please select or enter an Amount');
-                $('#other-amount-btn').focus();
-                return;
-            } else if (parseInt(amount) <= 0) {
-                $('#amount-validation-message').html('Amount cannot be 0, please select or enter an Amount');
-                $('#other-amount-btn').focus();
-                return;
-            } else {
-                $('#amount-validation-message').hide();
-                showLoader(self);
-            }
-        }
-
         //==EMAIL VALIDATION ON NEXT BUTTON CLICK
         if (self.closest('.product-selection').css('display') == 'block') {
             if ($('#show-email').prop("checked") === true) {
@@ -161,8 +144,8 @@ $(function () {
                 } else if (mail != '') {
                     let isValid = validateMail(mail);
                     if (isValid) {
-                        $('#email-validation-message').html('');
                         showLoader(self);
+                        $('#email-validation-message').html('');
                     }
                     else {
                         $('#email-validation-message').html('Email is not valid. Please enter a valid email address.');
@@ -171,15 +154,45 @@ $(function () {
                 }
                 else {
                     showLoader(self);
-                    $('#email-validation-message').hide();
+                    $('#email-validation-message').html('');
                 }
             } else {
                 showLoader(self);
             }
-        } else {
-            showLoader(self);
         }
 
+        //=== AMOUNT FIELD VALIDATION ON NEXT BUTTON CLICK
+        if (self.closest('.donation-details').css('display') == 'block') {
+            let amount = $('#txtAmount').val();
+            //console.log(amount);
+
+            if (amount == '') {
+                $('#amount-validation-message').html('Please select or enter an Amount');
+                $('#other-amount-btn').focus();
+                return;
+            } else if (amount == 'NaN') {
+                $('#amount-validation-message').html('Please select or enter an Amount');
+                $('#other-amount-btn').focus();
+                return;
+            } else {
+                if (parseInt(amount) <= 0) {
+                    $('#amount-validation-message').html('Amount cannot be 0, please select or enter an Amount');
+                    $('#other-amount-btn').focus();
+                    return;
+                } else {
+                    $('#amount-validation-message').hide();
+
+                    var updatedAmount = $('#txtAmount').val();
+                    // $('.amount-in-modal').text($('#txtAmount').val());
+
+
+                    $('#amount-in-modal').html('$' + updatedAmount);
+                    $('.row-value').html('$' + updatedAmount);
+                    showLoader(self);
+                }
+
+            }
+        }
     });
 
     //======= BUTTON PREVIOUS ACTION
@@ -191,6 +204,13 @@ $(function () {
         if(self.hasClass('btn-prev-page')){
             prevPage();
         }else{
+            if ($('.cc-details').css('display') == 'block') {
+                creditCardField.val('');
+                expYearField.val(0);
+                expiryMonthField.val(0);
+                zipCodeField.val('');
+                nameOnCardField.val('');
+            }
             self.closest('.main-body-main-wrapper').hide();
             self.closest('.main-body-main-wrapper').prev().show();
         }
@@ -202,6 +222,9 @@ $(function () {
         clearTimeout(scheduleRedirect);
         timerFunction();
         popupClose($(this));
+        creditCardField.val();
+        expiryMonthField.val(0);
+        expYearField.val(0);
         creditCardDetails.hide();
         productDetails.show();
     });
@@ -215,6 +238,8 @@ $(function () {
 
     //======= SHOW EMAIL FIELD ON CHECKBOX CHANGE
     $('#show-email').on('change', function () {
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         showMailField();
     });
 
@@ -222,15 +247,15 @@ $(function () {
     //********* CARD VALIDATION FUNCTION CALL *********
     //======= ON CREDIT CARD FIELD FOCUS
     $(document).on('focus','.cc-card-field',function (e) {
-        card_validation();
+        // card_validation();
     });
 
     creditCardField.on('keypress',function (e) {
-        card_validation();
+        // card_validation();
     });
 
     creditCardField.on('blur',function (e) {
-        card_validation();
+        // card_validation();
     });
 
     //======= ZIP CODE VALIDATION
@@ -362,9 +387,6 @@ $(function () {
         if(contentHeight<viewPortHeight){
             mainBodyMain.height(mainWrapperHeight);
         }
-        let welcomeSidebarBlockHeight = (parseInt(mainBodyMain.height())/2)-15;
-        console.log('sidebar height: '+welcomeSidebarBlockHeight);
-        $('.welcome-sidebar-block').height(welcomeSidebarBlockHeight);
     }
     //======= CONTENT FITTING IN SPECIFIC DISPLAY
     function fitSize(){
@@ -391,9 +413,9 @@ $(function () {
             fontSize = '26px';
             boxHeightBig = '80px';
             wrapperPaddingTop = '0px';
-            wrapperPaddingLeft = '60px';
+            wrapperPaddingLeft = '25px';
             mainWrapperPaddingTop = '35px';
-            mainWrapperPaddingLeft = '60px';
+            mainWrapperPaddingLeft = '30px';
             otherInputWrapperPaddingTop = '35px';
             donationDetils_FormSectionPaddingBottom = '50px';
             inputWrapFormControlHeight = '65';
@@ -404,7 +426,7 @@ $(function () {
             wrapperPaddingTop = '0px';
             wrapperPaddingLeft = '40px';
             mainWrapperPaddingTop = '35px';
-            mainWrapperPaddingLeft = '40px';
+            mainWrapperPaddingLeft = '30px';
             otherInputWrapperPaddingTop = '35px';
             donationDetils_FormSectionPaddingBottom = '40px';
             inputWrapFormControlHeight = '65';
@@ -446,6 +468,8 @@ $(function () {
         }
         body.css('font-size',fontSize);
         boxBig.css('height',boxHeightBig);
+
+        //==== 'main-body-wrapper' DIV
         mainBodyWrapper.css({
             'padding-top': wrapperPaddingTop,
             'padding-left': wrapperPaddingLeft,
@@ -453,6 +477,7 @@ $(function () {
             'padding-bottom': wrapperPaddingTop
         });
 
+        //==== 'main-body-main' DIV
         mainBodyCard.css({
             'padding-top': mainWrapperPaddingTop,
             'padding-left': mainWrapperPaddingLeft,
@@ -470,64 +495,7 @@ $(function () {
     function prevPage(){
         history.back();
     }
-    //======= CLOSING SWIPER POPUP
-    function swiper_popup_close(){
 
-        if($('.popup-wrapper').hasClass('active')){
-            $('.swipe-card-image').hide();
-            $('.circle-loader').addClass('active');
-            setTimeout(function () {
-                $('.circle-loader').toggleClass('load-complete');
-                $('.checkmark').toggle();
-            },800);
-
-            setTimeout(function () {
-                $('.popup-wrapper').removeClass('active');
-                btnExecuteDonation.trigger('focus');
-
-                if(creditCardField.val()==''){
-                    creditCardField.addClass('invalid');
-                    creditCardField.closest('.input-wrap').find('.warning-message').show();
-                }else{
-                    creditCardField.removeClass('invalid');
-                    creditCardField.closest('.input-wrap').find('.warning-message').hide();
-                }
-
-                if(expiryMonthField.val()==0){
-                    expiryMonthField.addClass('invalid');
-                    expiryMonthField.closest('.input-wrap').find('.warning-message').show();
-                }else{
-                    expiryMonthField.removeClass('invalid');
-                    expiryMonthField.closest('.input-wrap').find('.warning-message').hide();
-                }
-                if(expYearField.val()==0){
-                    expYearField.addClass('invalid');
-                    expYearField.closest('.input-wrap').find('.warning-message').show();
-                }else{
-                    expYearField.removeClass('invalid');
-                    expYearField.closest('.input-wrap').find('.warning-message').hide();
-                }
-                if(nameOnCardField.val()==''){
-                    nameOnCardField.addClass('invalid');
-                    nameOnCardField.closest('.input-wrap').find('.warning-message').show();
-                }else{
-                    nameOnCardField.removeClass('invalid');
-                    nameOnCardField.closest('.input-wrap').find('.warning-message').hide();
-                }
-                if(!zipCodeValidation(zipCodeField.val())){
-                    zipCodeField.addClass('invalid');
-                    zipCodeField.closest('.input-wrap').find('.warning-message').show();
-                }else{
-                    zipCodeField.removeClass('invalid');
-                    zipCodeField.closest('.input-wrap').find('.warning-message').hide();
-                }
-                creditCardField.focus();
-                zipCodeField.focus();
-                card_validation();
-            },2000);
-        }
-
-    }
     //======= CLOSING SWIPER MODAL WHEN CANCEL BUTTON CLICKED
     function popupClose(elementToHide){
         let self = $(elementToHide);
@@ -537,17 +505,20 @@ $(function () {
     //======= CREDIT CARD DATA VALIDATION
     let J = Payment.J;
     function card_validation(){
-        let number = document.querySelector('.cc-card-field');
+        let number = document.querySelector('.cc-value-holder');
         Payment.formatCardNumber(number);
         J.toggleClass(document.querySelectorAll('input'), 'invalid');
         let cardType = Payment.fns.cardType(J.val(number));
         // J.toggleClass(number, 'invalid', !Payment.fns.validateCardNumber(J.val(number)));
+        if(cardType){
+            creditCardField.addClass(cardType);
+        }
         if(Payment.fns.validateCardNumber(J.val(number))){
             creditCardField.removeClass('invalid');
             creditCardField.addClass('valid');
             creditCardField.closest('.input-wrap').find('.warning-message').hide();
         }else{
-            creditCardField.addClass('invalid');
+            creditCardField.addClass('invaliddd');
             creditCardField.removeClass('valid');
             creditCardField.closest('.input-wrap').find('.warning-message').show();
         }
@@ -586,6 +557,9 @@ $(function () {
             if(self.closest('.main-body-main-wrapper').next().hasClass('cc-details') && creditCardField.val()==='' && expiryMonthField.val()==='0' && expYearField.val()==='0'){
                 self.closest('.main-body').removeClass('popup-active');
                 $('.popup-wrapper').addClass('active');
+                $('.swipe-card-image').css('display', 'block');
+                $('.circle-loader').removeClass('active load-complete');
+                $('.checkmark').css('display', 'none');
             }
 
         }, 500);
@@ -601,75 +575,20 @@ $(function () {
         return isValidName;
     }
 
-    //====== SHOULD NOT BE INCLUDED IN PRODUCTION VERSION
-    //======= SWIPER CARD IMAGE CLICK ACTION
-    swipeCardImage.click(function(){
-        // swipePopupClose($(this));
 
-        let cardNumber = '4026000000000002',
-            cardHolderName = 'Jhon Doe',
-            expMonth = '03',
-            expYear = '2024',
-            zipCode = '54822';
-
-        creditCardField.val(cardNumber);
-        expiryMonthField.val(expMonth);
-        expYearField.val(expYear);
-        // zipCodeField.val(zipCode);
-        nameOnCardField.val(cardHolderName);
-        swiper_popup_close();
-        // $('.zipcode-field').focus();
-    });
-    //======= CONFIRMATION MODAL FOR DONATION
-    confirmModalYes.on("click", function(){
-        clearTimeout(scheduleRedirect);
-        timerFunction();
-        confirmModalSelector.modal('hide');
-        creditCardDetails.hide();
-        thankWrapper.show();
-    });
-
-    confirmModalNo.on("click", function(){
-        clearTimeout(scheduleRedirect);
-        timerFunction();
-        confirmModalSelector.modal('hide');
-    });
 
     //======== VIRTUAL KEYBOARD (28/03/2022)
 
     //======== KEYBOARD PLUGIN CALL
-
     $('.vr-keyboard').keyboard({
-
-        // set this to ISO 639-1 language code to override language set by the layout
-        // http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-        // language defaults to "en" if not found
-        language     : null,  // string or array
-        rtl          : false, // language direction right-to-left
-
         // *** choose layout ***
         layout       : 'custom',
         customLayout : { 'normal': ['1 2 3 4 5 6 7 8 9 0',
             'q w e r t y u i o p',
             'a s d f g h j k l',
             'z x c v b n m {b} {clear:clear}',
-            '{a} @ {space} . .com {c}'
+            '{c} @ {space} . .gmail .com {a}'
         ] },
-
-        position : {
-            // optional - null (attach to input/textarea) or a jQuery object
-            // (attach elsewhere)
-            of : null,
-            my : 'center top',
-            at : 'center top',
-            // used when "usePreview" is false
-            // (centers keyboard at bottom of the input/textarea)
-            at2: 'center bottom'
-        },
-
-        display:{
-            'clear'  : '\u00f6:Clear'
-        },
 
         // allow jQuery position utility to reposition the keyboard on window resize
         reposition : true,
@@ -781,7 +700,7 @@ $(function () {
 
         // *** Useability ***
         // Auto-accept content when clicking outside the keyboard (popup will close)
-        autoAccept : false,
+        autoAccept : true,
         // Auto-accept content even if the user presses escape
         // (only works if `autoAccept` is `true`)
         autoAcceptOnEsc : false,
@@ -884,18 +803,19 @@ $(function () {
         // *** Methods ***
         // Callbacks - add code inside any of these callback functions as desired
         initialized   : function(e, keyboard, el) {},
-        beforeVisible : function(e, keyboard, el) {},
+        beforeVisible : function(e, keyboard, el) {
+            $('body').addClass('vk-attached');
+        },
         visible       : function(e, keyboard, el) {},
         beforeInsert  : function(e, keyboard, el, textToAdd) { return textToAdd; },
         change        : function(e, keyboard, el) {},
         beforeClose   : function(e, keyboard, el, accepted) {},
-        accepted      : function(e, keyboard, el) {
-            console.log('added');
-            card_validation();
-        },
+        accepted      : function(e, keyboard, el) {},
         canceled      : function(e, keyboard, el) {},
         restricted    : function(e, keyboard, el) {},
-        hidden        : function(e, keyboard, el) {},
+        hidden        : function(e, keyboard, el) {
+            $('body').removeClass('vk-attached');
+        },
 
         // called instead of base.switchInput
         switchInput : function(keyboard, goToNext, isAccepted) {},
@@ -905,27 +825,6 @@ $(function () {
 
         // build key callback (individual keys)
         buildKey : function( keyboard, data ) {
-            /*
-             data = {
-             // READ ONLY
-             // true if key is an action key
-             isAction : [boolean],
-             // key class name suffix ( prefix = 'ui-keyboard-' ); may include
-             // decimal ascii value of character
-             name     : [string],
-             // text inserted (non-action keys)
-             value    : [string],
-             // title attribute of key
-             title    : [string],
-             // keyaction name
-             action   : [string],
-             // HTML of the key; it includes a <span> wrapping the text
-             html     : [string],
-             // jQuery selector of key which is already appended to keyboard
-             // use to modify key HTML
-             $key     : [object]
-             }
-             */
             return data;
         },
 
@@ -944,27 +843,9 @@ $(function () {
 
 
     $('.vr-keyboard-num').keyboard({
-
-        // set this to ISO 639-1 language code to override language set by the layout
-        // http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-        // language defaults to "en" if not found
-        language     : null,  // string or array
-        rtl          : false, // language direction right-to-left
-
         // *** choose layout ***
         layout       : 'custom',
-        customLayout : { 'normal'  : ['7 8 9 {b}', '4 5 6 {clear}', '0 1 2 3', '{a} {c}']},
-
-        position : {
-            // optional - null (attach to input/textarea) or a jQuery object
-            // (attach elsewhere)
-            of : null,
-            my : 'center top',
-            at : 'center top',
-            // used when "usePreview" is false
-            // (centers keyboard at bottom of the input/textarea)
-            at2: 'center bottom'
-        },
+        customLayout : { 'normal'  : ['7 8 9 {b}', '4 5 6 {clear}', '0 1 2 3', '{c} {a}']},
 
         // allow jQuery position utility to reposition the keyboard on window resize
         reposition : true,
@@ -1076,7 +957,7 @@ $(function () {
 
         // *** Useability ***
         // Auto-accept content when clicking outside the keyboard (popup will close)
-        autoAccept : false,
+        autoAccept: true,
         // Auto-accept content even if the user presses escape
         // (only works if `autoAccept` is `true`)
         autoAcceptOnEsc : false,
@@ -1141,7 +1022,7 @@ $(function () {
 
         // Set the max number of characters allowed in the input, setting it to
         // false disables this option
-        maxLength : false,
+        maxLength : 16,
 
         // allow inserting characters @ caret when maxLength is set
         maxInsert : true,
@@ -1179,15 +1060,31 @@ $(function () {
         // *** Methods ***
         // Callbacks - add code inside any of these callback functions as desired
         initialized   : function(e, keyboard, el) {},
-        beforeVisible : function(e, keyboard, el) {},
+        beforeVisible : function(e, keyboard, el) {
+            $('body').addClass('vk-attached');
+        },
         visible       : function(e, keyboard, el) {},
         beforeInsert  : function(e, keyboard, el, textToAdd) { return textToAdd; },
         change        : function(e, keyboard, el) {},
-        beforeClose   : function(e, keyboard, el, accepted) {},
-        accepted      : function(e, keyboard, el) {},
-        canceled      : function(e, keyboard, el) {},
+        beforeClose: function (e, keyboard, el, accepted) {
+            if ($('.donation-details').css('display') == 'block') {
+                let otherAmount = $('#other-amount-btn').val();
+                $('#txtAmount').val(otherAmount);
+            }
+            el.focus();
+        },
+        accepted: function (e, keyboard, el) {},
+        canceled: function (e, keyboard, el) {
+
+        },
         restricted    : function(e, keyboard, el) {},
-        hidden        : function(e, keyboard, el) {},
+        hidden        : function(e, keyboard, el) {
+            $('body').removeClass('vk-attached');
+            if ($('.donation-details').css('display') == 'block') {
+                var otherAmount =  $('#other-amount-btn').val();
+                $('#txtAmount').val(otherAmount);
+            }
+        },
 
         // called instead of base.switchInput
         switchInput : function(keyboard, goToNext, isAccepted) {},
@@ -1197,27 +1094,6 @@ $(function () {
 
         // build key callback (individual keys)
         buildKey : function( keyboard, data ) {
-            /*
-             data = {
-             // READ ONLY
-             // true if key is an action key
-             isAction : [boolean],
-             // key class name suffix ( prefix = 'ui-keyboard-' ); may include
-             // decimal ascii value of character
-             name     : [string],
-             // text inserted (non-action keys)
-             value    : [string],
-             // title attribute of key
-             title    : [string],
-             // keyaction name
-             action   : [string],
-             // HTML of the key; it includes a <span> wrapping the text
-             html     : [string],
-             // jQuery selector of key which is already appended to keyboard
-             // use to modify key HTML
-             $key     : [object]
-             }
-             */
             return data;
         },
 
@@ -1228,10 +1104,140 @@ $(function () {
         // ( like this "keyboard.$preview.val('');" ), if desired
         // The validate function is called after each input, the "isClosing" value
         // will be false; when the accept button is clicked, "isClosing" is true
-        validate : function(keyboard, value, isClosing) {
+        validate: function (keyboard, value, isClosing) {
+            if ($('.donation-details').css('display') == 'block') {
+                let otherAmount = $('#other-amount-btn').val();
+                $('#txtAmount').val(otherAmount);
+            }
             return true;
         }
 
     });
+
+    //====== SHOULD NOT BE INCLUDED IN PRODUCTION VERSION
+    //======= CONFIRMATION MODAL FOR DONATION
+    confirmModalYes.on("click", function(){
+        clearTimeout(scheduleRedirect);
+        timerFunction();
+        confirmModalSelector.modal('hide');
+        creditCardDetails.hide();
+        thankWrapper.show();
+    });
+
+    confirmModalNo.on("click", function(){
+        clearTimeout(scheduleRedirect);
+        timerFunction();
+        confirmModalSelector.modal('hide');
+    });
+
+    //======= SWIPER CARD IMAGE CLICK ACTION
+    swipeCardImage.click(function(){
+        // swipePopupClose($(this));
+
+        let cardNumber = '4111111111111111',
+            cardHolderName = 'Jhon Doe',
+            expMonth = '03',
+            expYear = '2024',
+            zipCode = '54822';
+
+
+        creditCardField.val(cardNumber);
+        creditCardValueHolder.val(cardNumber);
+
+        //==== CREDIT CARD FIELD MASKING
+        let value = creditCardField.val();
+        let hideNum = [];
+        let originalNum = [];
+        let mainNumFirstPart = [];
+        let mainNumLastPart = [];
+        let fullValue = [];
+        if(parseInt(value.charAt(value.length-1))>=0 && parseInt(value.charAt(value.length-1))<10){
+            fullValue.push(value.charAt(value.length-1));
+            $('.cc-value-holder').val($('.cc-value-holder').val()+fullValue);
+            $('.cc-value-holder').focus();
+            card_validation();
+        }
+
+        for (let i = 0; i < value.length; i++) {
+            if(i<12){
+                mainNumLastPart.push(value[i]);
+                hideNum.push("*");
+            }else{
+                mainNumLastPart.push(value[i]);
+                originalNum.push(value[i]);
+            }
+        }
+
+        hideNum = hideNum.join('');
+        originalNum = originalNum.join('');
+        mainNumFirstPart = mainNumFirstPart.join('');
+        mainNumLastPart = mainNumLastPart.join('');
+        fullValue = hideNum+originalNum;
+        let mainNum = mainNumFirstPart+mainNumLastPart;
+        $('.cc-card-field').val(fullValue);
+        //==== CREDIT CARD FIELD MASKING END
+
+
+        expiryMonthField.val(expMonth);
+        expYearField.val(expYear);
+        // zipCodeField.val(zipCode);
+        nameOnCardField.val(cardHolderName);
+        swiper_popup_close();
+        // $('.zipcode-field').focus();
+    });
+
+    //======= CLOSING SWIPER POPUP
+    function swiper_popup_close() {
+        if ($('.popup-wrapper').hasClass('active')) {
+            $('.swipe-card-image').hide();
+            $('.circle-loader').addClass('active');
+            setTimeout(function () {
+                $('.circle-loader').toggleClass('load-complete');
+                $('.checkmark').toggle();
+            }, 800);
+
+            setTimeout(function () {
+                $('.popup-wrapper').removeClass('active');
+                if (creditCardField.val() == '') {
+                    creditCardField.addClass('invalid');
+                    creditCardField.closest('.input-wrap').find('.warning-message').show();
+                } else {
+                    creditCardField.removeClass('invalid');
+                    creditCardField.closest('.input-wrap').find('.warning-message').hide();
+                }
+                if (expiryMonthField.val() == 0) {
+                    expiryMonthField.addClass('invalid');
+                    expiryMonthField.closest('.input-wrap').find('.warning-message').show();
+                } else {
+                    expiryMonthField.removeClass('invalid');
+                    expiryMonthField.closest('.input-wrap').find('.warning-message').hide();
+                }
+                if (expYearField.val() == 0) {
+                    expYearField.addClass('invalid');
+                    expYearField.closest('.input-wrap').find('.warning-message').show();
+                } else {
+                    expYearField.removeClass('invalid');
+                    expYearField.closest('.input-wrap').find('.warning-message').hide();
+                }
+                if (nameOnCardField.val() == '') {
+                    nameOnCardField.addClass('invalid');
+                    nameOnCardField.closest('.input-wrap').find('.warning-message').show();
+                } else {
+                    nameOnCardField.removeClass('invalid');
+                    nameOnCardField.closest('.input-wrap').find('.warning-message').hide();
+                }
+                if (!zipCodeValidation(zipCodeField.val())) {
+                    zipCodeField.addClass('invalid');
+                    zipCodeField.closest('.input-wrap').find('.warning-message').show();
+                } else {
+                    zipCodeField.removeClass('invalid');
+                    zipCodeField.closest('.input-wrap').find('.warning-message').hide();
+                }
+                creditCardField.focus();
+                zipCodeField.focus();
+            }, 2000);
+        }
+
+    }
 
 });

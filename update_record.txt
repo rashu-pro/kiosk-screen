@@ -1,0 +1,2 @@
+1) 'Send my receipt to' label removing from 'product-selection' div
+
