@@ -50,7 +50,7 @@ $(function () {
         contentHeight = mainBodyWrapper.outerHeight(),
         windowHeight = $(window).height(),
         windowWidth = $(window).width(),
-        reloadTime = 120000,
+        reloadTime = 5*60*1000,
         scheduleRedirect = false;
     if(parseInt(windowHeight)>899){
         headFootHeightPx = (headFootHeight + 120)+'px';
