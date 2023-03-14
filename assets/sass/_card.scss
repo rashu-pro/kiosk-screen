@@ -77,7 +77,7 @@
   //background-size: contain;
   background-position: 4px 7px;
   &.visa{
-    background-position: 4px -331px;
+    background-position: 4px -337px;
   }
   &.visaelectron{
     background-position: 4px -337px;
@@ -93,5 +93,26 @@
   }
   &.amex{
     background-position: 4px -401px;
+  }
+
+  @media (min-width: 768px){
+    &.visa{
+      background-position: 4px -331px;
+    }
+    &.visaelectron{
+      background-position: 4px -337px;
+    }
+    &.discover{
+      background-position: 4px -129px;
+    }
+    &.mastercard{
+      background-position: 4px -200px;
+    }
+    &.maestro{
+      background-position: 4px -260px;
+    }
+    &.amex{
+      background-position: 4px -401px;
+    }
   }
 }

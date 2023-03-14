@@ -1,476 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al Azhar Foundation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIOSK: Donation Screen</title>
 
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
+  <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
 
-    <!-- FONTAWESOME 4.5 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css" integrity="sha512-EaaldggZt4DPKMYBa143vxXQqLq5LE29DG/0OoVenoyxDrAScYrcYcHIuxYO9YNTIQMgD8c8gIUU8FQw7WpXSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- jQuery UI theme or Bootstrap (optional, if you create a custom theme) -->
-    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-    <!--keyboard css-->
-    <link href="assets/virtual_keyboard/css/keyboard.min.css" rel="stylesheet">
+  <!-- FONTAWESOME 4.5 -->
+  <link
+    rel="stylesheet"
+    href="node_modules/font-awesome/css/font-awesome.min.css"
+  />
+  <!-- jQuery UI theme or Bootstrap (optional, if you create a custom theme) -->
+  <link
+    href="node_modules/jqueryui/jquery-ui.min.css"
+    rel="stylesheet"
+  />
+  <!--keyboard css-->
+  <link
+    href="assets/virtual_keyboard/css/keyboard.min.css"
+    rel="stylesheet"
+  />
 
-    <!-- #BOOTSTRAP V4.00 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css?v=1.2.0">
+  <!-- #BOOTSTRAP V4.00 -->
+  <link
+    rel="stylesheet"
+    href="node_modules/bootstrap/dist/css/bootstrap.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="assets/css/style.css?v=1.2.0"
+  />
 
 </head>
 <body>
 
 <div class="main">
 
-    <div class="main-body">
+  <div class="main-body">
 
-        <!-- #HEADER -->
-        <header class="header">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-5 col-sm-4 col-md-4 col-lg-4">
-                        <h2 class="company-name m-0">
-                            <i class="fa fa-home"></i>
-                            Al Azhar
-                        </h2>
-                    </div>
+    <!-- #HEADER -->
+    <header class="header">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-5 col-sm-4 col-md-4 col-lg-4">
+            <h2 class="company-name m-0">
+              <i class="fa fa-home"></i>
+              Al Azhar
+            </h2>
+          </div>
 
-                    <div class="col-7 col-sm-8 col-md-8 col-lg-8">
-                        <p class="m-0 text-right">
-                            <b class="header-large-text" id="ct">05:36:27 PM</b>
-                            <span class="header-small-text"><span class="d-none d-sm-inline"> Wednesday,</span> Mar 16, 2022</span>
-                            <!--<span class="date"> Monday, 21st February, 2022 </span>-->
-                        </p>
-                    </div>
-                </div>
+          <div class="col-7 col-sm-8 col-md-8 col-lg-8">
+            <p class="m-0 text-right">
+              <b class="header-large-text" id="ct">05:36:27 PM</b>
+              <span class="header-small-text"><span class="d-none d-sm-inline"> Wednesday,</span> Mar 16, 2022</span>
+              <!--<span class="date"> Monday, 21st February, 2022 </span>-->
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </header>
+
+    <div class="main-body-wrapper style-2">
+      <div class="main-body-main">
+
+        <!-- #PRODUCT SELECTION -->
+        <div class="main-body-main-wrapper product-selection">
+
+          <div class="form-section">
+            <h3 class="form-section-title"><span>I Want to Support</span></h3>
+
+            <div class="product-options-wrapper">
+
+              <div class="option-holder">
+                <button class="amount-btn box-height-big">
+                  <span class="icon-holder">
+                    <img class="img-black" src="assets/images/general_fund.png" alt="icon">
+                    <img class="img-white" src="assets/images/general_fund_white.png" alt="icon">
+                  </span>
+                  <span class="amount">Construction Fund</span></button>
+              </div>
+
+              <div class="option-holder">
+                <button class="amount-btn box-height-big active">
+                  <span class="icon-holder">
+                    <img class="img-black" src="assets/images/icon_emergency_fund.png" alt="icon">
+                    <img class="img-white" src="assets/images/icon_emergency_fund_white.png" alt="icon">
+                  </span>
+                  <span>General Fund</span>
+                </button>
+              </div>
+
+              <div class="option-holder">
+                <button class="amount-btn box-height-big">
+                  <span class="icon-holder">
+                    <img class="img-black" src="assets/images/general_fund.png" alt="icon">
+                    <img class="img-white" src="assets/images/general_fund_white.png" alt="icon">
+                  </span>
+                  <span class="amount">Construction Fund</span></button>
+              </div>
+
+              <div class="option-holder">
+                <button class="amount-btn box-height-big">
+                  <span class="icon-holder">
+                    <img class="img-black" src="assets/images/icon_emergency_fund.png" alt="icon">
+                    <img class="img-white" src="assets/images/icon_emergency_fund_white.png" alt="icon">
+                  </span>
+                  <span>General Fund</span>
+                </button>
+              </div>
+
+              <div class="option-holder">
+                <button class="amount-btn box-height-big">
+                  <span class="icon-holder">
+                    <img class="img-black" src="assets/images/general_fund.png" alt="icon">
+                    <img class="img-white" src="assets/images/general_fund_white.png" alt="icon">
+                  </span>
+                  <span class="amount">Construction Fund</span></button>
+              </div>
+
             </div>
 
-        </header>
+          </div>
 
-        <div class="main-body-wrapper style-2">
-            <div class="main-body-main">
-
-                <!-- #PRODUCT SELECTION -->
-                <div class="main-body-main-wrapper product-selection">
-
-                    <div class="form-section">
-                        <h3 class="form-section-title"><span>I Want to Support</span></h3>
-
-                        <div class="product-options-wrapper">
-
-                            <div class="option-holder">
-                                <button class="amount-btn box-height-big">
-                                    <div class="icon-holder">
-                                        <img class="img-black" src="assets/images/general_fund.png">
-                                        <img class="img-white" src="assets/images/general_fund_white.png">
-                                    </div>
-                                    <span class="amount">Construction Fund</span> </button>
-                            </div>
-
-                            <div class="option-holder">
-                                <button class="amount-btn box-height-big active">
-                                    <div class="icon-holder">
-                                        <img class="img-black" src="assets/images/icon_emergency_fund.png">
-                                        <img class="img-white" src="assets/images/icon_emergency_fund_white.png">
-                                    </div>
-                                    <span>General Fund</span>
-                                </button>
-                            </div>
-
-                            <div class="option-holder">
-                                <button class="amount-btn box-height-big">
-                                    <div class="icon-holder">
-                                        <img class="img-black" src="assets/images/general_fund.png">
-                                        <img class="img-white" src="assets/images/general_fund_white.png">
-                                    </div>
-                                    <span class="amount">Construction Fund</span> </button>
-                            </div>
-
-                            <div class="option-holder">
-                                <button class="amount-btn box-height-big">
-                                    <div class="icon-holder">
-                                        <img class="img-black" src="assets/images/icon_emergency_fund.png">
-                                        <img class="img-white" src="assets/images/icon_emergency_fund_white.png">
-                                    </div>
-                                    <span>General Fund</span>
-                                </button>
-                            </div>
-
-                            <div class="option-holder">
-                                <button class="amount-btn box-height-big">
-                                    <div class="icon-holder">
-                                        <img class="img-black" src="assets/images/general_fund.png">
-                                        <img class="img-white" src="assets/images/general_fund_white.png">
-                                    </div>
-                                    <span class="amount">Construction Fund</span> </button>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="">
-                        <div class="checkbox-holder">
-                            <input type="checkbox" id="show-email" class="regular-checkbox">
-                            <label for="show-email">Send Receipt to Email</label>
-                        </div>
-                    </div>
-
-                    <div class="form-section email-address pt-2" style="display: none;">
-                        <div class="input-wrap">
-                            <div class="row">
-                                <div class="col-sm-5 big-cc-field">
-                                    <input autocomplete="off" class="form-control vr-keyboard" data-val="true" data-val-email="The Email Address field is not a valid e-mail address." id="txtEmailAddress" name="EmailAddress" placeholder="Enter Your Email..." type="" value="50">
-                                    <span class="field-validation-valid" data-valmsg-for="EmailAddress" data-valmsg-replace="true" id="email-validation-message" style="color:red;font-size:18px;"></span>
-                                    <span class="message-field warning-message"><img src="assets/images/forbidden_20.png"> Credit Card number is invalid</span>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TEST PURPOSE -->
-                    <!--<div class="col-sm-6">-->
-                        <!--<h3 class="form-section-title"><span>Card Number</span> <span class="required-mark">*</span> </h3>-->
-
-                        <!--<div class="input-wrap cc-card-number">-->
-                            <!--<input class="form-control cc-card-field vr-keyboard-num">-->
-                            <!--<input type="" class="cc-value-holder" data-value="" maxlength="19" style="">-->
-                            <!--<span class="message-field warning-message"><img src="assets/images/forbidden_20.png"> Credit Card number is invalid</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-
-                    <div class="">
-                        <div class="text-right">
-                            <div class="btn-div body-foot">
-                                <button class="btn btn-dark btn-back-js btn-prev-page">
-                                    <img src="assets/images/back_white_40.png" class="img-left">
-                                    <span>Back</span>
-                                </button>
-                                <button class="btn btn-success btn-next-js">
-                                    <span>Next</span>
-                                    <img src="assets/images/next_white_40.png" class="img-right">
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- #DONATION DETAILS -->
-                <div class="main-body-main-wrapper donation-details">
-
-
-                    <div class="form-section">
-                        <h3 class="form-section-title"><span>How Often?</span></h3>
-
-                        <div class="donation-frequency">
-                            <button class="frequency-btn box-height-big active">One Time</button>
-                            <button class="frequency-btn box-height-big">Monthly</button>
-                        </div>
-
-                    </div>
-
-                    <div class="form-section">
-                        <h3 class="form-section-title"><span>Donation Amount</span></h3>
-
-                        <div class="donation-amount-options-wrapper">
-                            <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span class="amount">500</span> </button>
-                            <button class="amount-btn box-height-big active"><span class="currency-symbol">$</span> <span class="amount">250</span> </button>
-                            <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span class="amount">100</span> </button>
-                            <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span class="amount">50</span> </button>
-                        </div>
-
-                        <div class="other-input-wrapper input-field-group">
-                            <div class="input-field-group-prepend box-height-big">
-                                <span>$</span>
-                            </div>
-                            <input type="text" id="other-amount-btn" class="form-control box-height-big other-amount vr-keyboard-num" placeholder="Other Amount">
-                        </div>
-
-                        <input type="hidden" id="txtAmount" name="Amount" placeholder="$" value=""  />
-
-                    </div>
-
-                    <div class="form-section">
-                        <div class="checkbox-holder">
-                            <input type="checkbox" id="checkbox-1" class="regular-checkbox" />
-                            <label for="checkbox-1">Cover processing fees</label>
-                        </div>
-                    </div>
-
-                    <div class="">
-                        <div class="text-right">
-                            <div class="btn-div body-foot">
-                                <button class="btn btn-dark btn-back-js">
-                                    <img src="assets/images/back_white_40.png" class="img-left">
-                                    <span>Back</span>
-                                </button>
-                                <button class="btn btn-success btn-next-js">
-                                    <span>Next</span>
-                                    <img src="assets/images/next_white_40.png" class="img-right">
-                                </button>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- #CREDIT CARD DETAILS -->
-                <div class="main-body-main-wrapper cc-details">
-                    <div>
-                        <div class="form-section">
-                            <div class="row small-gap">
-                                <div class="col-sm-6">
-                                    <h3 class="form-section-title"><span>Card Number</span> <span class="required-mark">*</span> </h3>
-
-                                    <div class="input-wrap cc-card-number">
-                                        <input class="form-control cc-card-field" readonly>
-                                        <input type="hidden" class="cc-value-holder" data-value="">
-                                        <span class="message-field warning-message"><img src="assets/images/forbidden_20.png"> Credit Card number is invalid</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="row small-gap">
-                                        <div class="col-sm-6">
-                                            <h3 class="form-section-title"><span>Expiry Month</span><span class="required-mark">*</span></h3>
-
-                                            <div class="input-wrap">
-                                                <div class="select-box">
-                                                    <select class="form-control exp-month-field">
-                                                        <option value="0">Exp MM</option>
-                                                        <option value="01">01</option>
-                                                        <option value="02">02</option>
-                                                        <option value="03">03</option>
-                                                        <option value="04">04</option>
-                                                        <option value="05">05</option>
-                                                        <option value="06">06</option>
-                                                        <option value="07">07</option>
-                                                        <option value="08">08</option>
-                                                        <option value="09">09</option>
-                                                    </select>
-                                                </div>
-
-                                                <span class="message-field warning-message"><img src="assets/images/forbidden_20.png">Invalid expiry month</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <h3 class="form-section-title"><span>Expiry Year</span><span class="required-mark">*</span></h3>
-
-                                            <div class="input-wrap">
-                                                <div class="select-box">
-                                                    <select class="form-control exp-year-field">
-                                                        <option value="0">Exp YY</option>
-                                                        <option value="2022">2022</option>
-                                                        <option value="2023">2023</option>
-                                                        <option value="2024">2024</option>
-                                                        <option value="2025">2025</option>
-                                                        <option value="2026">2026</option>
-                                                        <option value="2027">2027</option>
-                                                        <option value="2028">2028</option>
-                                                        <option value="2029">2029</option>
-                                                        <option value="2030">2030</option>
-                                                    </select>
-                                                </div>
-
-                                                <span class="message-field warning-message"><img src="assets/images/forbidden_20.png">Invalid expiry year</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-section">
-                            <div class="row small-gap">
-                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                    <h3 class="form-section-title"><span>ZIP Code</span><span class="required-mark">*</span></h3>
-
-                                    <div class="input-wrap">
-                                        <input class="form-control zipcode-field vr-keyboard" id="txtZipcode" placeholder="123">
-                                        <span class="message-field warning-message"><img src="assets/images/forbidden_20.png">Invalid ZIP Code</span>
-                                        <div class="numpad-wrapper d-none">
-                                            <div class="numpad">
-                                                <div class="numpad-row">
-                                                    <div class="numpad-number" data-num="7">7</div>
-                                                    <div class="numpad-number" data-num="8">8</div>
-                                                    <div class="numpad-number" data-num="9">9</div>
-                                                </div>
-                                                <div class="numpad-row">
-                                                    <div class="numpad-number" data-num="4">4</div>
-                                                    <div class="numpad-number" data-num="5">5</div>
-                                                    <div class="numpad-number" data-num="6">6</div>
-                                                </div>
-                                                <div class="numpad-row">
-                                                    <div class="numpad-number" data-num="1">1</div>
-                                                    <div class="numpad-number" data-num="2">2</div>
-                                                    <div class="numpad-number" data-num="3">3</div>
-                                                </div>
-
-                                                <div class="numpad-row">
-                                                    <div class="numpad-number" data-num="0">0</div>
-                                                    <div class="numpad-number numpad-ok" data-num="ok">ok</div>
-                                                    <div class="numpad-number numpad-cancel" data-num="cancel">X</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                    <h3 class="form-section-title"><span>Name on Card</span> <span class="required-mark">*</span> </h3>
-                                    <div class="input-wrap">
-                                        <input class="form-control name-on-card">
-                                        <span class="message-field warning-message"><img src="assets/images/forbidden_20.png">Invalid Name</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="text-right">
-                            <div class="btn-div body-foot">
-                                <button class="btn btn-dark btn-back-js">
-                                    <img src="assets/images/back_white_40.png" class="img-left">
-                                    <span>Back</span>
-                                </button>
-                                <button class="btn btn-success btn-donate-flow-complete-js">
-                                    <img src="assets/images/lock_resized.png" class="img-left">
-                                    <span>Donate</span>
-
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- #CARD SWIPER MODAL -->
-                    <div class="popup-wrapper active">
-                        <div class="popup-body">
-                            <h2 class="card-title">Swipe Card</h2>
-
-                            <div class="notification">
-                                <div class="popup-text">
-                                    <span class="row-key">Donation Amount:</span> <span class="row-value">$250</span>
-                                </div>
-                                <div class="popup-text p-0">
-                                    <span class="row-key">Donation For:</span> <span class="support-cat">Construction Fund</span>
-                                </div>
-
-                            </div>
-
-
-                            <div class="popup-body-body">
-                                <div class="swipe-card-image">
-                                    <img src="assets/images/swipe_card.png">
-                                </div>
-
-
-                                <div class="check-wrapper">
-                                    <div class="circle-loader">
-                                        <div class="checkmark draw"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="popup-wrapper-footer">
-                                <div class="text-right">
-                                    <div class="btn-holder">
-                                        <button type="button" class="btn btn-dark btn-edit">
-                                            <img src="assets/images/edit_white_26.png" class="img-left">
-                                            <span>Edit</span>
-                                        </button>
-
-                                        <a href="index.html" type="button" class="btn btn-default btn-grey popup-close-js">
-                                            <i class="fa fa-home"></i>
-                                            Back to Home
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- #THANK YOU WRAPPER -->
-                <div class="main-body-main-wrapper thank-wrapper d-none">
-                    <div class="thank-inner">
-                        <h2 class="thank-title">THANK YOU</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, quod.</p>
-                    </div>
-
-                </div>
-
-                <!-- #MAIN DIV OVERLAYER FOR VIRTUAL KEYBOARD -->
-                <div class="vk-overlayer"></div>
+          <div class="">
+            <div class="checkbox-holder mb-3 mb-md-0">
+              <input type="checkbox" id="show-email" class="regular-checkbox">
+              <label for="show-email">Send Receipt to Email</label>
             </div>
+          </div>
+
+          <div class="form-section email-address pt-2" style="display: none;">
+            <div class="input-wrap">
+              <div class="row">
+                <div class="col-sm-5 big-cc-field">
+                  <label class="d-none" for="txtEmailAddress"></label>
+                  <input autocomplete="off" class="form-control vr-keyboard" data-val="true"
+                         data-val-email="The Email Address field is not a valid e-mail address." id="txtEmailAddress"
+                         name="EmailAddress" placeholder="Enter Your Email..." type="text" value="50">
+                  <span class="field-validation-valid" data-valmsg-for="EmailAddress" data-valmsg-replace="true"
+                        id="email-validation-message" style="color:red;font-size:18px;"></span>
+                  <span class="message-field warning-message">
+                    <img src="assets/images/forbidden_20.png" alt="restricted"> Credit Card number is invalid
+                  </span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TEST PURPOSE -->
+          <!--<div class="col-sm-6">-->
+          <!--<h3 class="form-section-title"><span>Card Number</span> <span class="required-mark">*</span> </h3>-->
+
+          <!--<div class="input-wrap cc-card-number">-->
+          <!--<input class="form-control cc-card-field vr-keyboard-num">-->
+          <!--<input type="" class="cc-value-holder" data-value="" maxlength="19" style="">-->
+          <!--<span class="message-field warning-message"><img src="assets/images/forbidden_20.png"> Credit Card number is invalid</span>-->
+          <!--</div>-->
+          <!--</div>-->
+
+
+          <div class="">
+            <div class="text-right">
+              <div class="btn-div body-foot">
+                <button class="btn btn-dark btn-back-js btn-prev-page">
+                  <img src="assets/images/back_white_40.png" alt="back" class="img-left">
+                  <span>Back</span>
+                </button>
+                <button class="btn btn-success btn-next-js">
+                  <span>Next</span>
+                  <img src="assets/images/next_white_40.png" alt="next" class="img-right">
+                </button>
+              </div>
+            </div>
+
+          </div>
+
         </div>
 
-        <!-- #FOOTER -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
-                        <p class="mb-2 mb-sm-0 text-center text-sm-left">MasjidSolutions.net (317) 854 0207</p>
-                    </div>
+        <!-- #DONATION DETAILS -->
+        <div class="main-body-main-wrapper donation-details">
 
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
-                        <p class="m-0 text-center text-sm-right">
-                            Al-Azhar Foundation  833-292-9427
-                        </p>
-                    </div>
-                </div>
+
+          <div class="form-section">
+            <h3 class="form-section-title"><span>How Often?</span></h3>
+
+            <div class="donation-frequency">
+              <button class="frequency-btn box-height-big active">One Time</button>
+              <button class="frequency-btn box-height-big">Monthly</button>
             </div>
-        </footer>
-    </div>
 
-    <!-- #CONFIRM MODAL -->
-    <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" id="confirm-modal">
-        <div class="modal-dialog modal-dialog-centered modal-confirm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="popup-text">
-                        <span class="row-key">You are about to authorize a payment of </span> <span class="row-value">$ 250</span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="btn-holder">
-                        <button type="button" class="btn btn-dark" id="modal-btn-no">
-                            <img src="assets/images/cancel_white_40.png" class="img-left">
-                            Cancel
-                        </button>
-                        <button type="button" class="btn btn-success btn-complete-payment" id="modal-btn-yes">
-                            Yes
-                            <img src="assets/images/tick-mark_white_40.png" class="img-right">
-                        </button>
-                    </div>
+          </div>
 
-                </div>
-            </div>c
+          <div class="form-section">
+            <h3 class="form-section-title"><span>Donation Amount</span></h3>
+
+            <div class="donation-amount-options-wrapper">
+              <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span
+                class="amount">500</span></button>
+              <button class="amount-btn box-height-big active"><span class="currency-symbol">$</span> <span
+                class="amount">250</span></button>
+              <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span
+                class="amount">100</span></button>
+              <button class="amount-btn box-height-big"><span class="currency-symbol">$</span> <span
+                class="amount">50</span></button>
+            </div>
+
+            <div class="other-input-wrapper input-field-group">
+              <div class="input-field-group-prepend box-height-big">
+                <span>$</span>
+              </div>
+              <input type="text" id="other-amount-btn" class="form-control box-height-big other-amount vr-keyboard-num"
+                     placeholder="Other Amount">
+            </div>
+
+            <input type="hidden" id="txtAmount" name="Amount" placeholder="$" value=""/>
+
+          </div>
+
+          <div class="form-section">
+            <div class="checkbox-holder">
+              <input type="checkbox" id="checkbox-1" class="regular-checkbox"/>
+              <label for="checkbox-1">Cover processing fees</label>
+            </div>
+          </div>
+
+          <div class="">
+            <div class="text-right">
+              <div class="btn-div body-foot">
+                <button class="btn btn-dark btn-back-js">
+                  <img src="assets/images/back_white_40.png" alt="back" class="img-left">
+                  <span>Back</span>
+                </button>
+                <button class="btn btn-success btn-next-js">
+                  <span>Next</span>
+                  <img src="assets/images/next_white_40.png" alt="back" class="img-right">
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
+
+        <!-- #CREDIT CARD DETAILS -->
+        <div class="main-body-main-wrapper cc-details">
+          <div>
+            <div class="form-section">
+              <div class="row small-gap">
+                <div class="col-sm-6">
+                  <h3 class="form-section-title"><span>Card Number</span> <span class="required-mark">*</span></h3>
+
+                  <div class="input-wrap cc-card-number">
+                    <input class="form-control cc-card-field" readonly>
+                    <input type="hidden" class="cc-value-holder" data-value="">
+                    <span class="message-field warning-message">
+                      <img src="assets/images/forbidden_20.png" alt="back"> Credit Card number is invalid</span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="row small-gap">
+                    <div class="col-sm-6">
+                      <h3 class="form-section-title"><span>Expiry Month</span><span class="required-mark">*</span></h3>
+
+                      <div class="input-wrap">
+                        <div class="select-box">
+                          <select class="form-control exp-month-field">
+                            <option value="0">Exp MM</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                          </select>
+                        </div>
+
+                        <span class="message-field warning-message"><img src="assets/images/forbidden_20.png">Invalid expiry month</span>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <h3 class="form-section-title"><span>Expiry Year</span><span class="required-mark">*</span></h3>
+
+                      <div class="input-wrap">
+                        <div class="select-box">
+                          <select class="form-control exp-year-field">
+                            <option value="0">Exp YY</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                          </select>
+                        </div>
+
+                        <span class="message-field warning-message"><img src="assets/images/forbidden_20.png">Invalid expiry year</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="row small-gap">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <h3 class="form-section-title"><span>ZIP Code</span><span class="required-mark">*</span></h3>
+
+                  <div class="input-wrap">
+                    <input class="form-control zipcode-field vr-keyboard" id="txtZipcode" placeholder="123">
+                    <span class="message-field warning-message"><img src="assets/images/forbidden_20.png">Invalid ZIP Code</span>
+                    <div class="numpad-wrapper d-none">
+                      <div class="numpad">
+                        <div class="numpad-row">
+                          <div class="numpad-number" data-num="7">7</div>
+                          <div class="numpad-number" data-num="8">8</div>
+                          <div class="numpad-number" data-num="9">9</div>
+                        </div>
+                        <div class="numpad-row">
+                          <div class="numpad-number" data-num="4">4</div>
+                          <div class="numpad-number" data-num="5">5</div>
+                          <div class="numpad-number" data-num="6">6</div>
+                        </div>
+                        <div class="numpad-row">
+                          <div class="numpad-number" data-num="1">1</div>
+                          <div class="numpad-number" data-num="2">2</div>
+                          <div class="numpad-number" data-num="3">3</div>
+                        </div>
+
+                        <div class="numpad-row">
+                          <div class="numpad-number" data-num="0">0</div>
+                          <div class="numpad-number numpad-ok" data-num="ok">ok</div>
+                          <div class="numpad-number numpad-cancel" data-num="cancel">X</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <h3 class="form-section-title"><span>Name on Card</span> <span class="required-mark">*</span></h3>
+                  <div class="input-wrap">
+                    <input class="form-control name-on-card">
+                    <span class="message-field warning-message"><img
+                      src="assets/images/forbidden_20.png">Invalid Name</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-right">
+              <div class="btn-div body-foot">
+                <button class="btn btn-dark btn-back-js">
+                  <img src="assets/images/back_white_40.png" class="img-left">
+                  <span>Back</span>
+                </button>
+                <button class="btn btn-success btn-donate-flow-complete-js">
+                  <img src="assets/images/lock_resized.png" class="img-left">
+                  <span>Donate</span>
+
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- #CARD SWIPER MODAL -->
+          <div class="popup-wrapper active">
+            <div class="popup-body">
+              <h2 class="card-title">Swipe Card</h2>
+
+              <div class="notification">
+                <div class="popup-text">
+                  <span class="row-key">Donation Amount:</span> <span class="row-value">$250</span>
+                </div>
+                <div class="popup-text p-0">
+                  <span class="row-key">Donation For:</span> <span class="support-cat">Construction Fund</span>
+                </div>
+
+              </div>
+
+
+              <div class="popup-body-body">
+                <div class="swipe-card-image">
+                  <img src="assets/images/swipe_card.png">
+                </div>
+
+
+                <div class="check-wrapper">
+                  <div class="circle-loader">
+                    <div class="checkmark draw"></div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="popup-wrapper-footer">
+                <div class="text-right">
+                  <div class="btn-holder">
+                    <button type="button" class="btn btn-dark btn-edit">
+                      <img src="assets/images/edit_white_26.png" class="img-left">
+                      <span>Edit</span>
+                    </button>
+
+                    <a href="index.html" type="button" class="btn btn-default btn-grey popup-close-js">
+                      <i class="fa fa-home"></i>
+                      Back to Home
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- #THANK YOU WRAPPER -->
+        <div class="main-body-main-wrapper thank-wrapper d-none">
+          <div class="thank-inner">
+            <h2 class="thank-title">THANK YOU</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, quod.</p>
+          </div>
+
+        </div>
+
+        <!-- #MAIN DIV OVERLAYER FOR VIRTUAL KEYBOARD -->
+        <div class="vk-overlayer"></div>
+      </div>
     </div>
 
-    <!-- #LOADER -->
-    <div class="loader-div">
-        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <!-- #FOOTER -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+            <p class="mb-2 mb-sm-0 text-center text-sm-left">MasjidSolutions.net (317) 854 0207</p>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+            <p class="m-0 text-center text-sm-right">
+              Al-Azhar Foundation 833-292-9427
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- #CONFIRM MODAL -->
+  <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" id="confirm-modal">
+    <div class="modal-dialog modal-dialog-centered modal-confirm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="popup-text">
+            <span class="row-key">You are about to authorize a payment of </span> <span class="row-value">$ 250</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="btn-holder">
+            <button type="button" class="btn btn-dark" id="modal-btn-no">
+              <img src="assets/images/cancel_white_40.png" class="img-left">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success btn-complete-payment" id="modal-btn-yes">
+              Yes
+              <img src="assets/images/tick-mark_white_40.png" class="img-right">
+            </button>
+          </div>
+
+        </div>
+      </div>
+      c
     </div>
+  </div>
+
+  <!-- #LOADER -->
+  <div class="loader-div">
+    <div class="lds-spinner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 </div>
 
 <!-- #jQuery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script
+  src="node_modules/jquery/dist/jquery.min.js">
+</script>
 <!-- jQuery UI position utility (optional, if you position the keyboard yourself) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+<script
+  src="node_modules/jqueryui/jquery-ui.min.js">
+</script>
 
 <!-- #BOOTSTRAP -->
 <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script
+  src="node_modules/bootstrap/dist/js/bootstrap.min.js">
+</script>
 
 <!-- KEYBOARD JS -->
 <script src="assets/virtual_keyboard/js/jquery.keyboard.js"></script>

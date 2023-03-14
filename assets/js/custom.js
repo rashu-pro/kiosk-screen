@@ -398,7 +398,7 @@ $(function () {
             mainWrapperPaddingTop = '15px',
             mainWrapperPaddingLeft = '30px',
             otherInputWrapperPaddingTop = '30px',
-            donationDetils_FormSectionPaddingBottom = '30px',
+            donationDetils_FormSectionPaddingBottom = '20px',
             inputWrapFormControlHeight = '50px';
 
         if(parseInt(windowHeight)>750 && parseInt(windowWidth)<576){
@@ -585,10 +585,17 @@ $(function () {
         layout       : 'custom',
         customLayout : { 'normal': ['1 2 3 4 5 6 7 8 9 0',
             'q w e r t y u i o p',
-            'a s d f g h j k l',
+            '{shift} a s d f g h j k l {shift}',
             'z x c v b n m {b} {clear:clear}',
             '{c} @ {space} . .gmail .com {a}'
-        ] },
+        ],
+        'shift': ['1 2 3 4 5 6 7 8 9 0',
+            'Q W E R T Y U I O P',
+            '{shift} A S D F G H J K L {shift}',
+            'Z X C V B N M {b} {clear:clear}',
+            '{c} @ {space} . .gmail .com {a}'
+        ]
+    },
 
         // allow jQuery position utility to reposition the keyboard on window resize
         reposition : true,

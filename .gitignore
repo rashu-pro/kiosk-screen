@@ -1,2 +1,6 @@
+*.DS_Store
+*.log
+*.zip
 .idea
-assets/images/*git
+.sass-cache/
+/node_modules/

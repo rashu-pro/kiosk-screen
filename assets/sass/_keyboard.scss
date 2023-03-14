@@ -49,8 +49,8 @@
 
 
 .ui-keyboard-button {
-  height: 2.5em;
-  min-width: 3em;
+  height: 3.5em;
+  min-width: 4em;
   margin: 0.2em;
   cursor: pointer;
   overflow: hidden;
@@ -61,6 +61,11 @@
   color:#202020;
   &.ui-state-default{
     color:#202020;
+    font-size: 0.7rem;
+    @media (min-width: 768px) {
+      font-size: 1em;
+
+    }
   }
   &.ui-keyboard-accept{
     box-shadow: inset 10px 11px 4px #008800, inset 0px -5px 1px rgb(0 0 0 / 60%);
@@ -88,6 +93,11 @@
       align-items: center;
     }
   }
+
+  @media (min-width: 768px) {
+    height: 2.5em;
+    min-width: 3em;
+  }
 }
 .ui-keyboard-preview-wrapper{
   .cc-card-field{
@@ -98,8 +108,11 @@
     border-radius: 12px;
     border-width: 0.1em;
     padding: 0 20px;
-    font-size: 0.9em;
+    font-size: 1rem;
     border-color: #8b8b8b;
+    @media (min-width: 768px) {
+      font-size: 0.9em;
+    }
   }
 }
 

@@ -133,13 +133,9 @@
 .amount-btn {
   border: 3px solid $grey_border;
   padding: 0 20px;
-  //background-color: #fff;
   margin-right: 10px;
   font-weight: 600;
   font-size: 1em;
-  min-width: 42%;
-  max-width:30%;
-  //letter-spacing: 1px;
   border-radius: 12px;
   box-shadow:-1px 5px 6px 2px #20202036;
   &.active {
@@ -150,6 +146,11 @@
     border-color: $green_dark;
     box-shadow:0px 2px 5px #0382468f;
 
+  }
+
+  @media (min-width: 768px){
+    min-width: 42%;
+    max-width:30%;
   }
 
   @media (min-width:576px){

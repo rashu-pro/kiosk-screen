@@ -140,8 +140,6 @@ button {
   margin-right: 10px;
   font-weight: 600;
   font-size: 1em;
-  min-width: 42%;
-  max-width: 30%;
   border-radius: 12px;
   box-shadow: -1px 5px 6px 2px #20202036;
 }
@@ -150,6 +148,12 @@ button {
   color: #fff;
   border-color: #038246;
   box-shadow: 0px 2px 5px #0382468f;
+}
+@media (min-width: 768px) {
+  .amount-btn {
+    min-width: 42%;
+    max-width: 30%;
+  }
 }
 @media (min-width: 576px) {
   .amount-btn {
@@ -468,8 +472,8 @@ button {
 }
 
 .ui-keyboard-button {
-  height: 2.5em;
-  min-width: 3em;
+  height: 3.5em;
+  min-width: 4em;
   margin: 0.2em;
   cursor: pointer;
   overflow: hidden;
@@ -481,6 +485,12 @@ button {
 }
 .ui-keyboard-button.ui-state-default {
   color: #202020;
+  font-size: 0.7rem;
+}
+@media (min-width: 768px) {
+  .ui-keyboard-button.ui-state-default {
+    font-size: 1em;
+  }
 }
 .ui-keyboard-button.ui-keyboard-accept {
   box-shadow: inset 10px 11px 4px #008800, inset 0px -5px 1px rgba(0, 0, 0, 0.6);
@@ -508,6 +518,12 @@ button {
   justify-content: center;
   align-items: center;
 }
+@media (min-width: 768px) {
+  .ui-keyboard-button {
+    height: 2.5em;
+    min-width: 3em;
+  }
+}
 
 .ui-keyboard-preview-wrapper .cc-card-field {
   background: none;
@@ -517,8 +533,13 @@ button {
   border-radius: 12px;
   border-width: 0.1em;
   padding: 0 20px;
-  font-size: 0.9em;
+  font-size: 1rem;
   border-color: #8b8b8b;
+}
+@media (min-width: 768px) {
+  .ui-keyboard-preview-wrapper .form-control {
+    font-size: 0.9em;
+  }
 }
 
 body .vk-overlayer {
@@ -797,7 +818,7 @@ body.vk-attached .vk-overlayer {
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.06);
   background: #fff;
-  padding: 15px 15px 60px 15px;
+  padding: 15px 15px 18px 15px;
   flex: 1;
   width: 100%;
   position: relative;
@@ -810,6 +831,11 @@ body.vk-attached .vk-overlayer {
 @media (min-width: 576px) {
   .main-body-main {
     padding: 30px 30px 100px 30px;
+  }
+}
+@mieda (min-width: 768px) {
+  .main-body-main {
+    padding: 15px 15px 60px 15px;
   }
 }
 @media (min-width: 576px) {
@@ -846,7 +872,7 @@ body.vk-attached .vk-overlayer {
 .form-section-title {
   padding-bottom: 0.6em;
   margin: 0;
-  font-size: 1.12em;
+  font-size: 1em;
   font-weight: 600;
   position: relative;
 }
@@ -866,6 +892,11 @@ body.vk-attached .vk-overlayer {
   right: 0;
   height: 2px;
   background-color: #f5f5f5;
+}
+@media (min-width: 768px) {
+  .form-section-title {
+    font-size: 1.12em;
+  }
 }
 
 .cause-wrapper button {
@@ -965,26 +996,47 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .popup-wrapper .popup-body-body {
-  padding-top: 2em;
-  padding-bottom: 4em;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .popup-wrapper .popup-body-body {
+    padding-top: 2em;
+    padding-bottom: 4em;
+  }
 }
 .cvv-field {
   width: 30%;
 }
 
 .body-foot.btn-div {
-  position: absolute;
-  bottom: 2em;
-  left: 0;
-  right: 0;
-  padding-right: 25px;
-  padding-top: 2em;
+  border-top: 1px solid #ddd;
+  margin: 0 -15px;
+  padding: 20px 15px 0 15px;
 }
 .body-foot.btn-div .btn {
   text-transform: uppercase;
 }
 .body-foot.btn-div .btn img {
-  max-height: 30px;
+  max-height: 20px;
+}
+@media (min-width: 768px) {
+  .body-foot.btn-div .btn img {
+    max-height: 30px;
+  }
+}
+@media (min-width: 768px) {
+  .body-foot.btn-div {
+    position: absolute;
+    bottom: 2em;
+    left: 0;
+    right: 0;
+    padding-right: 25px;
+    border: 0;
+    padding-left: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 @media (min-width: 1024px) {
   .body-foot.btn-div {
@@ -1019,12 +1071,18 @@ select.form-control:not([size]):not([multiple]) {
   flex-wrap: wrap;
 }
 .product-options-wrapper .option-holder {
-  padding-right: 20px;
-  flex: 0 0 33.3333%;
-  max-width: 33.3333%;
+  flex: 0 0 100%;
+  max-width: 100%;
 }
-.product-options-wrapper .option-holder:nth-child(3n) {
-  padding-right: 0;
+@media (min-width: 768px) {
+  .product-options-wrapper .option-holder {
+    padding-right: 20px;
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+  }
+  .product-options-wrapper .option-holder:nth-child(3n) {
+    padding-right: 0;
+  }
 }
 .product-options-wrapper .amount-btn {
   flex: 1;
@@ -1212,14 +1270,25 @@ select.form-control:not([size]):not([multiple]) {
   visibility: hidden;
 }
 .popup-wrapper .card-title {
-  font-size: 2em;
+  font-size: 2rem;
   color: #bd2130;
   padding-bottom: 0.5em;
 }
+@media (min-width: 768px) {
+  .popup-wrapper .card-title {
+    font-size: 2em;
+  }
+}
 .popup-wrapper-footer {
   border-top: 1px solid #d8d8d8;
-  margin: 0 -40px;
-  padding: 15px 25px 0 25px;
+  margin: 0 -20px;
+  padding: 15px 15px 0 15px;
+}
+@media (min-width: 768px) {
+  .popup-wrapper-footer {
+    margin: 0 -40px;
+    padding: 15px 25px 0 25px;
+  }
 }
 .popup-wrapper.active {
   opacity: 1;
@@ -1254,7 +1323,7 @@ select.form-control:not([size]):not([multiple]) {
   background-color: #ffffff;
   border-radius: 15px;
   padding: 20px 20px 20px 20px;
-  min-height: 75%;
+  min-height: 60%;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1265,6 +1334,7 @@ select.form-control:not([size]):not([multiple]) {
     padding: 40px 40px 20px 40px;
     min-width: 60%;
     max-width: 60%;
+    min-height: 75%;
   }
 }
 @media (min-width: 992px) {
@@ -1276,7 +1346,12 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .swipe-card-image img {
-  max-height: 200px;
+  max-height: 130px;
+}
+@media (min-width: 768px) {
+  .swipe-card-image img {
+    max-height: 200px;
+  }
 }
 
 .modal-confirm .modal-content {
@@ -1391,7 +1466,7 @@ select.form-control:not([size]):not([multiple]) {
   background-position: 4px 7px;
 }
 .cc-card-field.visa {
-  background-position: 4px -331px;
+  background-position: 4px -337px;
 }
 .cc-card-field.visaelectron {
   background-position: 4px -337px;
@@ -1407,6 +1482,26 @@ select.form-control:not([size]):not([multiple]) {
 }
 .cc-card-field.amex {
   background-position: 4px -401px;
+}
+@media (min-width: 768px) {
+  .cc-card-field.visa {
+    background-position: 4px -331px;
+  }
+  .cc-card-field.visaelectron {
+    background-position: 4px -337px;
+  }
+  .cc-card-field.discover {
+    background-position: 4px -129px;
+  }
+  .cc-card-field.mastercard {
+    background-position: 4px -200px;
+  }
+  .cc-card-field.maestro {
+    background-position: 4px -260px;
+  }
+  .cc-card-field.amex {
+    background-position: 4px -401px;
+  }
 }
 
 .enquiry-form-wrapper {
