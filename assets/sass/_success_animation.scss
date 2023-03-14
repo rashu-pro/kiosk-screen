@@ -54,8 +54,8 @@ $check-color: $brand-success;
     border-right: $check-thickness solid $check-color;
     border-top: $check-thickness solid $check-color;
     content: '';
-    left: $check-left;
-    top: $check-height;
+    left: 30%;
+    top: 50%;
     position: absolute;
   }
 }

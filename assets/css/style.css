@@ -398,8 +398,8 @@ button {
   border-right: 3px solid #5cb85c;
   border-top: 3px solid #5cb85c;
   content: "";
-  left: 1.75em;
-  top: 3.5em;
+  left: 30%;
+  top: 50%;
   position: absolute;
 }
 
