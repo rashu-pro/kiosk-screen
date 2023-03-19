@@ -53,7 +53,7 @@ $(function () {
         reloadTime = 120000,
         scheduleRedirect = false;
     if(parseInt(windowHeight)>899){
-        headFootHeightPx = (headFootHeight + 160)+'px';
+        headFootHeightPx = (headFootHeight + 120)+'px';
     }else if(parseInt(windowHeight)>590){
         headFootHeightPx = (headFootHeight + 80)+'px';
     }
@@ -62,7 +62,7 @@ $(function () {
         console.log(headFootHeightPx);
         mainWrapperHeight = "calc(100vh - "+headFootHeightPx+")";
     }
-    
+
     //*********** VARIABLE DECLERATION END ************
 
     //======= MAIN BODY HEIGHT CALCULATION FUNCTION  CALL
@@ -70,7 +70,7 @@ $(function () {
     //======= AFTER FULL CONTENT LOAD
     $(window).on('load',function () {
         fitSize();
-        // timerFunction();
+        timerFunction();
     });
 
     //======= ON WINDOW RESIZE
@@ -91,7 +91,7 @@ $(function () {
         if(self.parent().hasClass('donation-amount-options-wrapper')){
             if(self.parent().next().find('.input-field-group-prepend').hasClass('focused')){
                 self.parent().next().find('.input-field-group-prepend').removeClass('focused');
-                //self.parent().next().find('.form-control').val('');               
+                //self.parent().next().find('.form-control').val('');
             }
         }
     });
@@ -204,6 +204,13 @@ $(function () {
         if(self.hasClass('btn-prev-page')){
             prevPage();
         }else{
+            if ($('.cc-details').css('display') == 'block') {
+                creditCardField.val('');
+                expYearField.val(0);
+                expiryMonthField.val(0);
+                zipCodeField.val('');
+                nameOnCardField.val('');
+            }
             self.closest('.main-body-main-wrapper').hide();
             self.closest('.main-body-main-wrapper').prev().show();
         }
@@ -228,22 +235,24 @@ $(function () {
 
     //======= SHOW EMAIL FIELD ON CHECKBOX CHANGE
     $('#show-email').on('change', function () {
+        clearTimeout(scheduleRedirect);
+        timerFunction();
         showMailField();
     });
 
 
     //********* CARD VALIDATION FUNCTION CALL *********
     //======= ON CREDIT CARD FIELD FOCUS
-    $(document).on('focus','.cc-card-field',function (e) {
-        card_validation();
+    $(document).on('focus','.cc-value-holder',function (e) {
+         card_validation();
     });
 
     creditCardField.on('keypress',function (e) {
-        card_validation();
+        // card_validation();
     });
 
     creditCardField.on('blur',function (e) {
-        card_validation();
+        // card_validation();
     });
 
     //======= ZIP CODE VALIDATION
@@ -401,9 +410,9 @@ $(function () {
             fontSize = '26px';
             boxHeightBig = '80px';
             wrapperPaddingTop = '0px';
-            wrapperPaddingLeft = '60px';
+            wrapperPaddingLeft = '25px';
             mainWrapperPaddingTop = '35px';
-            mainWrapperPaddingLeft = '60px';
+            mainWrapperPaddingLeft = '30px';
             otherInputWrapperPaddingTop = '35px';
             donationDetils_FormSectionPaddingBottom = '50px';
             inputWrapFormControlHeight = '65';
@@ -414,7 +423,7 @@ $(function () {
             wrapperPaddingTop = '0px';
             wrapperPaddingLeft = '40px';
             mainWrapperPaddingTop = '35px';
-            mainWrapperPaddingLeft = '40px';
+            mainWrapperPaddingLeft = '30px';
             otherInputWrapperPaddingTop = '35px';
             donationDetils_FormSectionPaddingBottom = '40px';
             inputWrapFormControlHeight = '65';
@@ -456,6 +465,8 @@ $(function () {
         }
         body.css('font-size',fontSize);
         boxBig.css('height',boxHeightBig);
+
+        //==== 'main-body-wrapper' DIV
         mainBodyWrapper.css({
             'padding-top': wrapperPaddingTop,
             'padding-left': wrapperPaddingLeft,
@@ -463,6 +474,7 @@ $(function () {
             'padding-bottom': wrapperPaddingTop
         });
 
+        //==== 'main-body-main' DIV
         mainBodyCard.css({
             'padding-top': mainWrapperPaddingTop,
             'padding-left': mainWrapperPaddingLeft,
@@ -490,17 +502,20 @@ $(function () {
     //======= CREDIT CARD DATA VALIDATION
     let J = Payment.J;
     function card_validation(){
-        let number = document.querySelector('.cc-card-field');
+        let number = document.querySelector('.cc-value-holder');
         Payment.formatCardNumber(number);
         J.toggleClass(document.querySelectorAll('input'), 'invalid');
         let cardType = Payment.fns.cardType(J.val(number));
         // J.toggleClass(number, 'invalid', !Payment.fns.validateCardNumber(J.val(number)));
+        if(cardType){
+            creditCardField.addClass(cardType);
+        }
         if(Payment.fns.validateCardNumber(J.val(number))){
             creditCardField.removeClass('invalid');
             creditCardField.addClass('valid');
             creditCardField.closest('.input-wrap').find('.warning-message').hide();
         }else{
-            creditCardField.addClass('invalid');
+            creditCardField.addClass('invaliddd');
             creditCardField.removeClass('valid');
             creditCardField.closest('.input-wrap').find('.warning-message').show();
         }
@@ -563,36 +578,23 @@ $(function () {
 
     //======== KEYBOARD PLUGIN CALL
     $('.vr-keyboard').keyboard({
-
-        // set this to ISO 639-1 language code to override language set by the layout
-        // http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-        // language defaults to "en" if not found
-        language     : null,  // string or array
-        rtl          : false, // language direction right-to-left
-
         // *** choose layout ***
         layout       : 'custom',
-        customLayout : { 'normal': ['1 2 3 4 5 6 7 8 9 0',
-            'q w e r t y u i o p',
-            'a s d f g h j k l',
-            'z x c v b n m {b} {clear:clear}',
-            '{a} @ {space} . .com {c}'
-        ] },
-
-        position : {
-            // optional - null (attach to input/textarea) or a jQuery object
-            // (attach elsewhere)
-            of : null,
-            my : 'center top',
-            at : 'center top',
-            // used when "usePreview" is false
-            // (centers keyboard at bottom of the input/textarea)
-            at2: 'center bottom'
+        customLayout: {
+            'normal': ['1 2 3 4 5 6 7 8 9 0',
+                'q w e r t y u i o p',
+                '{shift} a s d f g h j k l {shift}',
+                'z x c v b n m {b} {clear:clear}',
+                '{c} @ {space} . .gmail .com {a}'
+            ],
+            'shift': ['1 2 3 4 5 6 7 8 9 0',
+                'Q W E R T Y U I O P',
+                '{shift} A S D F G H J K L {shift}',
+                'Z X C V B N M {b} {clear:clear}',
+                '{c} @ {space} . .gmail .com {a}'
+            ]
         },
 
-        display:{
-            'clear'  : '\u00f6:Clear'
-        },
 
         // allow jQuery position utility to reposition the keyboard on window resize
         reposition : true,
@@ -807,18 +809,19 @@ $(function () {
         // *** Methods ***
         // Callbacks - add code inside any of these callback functions as desired
         initialized   : function(e, keyboard, el) {},
-        beforeVisible : function(e, keyboard, el) {},
+        beforeVisible : function(e, keyboard, el) {
+            $('body').addClass('vk-attached');
+        },
         visible       : function(e, keyboard, el) {},
         beforeInsert  : function(e, keyboard, el, textToAdd) { return textToAdd; },
         change        : function(e, keyboard, el) {},
         beforeClose   : function(e, keyboard, el, accepted) {},
-        accepted      : function(e, keyboard, el) {
-            console.log('added');
-            card_validation();
-        },
+        accepted      : function(e, keyboard, el) {},
         canceled      : function(e, keyboard, el) {},
         restricted    : function(e, keyboard, el) {},
-        hidden        : function(e, keyboard, el) {},
+        hidden        : function(e, keyboard, el) {
+            $('body').removeClass('vk-attached');
+        },
 
         // called instead of base.switchInput
         switchInput : function(keyboard, goToNext, isAccepted) {},
@@ -828,27 +831,6 @@ $(function () {
 
         // build key callback (individual keys)
         buildKey : function( keyboard, data ) {
-            /*
-             data = {
-             // READ ONLY
-             // true if key is an action key
-             isAction : [boolean],
-             // key class name suffix ( prefix = 'ui-keyboard-' ); may include
-             // decimal ascii value of character
-             name     : [string],
-             // text inserted (non-action keys)
-             value    : [string],
-             // title attribute of key
-             title    : [string],
-             // keyaction name
-             action   : [string],
-             // HTML of the key; it includes a <span> wrapping the text
-             html     : [string],
-             // jQuery selector of key which is already appended to keyboard
-             // use to modify key HTML
-             $key     : [object]
-             }
-             */
             return data;
         },
 
@@ -867,27 +849,9 @@ $(function () {
 
 
     $('.vr-keyboard-num').keyboard({
-
-        // set this to ISO 639-1 language code to override language set by the layout
-        // http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-        // language defaults to "en" if not found
-        language     : null,  // string or array
-        rtl          : false, // language direction right-to-left
-
         // *** choose layout ***
         layout       : 'custom',
-        customLayout : { 'normal'  : ['7 8 9 {b}', '4 5 6 {clear}', '0 1 2 3', '{a} {c}']},
-
-        position : {
-            // optional - null (attach to input/textarea) or a jQuery object
-            // (attach elsewhere)
-            of : null,
-            my : 'center top',
-            at : 'center top',
-            // used when "usePreview" is false
-            // (centers keyboard at bottom of the input/textarea)
-            at2: 'center bottom'
-        },
+        customLayout : { 'normal'  : ['7 8 9 {b}', '4 5 6 {clear}', '0 1 2 3', '{c} {a}']},
 
         // allow jQuery position utility to reposition the keyboard on window resize
         reposition : true,
@@ -1102,32 +1066,31 @@ $(function () {
         // *** Methods ***
         // Callbacks - add code inside any of these callback functions as desired
         initialized   : function(e, keyboard, el) {},
-        beforeVisible : function(e, keyboard, el) {},
+        beforeVisible : function(e, keyboard, el) {
+            $('body').addClass('vk-attached');
+        },
         visible       : function(e, keyboard, el) {},
         beforeInsert  : function(e, keyboard, el, textToAdd) { return textToAdd; },
         change        : function(e, keyboard, el) {},
         beforeClose: function (e, keyboard, el, accepted) {
-            //console.log('in beforeClose');
             if ($('.donation-details').css('display') == 'block') {
-                console.log('in div');
-                var otherAmount = $('#other-amount-btn').val();
+                let otherAmount = $('#other-amount-btn').val();
                 $('#txtAmount').val(otherAmount);
             }
-           el.focus();
+            el.focus();
         },
-        accepted: function (e, keyboard, el) {
+        accepted: function (e, keyboard, el) {},
+        canceled: function (e, keyboard, el) {
 
         },
-        canceled: function (e, keyboard, el) {
-            console.log('in canceled');
+        restricted    : function(e, keyboard, el) {},
+        hidden        : function(e, keyboard, el) {
+            $('body').removeClass('vk-attached');
             if ($('.donation-details').css('display') == 'block') {
-                console.log('in div');
                 var otherAmount =  $('#other-amount-btn').val();
                 $('#txtAmount').val(otherAmount);
             }
         },
-        restricted    : function(e, keyboard, el) {},
-        hidden        : function(e, keyboard, el) {},
 
         // called instead of base.switchInput
         switchInput : function(keyboard, goToNext, isAccepted) {},
@@ -1137,27 +1100,6 @@ $(function () {
 
         // build key callback (individual keys)
         buildKey : function( keyboard, data ) {
-            /*
-             data = {
-             // READ ONLY
-             // true if key is an action key
-             isAction : [boolean],
-             // key class name suffix ( prefix = 'ui-keyboard-' ); may include
-             // decimal ascii value of character
-             name     : [string],
-             // text inserted (non-action keys)
-             value    : [string],
-             // title attribute of key
-             title    : [string],
-             // keyaction name
-             action   : [string],
-             // HTML of the key; it includes a <span> wrapping the text
-             html     : [string],
-             // jQuery selector of key which is already appended to keyboard
-             // use to modify key HTML
-             $key     : [object]
-             }
-             */
             return data;
         },
 
@@ -1169,15 +1111,14 @@ $(function () {
         // The validate function is called after each input, the "isClosing" value
         // will be false; when the accept button is clicked, "isClosing" is true
         validate: function (keyboard, value, isClosing) {
-            //console.log('in validate');
             if ($('.donation-details').css('display') == 'block') {
-                console.log('in div');
-                var otherAmount = $('#other-amount-btn').val();
+                let otherAmount = $('#other-amount-btn').val();
                 $('#txtAmount').val(otherAmount);
             }
             return true;
         }
 
     });
+
 
 });
