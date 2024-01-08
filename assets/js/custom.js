@@ -279,6 +279,28 @@ $(function () {
         }
     });
 
+    //====== cvv validation
+    cvvField.on('keypress',function (e) {
+        let self = $(this);
+        if(self.val().length>2 && self.val().length<5){
+            self.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+            return e.preventDefault();
+        }
+    });
+
+    cvvField.on('blur',function (e) {
+        let self = $(this);
+
+        if(self.val().length>2 && self.val().length<5){
+            self.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+        }else{
+            self.addClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').show();
+        }
+    });
+
     //======= NAME ON CARD VALIDATION
     nameOnCardField.on('keypress',function (e) {
         let self = $(this);

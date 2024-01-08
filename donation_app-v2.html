@@ -130,6 +130,35 @@
                   <span class="amount">Construction Fund</span></button>
               </div>
 
+              <div class="option-holder">
+                <button class="amount-btn box-height-big active">
+                  <span class="icon-holder">
+                    <img class="img-black" src="assets/images/icon_emergency_fund.png" alt="icon">
+                    <img class="img-white" src="assets/images/icon_emergency_fund_white.png" alt="icon">
+                  </span>
+                  <span>General Fund</span>
+                </button>
+              </div>
+
+              <div class="option-holder">
+                <button class="amount-btn box-height-big">
+                  <span class="icon-holder">
+                    <img class="img-black" src="assets/images/general_fund.png" alt="icon">
+                    <img class="img-white" src="assets/images/general_fund_white.png" alt="icon">
+                  </span>
+                  <span class="amount">Construction Fund</span></button>
+              </div>
+
+              <div class="option-holder">
+                <button class="amount-btn box-height-big">
+                  <span class="icon-holder">
+                    <img class="img-black" src="assets/images/icon_emergency_fund.png" alt="icon">
+                    <img class="img-white" src="assets/images/icon_emergency_fund_white.png" alt="icon">
+                  </span>
+                  <span>General Fund</span>
+                </button>
+              </div>
+
             </div>
 
           </div>
@@ -325,26 +354,41 @@
 
             <div class="form-section">
               <div class="row small-gap">
-                <div class="col-sm-3">
-                  <div class="form-section" style="padding-bottom: 20px;">
-                      <h3 class="form-section-title"><span>CVV</span><span class="required-mark">*</span></h3>
-                      <div class="input-wrap">
-                          <input type="text" class="form-control cvv-field vr-keyboard-num ui-keyboard-input ui-widget-content ui-corner-all" name="CVV" maxlength="4" id="txtCvc" placeholder="CVV Code" style="width: 100%; height: 50px;" aria-haspopup="true" role="textbox">
-                          <span class="message-field warning-message"><img src="/Content/welcome-v3-assets/images/forbidden_20.png">Invalid CVV</span>
-                      </div>
-                  </div>
-              </div>
-
-                <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                   <h3 class="form-section-title"><span>ZIP Code</span><span class="required-mark">*</span></h3>
 
                   <div class="input-wrap">
                     <input class="form-control zipcode-field vr-keyboard" id="txtZipcode" placeholder="123">
                     <span class="message-field warning-message"><img src="assets/images/forbidden_20.png">Invalid ZIP Code</span>
+                    <div class="numpad-wrapper d-none">
+                      <div class="numpad">
+                        <div class="numpad-row">
+                          <div class="numpad-number" data-num="7">7</div>
+                          <div class="numpad-number" data-num="8">8</div>
+                          <div class="numpad-number" data-num="9">9</div>
+                        </div>
+                        <div class="numpad-row">
+                          <div class="numpad-number" data-num="4">4</div>
+                          <div class="numpad-number" data-num="5">5</div>
+                          <div class="numpad-number" data-num="6">6</div>
+                        </div>
+                        <div class="numpad-row">
+                          <div class="numpad-number" data-num="1">1</div>
+                          <div class="numpad-number" data-num="2">2</div>
+                          <div class="numpad-number" data-num="3">3</div>
+                        </div>
+
+                        <div class="numpad-row">
+                          <div class="numpad-number" data-num="0">0</div>
+                          <div class="numpad-number numpad-ok" data-num="ok">ok</div>
+                          <div class="numpad-number numpad-cancel" data-num="cancel">X</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                   <h3 class="form-section-title"><span>Name on Card</span> <span class="required-mark">*</span></h3>
                   <div class="input-wrap">
                     <input class="form-control name-on-card">
@@ -371,7 +415,7 @@
           </div>
 
           <!-- #CARD SWIPER MODAL -->
-          <div class="popup-wrapper" style="display: none;">
+          <div class="popup-wrapper active">
             <div class="popup-body">
               <h2 class="card-title">Swipe Card</h2>
 
@@ -521,7 +565,7 @@
 <!-- # JQUERY CREDIT CARD VALIDATOR -->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-creditcardvalidator/1.2.0/jquery.creditCardValidator.min.js" integrity="sha512-67izqYmxFa1ChEvmVqfxhtEQDKRBi08KkxdiRZG21523OPt8bU86uccSV7IXoxRQ+BoakCjG5VZ0jFhCH+e0SA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
 <script src="assets/js/card_validation.js"></script>
-<!-- <script src="assets/js/custom.js?v=1.2.0"></script> -->
+<!--<script src="assets/js/custom.js?v=1.2.0"></script>-->
 <script src="assets/js/live/custom.js?v=1.2.0"></script>
 <!--<script src="assets/js/custom_production.js"></script>-->
 <!--<script src="assets/js/payment-utility.js"></script>-->

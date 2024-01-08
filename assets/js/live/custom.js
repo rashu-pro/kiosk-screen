@@ -276,6 +276,28 @@ $(function () {
         }
     });
 
+    //====== CVV FIELD VALIDATION
+    cvvField.on('keypress',function (e) {
+        let self = $(this);
+        if(cvvValidation(self.val())){
+            self.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+            return e.preventDefault();
+        }
+    });
+
+    cvvField.on('blur',function (e) {
+        let self = $(this);
+
+        if(cvvValidation(self.val())){
+            self.removeClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').hide();
+        }else{
+            self.addClass('invalid');
+            self.closest('.input-wrap').find('.warning-message').show();
+        }
+    });
+
     //======= NAME ON CARD VALIDATION
     nameOnCardField.on('keypress',function (e) {
         let self = $(this);
@@ -359,6 +381,13 @@ $(function () {
         }else{
             zipCodeField.removeClass('invalid');
             zipCodeField.closest('.input-wrap').find('.warning-message').hide();
+        }
+        if(!cvvValidation(cvvField.val())){
+            cvvField.addClass('invalid');
+            cvvField.closest('.input-wrap').find('.warning-message').show();
+        }else{
+            cvvField.removeClass('invalid');
+            cvvField.closest('.input-wrap').find('.warning-message').hide();
         }
         if (document.querySelectorAll('.invalid').length) {
             // J.addClass(validation, 'failed');
@@ -566,6 +595,10 @@ $(function () {
         let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(code);
         return isValidZip;
     }
+    //======= CVV VALIDATION
+    function cvvValidation(value){
+        return value.length>2 && value.length<5 ? true : false;
+    }
     //======= NAME ON CARD VALIDATION
     function nameOnCardValidation(name) {
         let isValidName = /[-a-zA-Z' ]{6,26}/g.test(name);
@@ -585,13 +618,13 @@ $(function () {
                 'q w e r t y u i o p',
                 '{shift} a s d f g h j k l {shift}',
                 'z x c v b n m {b} {clear:clear}',
-                '{c} @ {space} . .gmail .com {a}'
+                '{c} @ - _ {space} gmail . .com {a}'
             ],
             'shift': ['1 2 3 4 5 6 7 8 9 0',
                 'Q W E R T Y U I O P',
                 '{shift} A S D F G H J K L {shift}',
                 'Z X C V B N M {b} {clear:clear}',
-                '{c} @ {space} . .gmail .com {a}'
+                '{c} @ - _ {space} gmail . .com {a}'
             ]
         },
 
